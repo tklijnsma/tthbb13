@@ -36,7 +36,7 @@ def get_integral(tt, cut):
 	h = ROOT.gROOT.Get("h")
 	E = ROOT.Double(0)
 	I = h.IntegralAndError(1, h.GetNbinsX(), E)
-	return round(float(I), 4), round(float(E), 4)
+	return N, round(float(I), 4), round(float(E), 4)
 
 tf = ROOT.TFile(sys.argv[1])
 tt = tf.Get("tree")
@@ -53,10 +53,10 @@ v4 = get_integral(tt, dl)
 
 splitprint([
 	"btag",
-	"cat1", "cat1 err",
-	"cat2", "cat2 err",
-	"cat3", "cat3 err",
-	"cat6", "cat6 err",
+	"Ncat1", "cat1", "cat1 err",
+	"Ncat2", "cat2", "cat2 err",
+	"Ncat3", "cat3", "cat3 err",
+	"Ncat6", "cat6", "cat6 err",
 ])
 
 splitprint(("presel", ) + v1 + v2 + v3 + v4)
