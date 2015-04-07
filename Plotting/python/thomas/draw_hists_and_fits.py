@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 """
-Dictionay and pickle test
+Thomas:
+
+This program draws the histograms with appropiate fits
 
 """
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 """
 Thomas:
-Calculating the Transfer Function
+
+This program creates TFMatrix.dat, which contains a matrix of TF objects.
 
 """
 
