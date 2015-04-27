@@ -33,7 +33,15 @@ def lfn_to_pfn(fn):
     return fn
 
 #These assume the files are located on the local tier
-if "kbfi" in hn or "comp-" in hn or "kbfi" in vo:
+
+if os.environ["USER"] == 'tklijnsm':
+    print "User is {0}".format(os.environ["USER"])
+    pfPath = ""
+    lfPrefix = ""
+    def lfn_to_pfn(fn):
+        return "/scratch/tklijnsm/" + fn
+
+elif "kbfi" in hn or "comp-" in hn or "kbfi" in vo:
     pfPath = "/hdfs/cms/"
     lfPrefix = "file://"
     def lfn_to_pfn(fn):

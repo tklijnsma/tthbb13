@@ -98,14 +98,29 @@ samples = cms.VPSet([
 #tt + H
     #Spring14
     cms.PSet(
-        skip     = cms.bool(False),
+        skip     = cms.bool(True),
         name     = cms.string('tth_13tev'),
         nickName = cms.string('tth_13tev'),
         xSec     = cms.double(xsec[("tth", "13TeV")]),
         nGen     = cms.int64(-1),
-        perJob   = cms.uint32(10000),
+        perJob   = cms.uint32(10),
         subFiles = cms.vstring([
             "/store/user/jpata/VHBBHeppyV10/TTbarH_M-125_13TeV_amcatnlo-pythia8-tauola/VHBB_HEPPY_V10_TTbarH_M-125_13TeV_amcatnlo-pythia8-tauola__Phys14DR-PU20bx25_tsg_PHYS14_25_V1-v2/150302_164515/0000/tree_1.root"
+        ]),
+        isMC     = cms.bool(True)
+    ),
+
+#tt + H, V11
+    #Spring15
+    cms.PSet(
+        skip     = cms.bool(False),
+        name     = cms.string('V11_tth_13tev'),
+        nickName = cms.string('V11_tth_13tev'),
+        xSec     = cms.double(xsec[("tth", "13TeV")]),
+        nGen     = cms.int64(-1),
+        perJob   = cms.uint32(100),
+        subFiles = cms.vstring([
+            "VHBB_HEPPY_V11_G01_ttbar_13tev_phys14_20bx25.root"
         ]),
         isMC     = cms.bool(True)
     ),
