@@ -16,3 +16,4 @@ VHbbAnalysis
 __init__.py
 *.log
 /MEIntegratorStandalone
+/MEAnalysis/Loop_*
