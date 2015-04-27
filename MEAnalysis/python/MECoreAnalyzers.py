@@ -141,19 +141,20 @@ class SubjetAnalyzer(FilterAnalyzer):
         # Necessary to remove duplicates in GenWZQuark branch
         self.CompareWZQuarks( event )
 
+        """
         # Get a list of the 3 generated quarks that should correspond to a
         # top candidate
         tl_genquarks = self.Get_tl_genquarks( event )
 
         # If there is an error in getting the quarks, the function returns 0
         if tl_genquarks == 0: return 0
-
+        """
 
         ########################################
         # Perform combinatorics and calculate delR
         ########################################
 
-        # Determine delR for quarks with jets
+        # Get list of jets
 
         tl_jets = []
 
@@ -164,15 +165,7 @@ class SubjetAnalyzer(FilterAnalyzer):
             tl_jets.append( x )
 
 
-        ( jet_links , jet_delR_list ) = self.Do_delR_combinatorics(
-            tl_genquarks, tl_jets )
-
-        if jet_links == 0: return 0
-
-        jet_sumdelR = sum( jet_delR_list )
-
-
-        # Determine delR for quarks with subjets
+        # Get list of subjets
 
         tl_subjets = []
 
@@ -192,11 +185,14 @@ class SubjetAnalyzer(FilterAnalyzer):
 
             tl_subjets.append( x )
 
+        
+        # Do delta R matching for subjets with jets
+
         ( subjet_links , subjet_delR_list ) = self.Do_delR_combinatorics(
-            tl_genquarks, tl_subjets )
+            tl_subjets, tl_jets )
 
         if subjet_links == 0:
-            print 'Matching quarks with subjets was not successful'
+            print 'Matching jets with subjets was not successful'
             return 0
 
         subjet_sumdelR = sum( subjet_delR_list )
@@ -211,15 +207,17 @@ class SubjetAnalyzer(FilterAnalyzer):
 
         self.Statistics['n_successful'] += 1
 
+        """
         # Write jet_delR values to event
         setattr( event.GenBQuarkFromTop[0], 'jet_delR', jet_delR_list[0] )
         setattr( event.GenWZQuark[0], 'jet_delR', jet_delR_list[1] )
         setattr( event.GenWZQuark[1], 'jet_delR', jet_delR_list[2] )
 
         setattr( event, 'GenQ_jet_sumdelR', jet_sumdelR )
+        """
 
         # Write subjet_delR values to event
-        setattr(event.GenBQuarkFromTop[0], 'subjet_delR', subjet_delR_list[0])
+        setattr( event.GenBQuarkFromTop[0], 'subjet_delR', subjet_delR_list[0])
         setattr( event.GenWZQuark[0], 'subjet_delR', subjet_delR_list[1] )
         setattr( event.GenWZQuark[1], 'subjet_delR', subjet_delR_list[2] )
 
