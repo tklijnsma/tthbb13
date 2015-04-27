@@ -20,6 +20,7 @@ o = MEM.MEMOutput
 CvectorPermutations = getattr(ROOT, "std::vector<MEM::Permutations::Permutations>")
 CvectorPSVar = getattr(ROOT, "std::vector<MEM::PSVar::PSVar>")
 
+
 def lvec(self):
     """
     Converts an object with pt, eta, phi, mass to a TLorentzVector
@@ -39,6 +40,396 @@ class FilterAnalyzer(Analyzer):
         self.counters.addCounter("processing")
         self.counters["processing"].register("processed")
         self.counters["processing"].register("passes")
+
+
+class SubjetAnalyzer(FilterAnalyzer):
+    """
+    Subjet analyzer by Thomas
+    """
+
+    def __init__(self, cfg_ana, cfg_comp, looperName):
+        super(SubjetAnalyzer, self).__init__(cfg_ana, cfg_comp, looperName)
+        self.conf = cfg_ana._conf
+
+        self.R_cut = 0.3
+        self.top_mass = 172.04
+
+        self.Cut_criteria = [
+            ( 'pt'  , '>', '200.0' ),
+            ( 'mass', '>', '120.0' ),
+            ( 'mass', '<', '220.0' ),
+            ( 'fW'  , '<', '0.175' ) ]
+
+        self.Statistics = {
+            'n_processed'       : 0,
+            'n_not_cat1'        : 0,
+            'n_no_httCand'      : 0,
+            'n_survivedcut'     : [0,0,0],
+            'n_too_few_WZ'      : 0,
+            'n_too_few_B'       : 0,
+            'n_too_many_WZ'     : 0,
+            'n_too_many_B'      : 0,
+            'n_2q_for_1j'       : 0,
+            'n_no_jet_for_q'    : 0,
+            'n_no_unique_match' : 0,
+            'n_successful'      : 0
+            }
+
+    def beginLoop(self, setup):
+        super(SubjetAnalyzer, self).beginLoop(setup)
+
+    def endLoop(self, setup):
+
+        print 'Statistics:'
+        print 'n_processed       = {0}'.format(self.Statistics['n_processed'])
+        print 'n_not_cat1        = {0}'.format(self.Statistics['n_not_cat1'])
+        print 'n_no_httCand      = {0}'.format(self.Statistics['n_no_httCand'])
+        print 'n_survivedcut     = {0}'.format(self.Statistics['n_survivedcut'])
+        print 'n_too_few_WZ      = {0}'.format(self.Statistics['n_too_few_WZ'])
+        print 'n_too_few_B       = {0}'.format(self.Statistics['n_too_few_B'])
+        print 'n_too_many_WZ     = {0}'.format(self.Statistics['n_too_many_WZ'])
+        print 'n_too_many_B      = {0}'.format(self.Statistics['n_too_many_B'])
+        print 'n_2q_for_1j       = {0}'.format(self.Statistics['n_2q_for_1j'])
+        print 'n_no_jet_for_q    = {0}'.format(self.Statistics['n_no_jet_for_q'])
+        print 'n_no_unique_match = {0}'.format(self.Statistics['n_no_unique_match'])
+        print 'n_successful      = {0}'.format(self.Statistics['n_successful'])
+
+
+    def process(self, event):
+
+        self.Statistics['n_processed'] += 1
+        print 'Printing from SubjetAnalyzer! iEv = {0}'.format(event.iEv)
+
+
+        ########################################
+        # Check event suitability
+        ########################################
+
+        # Check if event is category 1
+        if event.cat != 'cat1':
+            self.Statistics['n_not_cat1'] += 1
+            return 0
+
+        # Check if there is a httCandidate
+        if len( event.httCandidate ) == 0:
+            self.Statistics['n_no_httCand'] += 1
+            return 0
+
+        # Apply the cuts
+        tops = []
+        for candidate in event.httCandidate:
+            if self.Apply_Cut_criteria( candidate ):
+                tops.append( candidate )
+
+        # Check if any candidates survived the cutoff criteria
+        if len(tops) == 0:
+            print 'No candidate survived the cuts'
+            self.Statistics['n_survivedcut'][0] += 1
+            return 0
+
+        elif len(tops) == 1:
+            top = tops[0]
+            self.Statistics['n_survivedcut'][1] += 1
+
+        # If more than 1 candidate survived the cutoff criteria, choose the
+        # one with a mass closest to top mass
+        else:
+            tops = sorted( tops, key=lambda x: abs(x.mass - self.top_mass) )
+            top = tops[0]
+            self.Statistics['n_survivedcut'][2] += 1
+
+        # Necessary to remove duplicates in GenWZQuark branch
+        self.CompareWZQuarks( event )
+
+        # Get a list of the 3 generated quarks that should correspond to a
+        # top candidate
+        tl_genquarks = self.Get_tl_genquarks( event )
+
+        # If there is an error in getting the quarks, the function returns 0
+        if tl_genquarks == 0: return 0
+
+
+        ########################################
+        # Perform combinatorics and calculate delR
+        ########################################
+
+        # Determine delR for quarks with jets
+
+        tl_jets = []
+
+        for (i_jet, jet) in enumerate(event.good_jets):
+            x = ROOT.TLorentzVector()
+            x.SetPtEtaPhiM( jet.pt, jet.eta, jet.phi, jet.mass )
+            setattr( x, 'i_jet', i_jet )
+            tl_jets.append( x )
+
+
+        ( jet_links , jet_delR_list ) = self.Do_delR_combinatorics(
+            tl_genquarks, tl_jets )
+
+        if jet_links == 0: return 0
+
+        jet_sumdelR = sum( jet_delR_list )
+
+
+        # Determine delR for quarks with subjets
+
+        tl_subjets = []
+
+        prefixes = [ 'sjW1', 'sjW2', 'sjNonW' ]
+
+        for (i_subjet, prefix) in enumerate( prefixes ):
+
+            x = ROOT.TLorentzVector()
+
+            x.SetPtEtaPhiM(
+                getattr( top, prefix + 'pt' ),
+                getattr( top, prefix + 'eta' ),
+                getattr( top, prefix + 'phi' ),
+                getattr( top, prefix + 'mass' ) )
+
+            setattr( x, 'i_subjet', i_subjet )
+
+            tl_subjets.append( x )
+
+        ( subjet_links , subjet_delR_list ) = self.Do_delR_combinatorics(
+            tl_genquarks, tl_subjets )
+
+        if subjet_links == 0:
+            print 'Matching quarks with subjets was not successful'
+            return 0
+
+        subjet_sumdelR = sum( subjet_delR_list )
+
+
+        ########################################
+        # Save the quark data from successful matches
+        ########################################
+
+        print 'Successful match. Quarks were matched to these subjets:'
+        print subjet_links
+
+        self.Statistics['n_successful'] += 1
+
+        # Write jet_delR values to event
+        setattr( event.GenBQuarkFromTop[0], 'jet_delR', jet_delR_list[0] )
+        setattr( event.GenWZQuark[0], 'jet_delR', jet_delR_list[1] )
+        setattr( event.GenWZQuark[1], 'jet_delR', jet_delR_list[2] )
+
+        setattr( event, 'GenQ_jet_sumdelR', jet_sumdelR )
+
+        # Write subjet_delR values to event
+        setattr(event.GenBQuarkFromTop[0], 'subjet_delR', subjet_delR_list[0])
+        setattr( event.GenWZQuark[0], 'subjet_delR', subjet_delR_list[1] )
+        setattr( event.GenWZQuark[1], 'subjet_delR', subjet_delR_list[2] )
+
+        setattr( event, 'GenQ_subjet_sumdelR', subjet_sumdelR )
+
+
+    ########################################
+    # Functions
+    ########################################
+
+    # Applies the cut criteria - returns True (survived) or False (did not survive)
+    def Apply_Cut_criteria( self, candidate ):
+
+        for ( attr, operator, cut_off ) in self.Cut_criteria:
+
+            if not eval( '{0}{1}{2}'.format(
+                getattr( candidate, attr ),
+                operator,
+                cut_off ) ):
+
+                return False
+
+        return True
+    #--------------------------------------#
+
+    # Prints the quarks and jets found in an event
+    def Print_found_particles( self, event ):
+
+        print '\nPrinting GenWZQuarks:'
+        for q in event.GenWZQuark:
+            print '[{0:.5f} | {1:.5f} | {2:.5f} | {3:.5f}]'.format(
+                q.pt, q.eta, q.phi, q.mass )
+
+        print '\nPrinting GenBQuarkFromTops:'
+        for q in event.GenBQuarkFromTop:
+            print '[{0:.5f} | {1:.5f} | {2:.5f} | {3:.5f}]'.format(
+                q.pt, q.eta, q.phi, q.mass )
+
+        print '\nPrinting Jets:'
+        for q in event.good_jets:
+            print '[{0:.5f} | {1:.5f} | {2:.5f} | {3:.5f}]'.format(
+                q.pt, q.eta, q.phi, q.mass )
+
+        print '\nPrinting httCandidate:'
+        for q in event.httCandidate:
+            print '[{0:.5f} | {1:.5f} | {2:.5f} | {3:.5f}]'.format(
+                q.pt, q.eta, q.phi, q.mass )
+    #--------------------------------------#
+
+    # Deletes duplicate WZ Quarks
+    def CompareWZQuarks(self, event ):
+
+        if len(event.GenWZQuark) < 4:
+            return 0
+
+        quarks = event.GenWZQuark
+
+        Is_Duplicate = ( quarks[-1].pt==quarks[1].pt and \
+            quarks[-2].pt==quarks[0].pt )
+
+        if Is_Duplicate:
+            event.GenWZQuark = event.GenWZQuark[0:-2]
+
+        return 0
+    #--------------------------------------#
+
+    # Gets a list of 3 quarks
+    #  - The first quark is a Gen B quark. This should be the hadronic B quark.
+    #    Which quark is hadronic is determined by adding the light quarks to the
+    #    B quarks, and seeing which combined mass comes closer to the top mass
+    #  - Output looks like: [ BQuark, lightQuark1, lightQuark2 ], where the list
+    #    entries are TLorentzVector objects. 
+    def Get_tl_genquarks(self, event ):
+
+        # Check if right amount of quarks was generated
+        if len(event.GenWZQuark)<2:
+            self.Statistics['n_too_few_WZ'] += 1
+            return 0
+        if len(event.GenBQuarkFromTop)<2:
+            self.Statistics['n_too_few_B'] += 1
+            return 0
+        elif len(event.GenWZQuark)>2:
+            self.Statistics['n_too_many_WZ'] += 1
+            return 0
+        elif len(event.GenBQuarkFromTop)>2:
+            self.Statistics['n_too_many_B'] += 1
+            return 0
+
+        # Make list of TLorentzVector objects for the 2 light quarks
+        tl_GenWZQuarks = []
+        for l in event.GenWZQuark:
+            tl_l = ROOT.TLorentzVector()
+            tl_l.SetPtEtaPhiM( l.pt, l.eta, l.phi, l.mass )
+            tl_GenWZQuarks.append( tl_l )
+
+        # Make list for the 2 B quarks, and a list of B quarks + light quarks
+        tl_GenBQuarks = []
+        tl_Combined = []
+        for (b_i, b) in enumerate(event.GenBQuarkFromTop):
+
+            tl_b = ROOT.TLorentzVector()
+            tl_b.SetPtEtaPhiM( b.pt, b.eta, b.phi, b.mass )
+
+            tl_GenBQuarks.append( tl_b )
+            tl_Combined.append( tl_b + tl_GenWZQuarks[0] + tl_GenWZQuarks[1] )
+
+
+        delmass0 = abs(tl_Combined[0].M() - self.top_mass)
+        delmass1 = abs(tl_Combined[1].M() - self.top_mass)
+
+        # Make sure the B quark with lowest del mass to top mass is at index 0
+        # (both for the tl list and in the event)
+        if delmass1 < delmass0:
+
+            tl_GenBQuarks = [ tl_GenBQuarks[1], tl_GenBQuarks[0] ]
+
+            event.GenBQuarkFromTop = [
+                event.GenBQuarkFromTop[1],
+                event.GenBQuarkFromTop[0] ]
+
+        setattr(  tl_GenBQuarks[0], 'is_hadr', 1 )
+        setattr(  event.GenBQuarkFromTop[0], 'is_hadr', 1 )
+        setattr(  event.GenBQuarkFromTop[1], 'is_hadr', 0 )
+
+        # Create the definitive list of 3 quarks
+        tl_GenQuarks = []
+        tl_GenQuarks.append( tl_GenBQuarks[0] )
+
+        # There should be only 2 generated WZQuarks:
+        tl_GenQuarks.append( tl_GenWZQuarks[0] )
+        tl_GenQuarks.append( tl_GenWZQuarks[1] )
+        
+        return tl_GenQuarks
+    #--------------------------------------#
+
+    # Matches quarks with specified jets - works for real jets and for subjets
+    def Do_delR_combinatorics( self, tl_genquarks, tl_jets ):
+
+        n_jets = len(tl_jets)
+        n_quarks = len(tl_genquarks)
+
+        # Create delR matrix:
+        Rmat = [[ (tl_genquarks[i].DeltaR( tl_jets[j] )) \
+            for j in range(n_jets)] for i in range(n_quarks) ]
+
+        """        
+        print '\ndelR matrix:'
+        for row in Rmat:
+            for j in row:
+                sys.stdout.write( '{0:.5f}'.format(j) + ' ')
+            print ''
+        """
+
+        links_per_quark = [ [] for i in range(n_quarks) ]
+
+        for i in range(n_quarks):
+            for j in range(n_jets):
+                if Rmat[i][j] < self.R_cut:
+                    links_per_quark[i].append(j)
+        
+        
+        # Perform some checks: see if there are 2 quarks linked to only 1 jet, and
+        # check whether every quark has at least 1 jet it can be linked to
+
+        for i in range(n_quarks):
+
+            if len(links_per_quark[i]) == 0:
+                #print 'At least one quark cannot be linked to any jet.'
+                self.Statistics['n_no_jet_for_q'] += 1
+                return (0,0)
+
+            # Check if 2 quarks can only be linked to the same jet
+            for j in range(n_quarks):
+                if i==j: continue
+                
+                if len(links_per_quark[i])==1 and len(links_per_quark[j])==1 \
+                    and links_per_quark[i]==links_per_quark[j]:
+                    self.Statistics['n_2q_for_1j'] += 1
+                    return (0,0)
+
+
+        # Combinatorics: find the lowest sum of delR values
+        
+        sumR = 100000.0
+        final_links = 0
+
+        for (i_ind, i) in enumerate(links_per_quark[0]):
+            for (j_ind, j) in enumerate(links_per_quark[1]):
+                for (k_ind, k) in enumerate(links_per_quark[2]):
+
+                    # Check if i,j,k gets a unique combination
+                    if len( set( [ i, j, k ] ) ) == 3:
+
+                        # Replace the sumR if it's smaller than the previous minimum
+                        if Rmat[0][i] + Rmat[1][j] + Rmat[2][k] < sumR:
+                            sumR = Rmat[0][i] + Rmat[1][j] + Rmat[2][k]
+                            final_links = [ i, j, k ]
+
+        if final_links == 0:
+            print 'No unique combination found'
+            self.Statistics['n_no_unique_match'] += 1
+            return (0,0)
+
+        final_delR_list = [ Rmat[i][final_links[i]] for i in range(n_quarks) ]
+
+        return ( final_links , final_delR_list )
+    #--------------------------------------#
+
+
+
 
 class EventIDFilterAnalyzer(FilterAnalyzer):
     """

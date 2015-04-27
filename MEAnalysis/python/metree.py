@@ -40,6 +40,14 @@ leptonType = NTupleObjectType("leptonType", variables = [
     #NTupleVariable("mcEta", lambda x : x.mcEta),
     #NTupleVariable("mcPhi", lambda x : x.mcPhi),
     #NTupleVariable("mcMass", lambda x : x.mcMass),
+
+    # Used for SubjetAnalyzer
+    NTupleVariable("is_hadr", lambda x : x.is_hadr \
+        if hasattr(x, "is_hadr") else -1),
+    NTupleVariable("jet_delR", lambda x : x.jet_delR \
+        if hasattr(x, "jet_delR") else -1),
+    NTupleVariable("subjet_delR", lambda x : x.subjet_delR \
+        if hasattr(x,"subjet_delR") else -1),
 ])
 
 metType = NTupleObjectType("leptonType", variables = [
@@ -71,6 +79,22 @@ def getTreeProducer(conf):
         verbose = False,
         vectorTree = True,
         globalVariables = [
+
+            # Used by Subjet Analyzer
+            NTupleVariable(
+                "GenQ_jet_sumdelR", lambda ev: ev.GenQ_jet_sumdelR \
+                    if hasattr(ev, "GenQ_jet_sumdelR") else -1,
+                help="Sum of Delta R values of the Gen(BWZ)Quarks matched" \
+                    "to good_jets"
+            ),
+
+            NTupleVariable(
+                "GenQ_subjet_sumdelR", lambda ev: ev.GenQ_subjet_sumdelR \
+                    if hasattr(ev, "GenQ_subjet_sumdelR") else -1,
+                help="Sum of Delta R values of the Gen(BWZ)Quarks matched to subjets"
+            ),
+            #---#
+
             NTupleVariable(
                 "Wmass", lambda ev: ev.Wmass,
                 help="best W boson mass from untagged pair (untagged by CSVM)"
@@ -319,8 +343,8 @@ def getTreeProducer(conf):
             "l_quarks_w" : NTupleCollection("GenQFromW", leptonType, 5, help=""),
             "good_jets" : NTupleCollection("jets", jetType, 9, help="Selected jets"),
             "good_leptons" : NTupleCollection("leps", leptonType, 2, help="Selected leptons"),
-            "mem_results_tth" : NTupleCollection("mem_tth", memType, len(conf.mem["methodsToRun"]), help="MEM tth"),
-            "mem_results_ttbb" : NTupleCollection("mem_ttbb", memType, len(conf.mem["methodsToRun"]), help="MEM ttbb"),
+            #"mem_results_tth" : NTupleCollection("mem_tth", memType, len(conf.mem["methodsToRun"]), help="MEM tth"),
+            #"mem_results_ttbb" : NTupleCollection("mem_ttbb", memType, len(conf.mem["methodsToRun"]), help="MEM ttbb"),
         }
     )
     return treeProducer

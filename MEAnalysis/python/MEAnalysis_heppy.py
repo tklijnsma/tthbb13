@@ -70,6 +70,14 @@ evs = cfg.Analyzer(
 #Here we define all the main analyzers
 import TTH.MEAnalysis.MECoreAnalyzers as MECoreAnalyzers
 
+#This class does the matching of jets to subjets (Thomas)
+subjetanalyzer = cfg.Analyzer(
+    MECoreAnalyzers.SubjetAnalyzer,
+    'subjets',
+    _conf = conf
+)
+
+
 #
 evtid_filter = cfg.Analyzer(
     MECoreAnalyzers.EventIDFilterAnalyzer,
@@ -149,7 +157,8 @@ sequence = cfg.Sequence([
     wtag,
     mecat,
     gentth,
-    mem_analyzer,
+    subjetanalyzer,
+    #mem_analyzer,
     treeProducer
 ])
 
