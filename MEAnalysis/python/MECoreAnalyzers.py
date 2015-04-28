@@ -180,7 +180,7 @@ class SubjetAnalyzer(FilterAnalyzer):
         tops = []
         for candidate in event.httCandidate:
             if self.Apply_Cut_criteria( candidate ):
-                tops.append( candidate )
+                tops.append( copy.deepcopy(candidate) )
 
         # Check if any candidates survived the cutoff criteria
         if len(tops) == 0:
@@ -298,9 +298,17 @@ class SubjetAnalyzer(FilterAnalyzer):
 
         # Save the btagFlag property from the Jet object
         btagFlag = btagged_jets_minus_sj[i_bt_j].btagFlag
-
+        
         # Set the btagFlag as attribute
         setattr( tl_subjets[i_sj], 'btagFlag', btagFlag )
+
+        setattr(tl_subjets[i_sj],
+                'tf_b',
+                btagged_jets_minus_sj[i_bt_j].tf_b )
+
+        setattr(tl_subjets[i_sj],
+                'tf_l',
+                btagged_jets_minus_sj[i_bt_j].tf_l )
 
 
         # Remove the jet from btagged_jets_minus_sj that is the subjet
@@ -327,6 +335,14 @@ class SubjetAnalyzer(FilterAnalyzer):
         # Set the btagFlag as attribute
         setattr( tl_subjets[i_sj1], 'btagFlag', btagFlag )
 
+        setattr(tl_subjets[i_sj1],
+                'tf_b',
+                btagged_jets_minus_sj[i_wj1].tf_b )
+
+        setattr(tl_subjets[i_sj1],
+                'tf_l',
+                btagged_jets_minus_sj[i_wj1].tf_l )
+
         wquark_candidate_jets_minus_sj.pop( i_wj1 )
         wquark_candidate_subjets.append( tl_subjets.pop( i_sj1 ) )
 
@@ -336,6 +352,14 @@ class SubjetAnalyzer(FilterAnalyzer):
 
         # Set the btagFlag as attribute
         setattr( tl_subjets[i_sj2], 'btagFlag', btagFlag )
+
+        setattr(tl_subjets[i_sj2],
+                'tf_b',
+                btagged_jets_minus_sj[i_wj2].tf_b )
+
+        setattr(tl_subjets[i_sj2],
+                'tf_l',
+                btagged_jets_minus_sj[i_wj2].tf_l )
 
         wquark_candidate_jets_minus_sj.pop( i_wj2 )
         wquark_candidate_subjets.append( tl_subjets.pop( i_sj2 ) )
