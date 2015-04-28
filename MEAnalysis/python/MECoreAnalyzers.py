@@ -297,7 +297,11 @@ class SubjetAnalyzer(FilterAnalyzer):
 
 
         # Save the btagFlag property from the Jet object
-        btagFlag = btagged_jets_minus_sj[ i_bt_j ].btagFlag
+        btagFlag = btagged_jets_minus_sj[i_bt_j].btagFlag
+
+        # Set the btagFlag as attribute
+        setattr( tl_subjets[i_sj], 'btagFlag', btagFlag )
+
 
         # Remove the jet from btagged_jets_minus_sj that is the subjet
         btagged_jets_minus_sj.pop( i_bt_j )
@@ -305,8 +309,6 @@ class SubjetAnalyzer(FilterAnalyzer):
         # Remove the b_tagged_subjet from the tl_subjets
         # CAREFUL: This is a TLorentzVector object, not a Jet object!
         btagged_subjet.append( tl_subjets.pop( i_sj ) )
-
-        # SETATTR BTAGFLAG HERE
 
 
         # Match the remaining subjets to wquark_candidate_jets
@@ -317,17 +319,29 @@ class SubjetAnalyzer(FilterAnalyzer):
         if i_sj1 == 'No link':
             print 'Could not match a subjet to a wquark_candidate_jet'
             return 0
-        
-        
-        wquark_candidate_jets_minus_sj.pop( i_wj1 )
 
+
+        # Save the btagFlag property from the Jet object
+        btagFlag = wquark_candidate_jets_minus_sj[i_wj1].btagFlag
+
+        # Set the btagFlag as attribute
+        setattr( tl_subjets[i_sj1], 'btagFlag', btagFlag )
+
+        wquark_candidate_jets_minus_sj.pop( i_wj1 )
         wquark_candidate_subjets.append( tl_subjets.pop( i_sj1 ) )
 
-        wquark_candidate_jets_minus_sj.pop( i_wj2 )
 
+        # Save the btagFlag property from the Jet object
+        btagFlag = wquark_candidate_jets_minus_sj[i_wj2].btagFlag
+
+        # Set the btagFlag as attribute
+        setattr( tl_subjets[i_sj2], 'btagFlag', btagFlag )
+
+        wquark_candidate_jets_minus_sj.pop( i_wj2 )
         wquark_candidate_subjets.append( tl_subjets.pop( i_sj2 ) )
 
 
+        # Write the lists to the event class
 
         setattr(event,
                 'btagged_jets_minus_sj',
@@ -1740,6 +1754,30 @@ class MEAnalyzer(FilterAnalyzer):
 
             #Add heavy flavour subjet that is assumed to come from top/higgs decay
             for jet in event.btagged_subjet:
+                self.add_obj(
+                    MEM.ObjectType.Jet,
+                    p4s=(jet.Pt(), jet.Eta(), jet.Phi(), jet.M()),
+                    obs_dict={MEM.Observable.BTAG: jet.btagFlag},
+                    tf_dict={
+                        MEM.TFType.bReco: jet.tf_b, MEM.TFType.qReco: jet.tf_l,
+                        MEM.TFType.bLost: jet.tf_b, MEM.TFType.qLost: jet.tf_l
+                    }
+                )
+
+            #Add light jets that are assumed to come from hadronic W decay
+            for jet in event.wquark_candidate_jets_minus_sj:
+                self.add_obj(
+                    MEM.ObjectType.Jet,
+                    p4s=(jet.pt, jet.eta, jet.phi, jet.mass),
+                    obs_dict={MEM.Observable.BTAG: jet.btagFlag},
+                    tf_dict={
+                        MEM.TFType.bReco: jet.tf_b, MEM.TFType.qReco: jet.tf_l,
+                        MEM.TFType.bLost: jet.tf_b, MEM.TFType.qLost: jet.tf_l
+                    }
+                )
+
+            #Add light subjets that are assumed to come from hadronic W decay
+            for jet in event.wquark_candidate_subjets:
                 self.add_obj(
                     MEM.ObjectType.Jet,
                     p4s=(jet.Pt(), jet.Eta(), jet.Phi(), jet.M()),

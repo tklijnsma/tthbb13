@@ -157,8 +157,8 @@ sequence = cfg.Sequence([
     wtag,
     mecat,
     gentth,
-    subjetanalyzer,
-    #mem_analyzer,
+    #subjetanalyzer,
+    mem_analyzer,
     treeProducer
 ])
 
