@@ -118,9 +118,10 @@ samples = cms.VPSet([
         nickName = cms.string('V11_tth_13tev'),
         xSec     = cms.double(xsec[("tth", "13TeV")]),
         nGen     = cms.int64(-1),
-        perJob   = cms.uint32(5000),
+        perJob   = cms.uint32(198500),
         subFiles = cms.vstring([
-            "VHBB_HEPPY_V11_G01_ttbar_13tev_phys14_20bx25.root"
+            #"VHBB_HEPPY_V11_G01_ttbar_13tev_phys14_20bx25.root"
+            "VHBB_HEPPY_V11_G01_tth_13tev_phys14_20bx25.root"
         ]),
         isMC     = cms.bool(True)
     ),

@@ -86,6 +86,8 @@ class SubjetAnalyzer(FilterAnalyzer):
             'n_succes_j_q_match'    : 0,
             }
 
+        self.verbose = False
+
     def beginLoop(self, setup):
         super(SubjetAnalyzer, self).beginLoop(setup)
 
@@ -148,7 +150,8 @@ class SubjetAnalyzer(FilterAnalyzer):
 
         self.Statistics['n_processed'] += 1
 
-        print 'Printing from SubjetAnalyzer! iEv = {0}'.format(event.iEv)
+        if self.verbose:
+            print 'Printing from SubjetAnalyzer! iEv = {0}'.format(event.iEv)
 
         ########################################
         # Check event suitability
@@ -184,7 +187,7 @@ class SubjetAnalyzer(FilterAnalyzer):
 
         # Check if any candidates survived the cutoff criteria
         if len(tops) == 0:
-            print 'No candidate survived the cuts'
+            if self.verbose: print 'No candidate survived the cuts'
             self.Statistics['n_0_cand'] += 1
             return 0
 
@@ -259,6 +262,9 @@ class SubjetAnalyzer(FilterAnalyzer):
 
             tl_subjets.append( x )
 
+        # For printing purposes
+        tl_subjets_backup = copy.deepcopy( tl_subjets )
+
         
         # Create the attributes in the event class for the subjet case
         #   The subjets will be popped out of the *_jets_minus_sj lists        
@@ -282,33 +288,22 @@ class SubjetAnalyzer(FilterAnalyzer):
         (i_sj, i_bt_j ) = self.Link_smallest_delR( tl_subjets, tl_btagged_jets )
         
         if i_sj == 'No link':
-            print 'Could not match a subjet to a btagged_jet'
+            if self.verbose: print 'Could not match a subjet to a btagged_jet'
             return 0
 
 
-
-        print '\n    Printing found particles:'
-        self.Print_found_particles( event )
-
-        print '\n    Printing tl_subjets:'
-        for q in tl_subjets:
-            print '    [{0:.5f} | {1:.5f} | {2:.5f} | {3:.5f}]'.format(
-                q.Pt(), q.Eta(), q.Phi(), q.M() )
-
-
-        # Save the btagFlag property from the Jet object
-        btagFlag = btagged_jets_minus_sj[i_bt_j].btagFlag
-        
-        # Set the btagFlag as attribute
-        setattr( tl_subjets[i_sj], 'btagFlag', btagFlag )
+        # Set the btagFlag and the TFs as attributes (needed in mem code)
+        setattr(tl_subjets[i_sj],
+                'btagFlag',
+                btagged_jets_minus_sj[i_bt_j].btagFlag )
 
         setattr(tl_subjets[i_sj],
-                'tf_b',
-                btagged_jets_minus_sj[i_bt_j].tf_b )
+                'tf_sj_b',
+                copy.deepcopy( btagged_jets_minus_sj[i_bt_j].tf_sj_b ) )
 
         setattr(tl_subjets[i_sj],
-                'tf_l',
-                btagged_jets_minus_sj[i_bt_j].tf_l )
+                'tf_sj_l',
+                copy.deepcopy( btagged_jets_minus_sj[i_bt_j].tf_sj_l ) )
 
 
         # Remove the jet from btagged_jets_minus_sj that is the subjet
@@ -325,43 +320,48 @@ class SubjetAnalyzer(FilterAnalyzer):
             tl_subjets, tl_wquark_candidate_jets )
 
         if i_sj1 == 'No link':
-            print 'Could not match a subjet to a wquark_candidate_jet'
+            if self.verbose:
+                print 'Could not match a subjet to a wquark_candidate_jet'
             return 0
 
 
-        # Save the btagFlag property from the Jet object
-        btagFlag = wquark_candidate_jets_minus_sj[i_wj1].btagFlag
-
-        # Set the btagFlag as attribute
-        setattr( tl_subjets[i_sj1], 'btagFlag', btagFlag )
+        # Set the btagFlag and the TFs as attributes (needed in mem code)
+        setattr(tl_subjets[i_sj1],
+                'btagFlag',
+                wquark_candidate_jets_minus_sj[i_wj1].btagFlag )
 
         setattr(tl_subjets[i_sj1],
-                'tf_b',
-                btagged_jets_minus_sj[i_wj1].tf_b )
+                'tf_sj_b',
+                copy.deepcopy(wquark_candidate_jets_minus_sj[i_wj1].tf_sj_b) )
 
         setattr(tl_subjets[i_sj1],
-                'tf_l',
-                btagged_jets_minus_sj[i_wj1].tf_l )
+                'tf_sj_l',
+                copy.deepcopy(wquark_candidate_jets_minus_sj[i_wj1].tf_sj_l) )
 
+        # Pop the jet matched to a subjet from the list
         wquark_candidate_jets_minus_sj.pop( i_wj1 )
+
+        # Fill in the appropiate subjet (this is a TLorentzVector object)
         wquark_candidate_subjets.append( tl_subjets.pop( i_sj1 ) )
 
 
-        # Save the btagFlag property from the Jet object
-        btagFlag = wquark_candidate_jets_minus_sj[i_wj2].btagFlag
-
-        # Set the btagFlag as attribute
-        setattr( tl_subjets[i_sj2], 'btagFlag', btagFlag )
+        # Set the btagFlag and the TFs as attributes (needed in mem code)
+        setattr(tl_subjets[i_sj2],
+                'btagFlag',
+                wquark_candidate_jets_minus_sj[i_wj2].btagFlag )
 
         setattr(tl_subjets[i_sj2],
-                'tf_b',
-                btagged_jets_minus_sj[i_wj2].tf_b )
+                'tf_sj_b',
+                copy.deepcopy( wquark_candidate_jets_minus_sj[i_wj2].tf_sj_b ) )
 
         setattr(tl_subjets[i_sj2],
-                'tf_l',
-                btagged_jets_minus_sj[i_wj2].tf_l )
+                'tf_sj_l',
+                copy.deepcopy( wquark_candidate_jets_minus_sj[i_wj2].tf_sj_l ) )
 
+        # Pop the jet matched to a subjet from the list
         wquark_candidate_jets_minus_sj.pop( i_wj2 )
+
+        # Fill in the appropiate subjet (this is a TLorentzVector object)
         wquark_candidate_subjets.append( tl_subjets.pop( i_sj2 ) )
 
 
@@ -382,6 +382,9 @@ class SubjetAnalyzer(FilterAnalyzer):
         setattr(event,
                 'wquark_candidate_subjets',
                 wquark_candidate_subjets )
+
+        print '\n    Printing found particles:'
+        self.Print_found_particles( event, tl_subjets_backup )
 
         print '\n    Printing matched particles:'
         self.Print_matched_particles( event )
@@ -438,7 +441,7 @@ class SubjetAnalyzer(FilterAnalyzer):
     #--------------------------------------#
 
     # Prints the quarks and jets found in an event
-    def Print_found_particles( self, event ):
+    def Print_found_particles( self, event, tl_subjets_backup ):
 
         #print '\nPrinting GenWZQuarks:'
         #for q in event.GenWZQuark:
@@ -464,6 +467,11 @@ class SubjetAnalyzer(FilterAnalyzer):
         for q in event.wquark_candidate_jets:
             print '    [{0:.5f} | {1:.5f} | {2:.5f} | {3:.5f}]'.format(
                 q.pt, q.eta, q.phi, q.mass )
+
+        print '\n    Printing tl_subjets:'
+        for q in tl_subjets_backup:
+            print '    [{0:.5f} | {1:.5f} | {2:.5f} | {3:.5f}]'.format(
+                q.Pt(), q.Eta(), q.Phi(), q.M() )
 
         #print '\nPrinting httCandidate:'
         #for q in event.httCandidate:
@@ -900,6 +908,24 @@ class JetAnalyzer(FilterAnalyzer):
             #Set jet pt threshold for CDF
             jet.tf_b_lost.SetParameter(0, self.conf.jets["pt"])
             jet.tf_l_lost.SetParameter(0, self.conf.jets["pt"])
+
+
+            # Transfer functions for subjets
+
+            #If True, TF [0] - reco, x - gen
+            #If False, TF [0] - gen, x - reco
+            eval_gen = False
+            jet.tf_sj_b = self.conf.tf_sj_matrix['b'][jet_eta_bin].Make_Formula(eval_gen)
+            jet.tf_sj_l = self.conf.tf_sj_matrix['l'][jet_eta_bin].Make_Formula(eval_gen)
+            #If [0] - gen, x - pt cutoff
+            jet.tf_sj_b_lost = self.conf.tf_sj_matrix['b'][jet_eta_bin].Make_CDF()
+            jet.tf_sj_l_lost = self.conf.tf_sj_matrix['l'][jet_eta_bin].Make_CDF()
+
+            #Set jet pt threshold for CDF
+            jet.tf_sj_b_lost.SetParameter(0, self.conf.jets["pt"])
+            jet.tf_sj_l_lost.SetParameter(0, self.conf.jets["pt"])
+
+
 
         event.numJets = len(event.good_jets)
         self.counters["jets"].inc("good", len(event.good_jets))
@@ -1706,6 +1732,9 @@ class MEAnalyzer(FilterAnalyzer):
         obs_dict = kwargs.pop("obs_dict", {})
         tf_dict = kwargs.pop("tf_dict", {})
 
+        print 'In add_obj - printing v'
+        print v
+
         o = MEM.Object(v, objtype)
 
         #Add observables from observable dictionary
@@ -1734,7 +1763,7 @@ class MEAnalyzer(FilterAnalyzer):
             else:
                 mem_cfg.enabled = False
 
-        Use_subjets = False
+        Use_subjets = True
 
         if not Use_subjets:
 
@@ -1763,7 +1792,7 @@ class MEAnalyzer(FilterAnalyzer):
                 )
 
         else:
-
+    
             #Add heavy flavour jets that are assumed to come from top/higgs decay
             for jet in event.btagged_jets_minus_sj:
                 self.add_obj(
@@ -1783,8 +1812,10 @@ class MEAnalyzer(FilterAnalyzer):
                     p4s=(jet.Pt(), jet.Eta(), jet.Phi(), jet.M()),
                     obs_dict={MEM.Observable.BTAG: jet.btagFlag},
                     tf_dict={
-                        MEM.TFType.bReco: jet.tf_b, MEM.TFType.qReco: jet.tf_l,
-                        MEM.TFType.bLost: jet.tf_b, MEM.TFType.qLost: jet.tf_l
+                        MEM.TFType.bReco: jet.tf_sj_b,
+                        MEM.TFType.qReco: jet.tf_sj_l,
+                        MEM.TFType.bLost: jet.tf_sj_b,
+                        MEM.TFType.qLost: jet.tf_sj_l
                     }
                 )
 
@@ -1802,13 +1833,18 @@ class MEAnalyzer(FilterAnalyzer):
 
             #Add light subjets that are assumed to come from hadronic W decay
             for jet in event.wquark_candidate_subjets:
+                print jet
+                print jet.btagFlag
+                print jet.tf_sj_b
                 self.add_obj(
                     MEM.ObjectType.Jet,
                     p4s=(jet.Pt(), jet.Eta(), jet.Phi(), jet.M()),
                     obs_dict={MEM.Observable.BTAG: jet.btagFlag},
                     tf_dict={
-                        MEM.TFType.bReco: jet.tf_b, MEM.TFType.qReco: jet.tf_l,
-                        MEM.TFType.bLost: jet.tf_b, MEM.TFType.qLost: jet.tf_l
+                        MEM.TFType.bReco: jet.tf_sj_b,
+                        MEM.TFType.qReco: jet.tf_sj_l,
+                        MEM.TFType.bLost: jet.tf_sj_b,
+                        MEM.TFType.qLost: jet.tf_sj_l
                     }
                 )
 
@@ -1871,6 +1907,9 @@ class MEAnalyzer(FilterAnalyzer):
                 len(event.btagged_jets), len(event.buntagged_jets)
             )
         else:
+            print 'Not calculating Matrix Element'
+            print 'event.cat_btag should be "H", but is "{0}"'.format(
+                event.cat_btag )
             #Don't calculate ME
             return True
 
