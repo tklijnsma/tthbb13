@@ -150,8 +150,10 @@ class SubjetAnalyzer(FilterAnalyzer):
 
         self.Statistics['n_processed'] += 1
 
-        if self.verbose:
-            print 'Printing from SubjetAnalyzer! iEv = {0}'.format(event.iEv)
+        #if self.verbose:
+        #    print 'Printing from SubjetAnalyzer! iEv = {0}'.format(event.iEv)
+
+        print 'Printing from SubjetAnalyzer! iEv = {0}'.format(event.iEv)
 
         ########################################
         # Check event suitability
@@ -1732,9 +1734,6 @@ class MEAnalyzer(FilterAnalyzer):
         obs_dict = kwargs.pop("obs_dict", {})
         tf_dict = kwargs.pop("tf_dict", {})
 
-        print 'In add_obj - printing v'
-        print v
-
         o = MEM.Object(v, objtype)
 
         #Add observables from observable dictionary
@@ -1833,9 +1832,6 @@ class MEAnalyzer(FilterAnalyzer):
 
             #Add light subjets that are assumed to come from hadronic W decay
             for jet in event.wquark_candidate_subjets:
-                print jet
-                print jet.btagFlag
-                print jet.tf_sj_b
                 self.add_obj(
                     MEM.ObjectType.Jet,
                     p4s=(jet.Pt(), jet.Eta(), jet.Phi(), jet.M()),
