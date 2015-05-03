@@ -180,7 +180,7 @@ def Make_config():
     DG_rms = [ '[2]', '[2]+[4]' ]
 
     # Set relative weight of the two Gaussians
-    config['DG_rel_weight'] = 0.90
+    config['DG_rel_weight'] = 0.70
     
     # Create the formula
     DG_formula = "[0]*({0}*exp(-0.5*((x-({1}))/({2}))**2)+(1-{0})*exp(-0.5*((x-({3}))/({4}))**2))".format(
@@ -201,7 +201,8 @@ def Make_config():
     # Set proper initialization values
     #   ( high weight, high mean, low rms + low weight, low mean, high rms seems
     #   to work well )
-    DG_init = [ "0", "1.1*mean", "0.5*rms", "0.8*mean", "0*rms" ]
+    #DG_init = [ "0", "1.1*mean", "1.0*rms", "0.7*mean", "1.5*rms" ]
+    DG_init = [ "0", "1.1*mean", "1.0*rms", "0.7*mean", "0.5*rms" ]
 
     # Create the function object
     DG_func = function( DG_formula, DG_init, DG_parlimits )
