@@ -48,12 +48,12 @@ def Make_config():
     # I/O information
     ########################################
 
-    config['input_root_file_name'] = '/scratch/tklijnsm/V10_full_jets_TTBarH.root'
-    #config['input_root_file_name'] = '/scratch/tklijnsm/V11_full_jets_0.3delR.root'
+    #config['input_root_file_name'] = '/scratch/tklijnsm/V10_full_jets_TTBarH.root'
+    config['input_root_file_name'] = '/scratch/tklijnsm/V11_full_jets_0.3delR.root'
 
     config['input_tree_name'] = 'tree'
 
-    config['outputdir'] = 'Testrun-V10-full-jets-TTBarH'
+    config['outputdir'] = 'Testrun-V11-full-jets-TTBarH'
 
         
     config['SBF_fitted_hists_pickle_filename'] = \
