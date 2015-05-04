@@ -122,7 +122,8 @@ samples = cms.VPSet([
         perJob   = cms.uint32(4000),
         subFiles = cms.vstring([
             #"VHBB_HEPPY_V11_G01_ttbar_13tev_phys14_20bx25.root"
-            "VHBB_HEPPY_V11_G01_tth_13tev_phys14_20bx25.root"
+            #"VHBB_HEPPY_V11_G01_tth_13tev_phys14_20bx25.root"
+            "/store/user/gregor/VHBB_HEPPY_V11_G01_tth_13tev_phys14_20bx25.root"
         ]),
         isMC     = cms.bool(True)
     ),

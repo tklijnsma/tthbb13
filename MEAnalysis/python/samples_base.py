@@ -34,7 +34,7 @@ def lfn_to_pfn(fn):
 
 #These assume the files are located on the local tier
 
-if os.environ["USER"] == 'tklijnsm':
+if os.environ["USER"] == 'tklijnsmDISABLE':
     print "User is {0}".format(os.environ["USER"])
     pfPath = ""
     lfPrefix = ""
