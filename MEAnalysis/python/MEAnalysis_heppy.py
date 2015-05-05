@@ -59,6 +59,7 @@ for sn in sorted(samples_dict.keys()):
     #use sample only if not skipped and subFiles defined
     if s.skip.value() == False and len(s.subFiles.value())>0:
         inputSamples.append(inputSample)
+        print s.subFiles
 
 print "Processing samples", inputSamples
 
