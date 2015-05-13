@@ -93,6 +93,12 @@ def getTreeProducer(conf):
                     if hasattr(ev, "GenQ_subjet_sumdelR") else -1,
                 help="Sum of Delta R values of the Gen(BWZ)Quarks matched to subjets"
             ),
+
+            NTupleVariable(
+                "httCandidate_delRmin", lambda ev: ev.httCandidate_delRmin \
+                    if hasattr(ev, "httCandidate_delRmin") else -1,
+                help="Rmin - RminExpected for selected events"
+            ),
             #---#
 
             NTupleVariable(

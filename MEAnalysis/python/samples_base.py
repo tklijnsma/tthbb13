@@ -50,7 +50,7 @@ elif "psi" in hn or "psi" in vo:
     pfPath = "/pnfs/psi.ch/cms/trivcat/"
     lfPrefix = "dcap://t3se01.psi.ch:22125/"
     def lfn_to_pfn(fn):
-        return "dcap://t3se01.psi.ch:22125/pnfs/psi.ch/cms/trivcat" + fn
+        return "dcap://t3se01.psi.ch:22125/pnfs/psi.ch/cms/trivcat/" + fn
 else:
     print "Warning: host '{0}' VO '{1}' is unknown, using xrootd".format(hn, vo)
     pfPath = ""

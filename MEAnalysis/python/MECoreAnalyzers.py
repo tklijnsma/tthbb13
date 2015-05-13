@@ -51,6 +51,9 @@ class SubjetAnalyzer(FilterAnalyzer):
         super(SubjetAnalyzer, self).__init__(cfg_ana, cfg_comp, looperName)
         self.conf = cfg_ana._conf
 
+        self.verbose = False
+        self.require_quark_match = True
+
         self.R_cut = 0.3
         self.top_mass = 172.04
 
@@ -60,90 +63,68 @@ class SubjetAnalyzer(FilterAnalyzer):
             ( 'mass', '<', '220.0' ),
             ( 'fW'  , '<', '0.175' ) ]
 
-        self.Statistics = {
-            'n_processed'           : 0,
-            'n_cat1'                : 0,
-            'n_enough_initial_jets' : 0,
-            'n_not_enough_wcand'    : 0,
-            'n_not_enough_btagged'  : 0,
-            'n_not_enough_httCand'  : 0,
-            'n_survivedcut'         : 0,
-            'n_0_cand'              : 0,
-            'n_1_cand'              : 0,
-            'n_2+_cand'             : 0,
+        self.b_match_table = [ [[0,0], [0,0]] , [[0,0], [0,0]] ]
+        self.l_match_table = [ [[0,0], [0,0]] , [[0,0], [0,0]] ]
 
-            'n_too_few_WZ'          : 0,
-            'n_too_few_B'           : 0,
-            'n_too_many_WZ'         : 0,
-            'n_too_many_B'          : 0,
-            'n_right_nr_of_quarks'  : 0,
-            'n_all_sj_have_j'       : 0,
-            'n_not_1j_for_2sj'      : 0,
-            'n_unique_permutation'  : 0,
-            'n_successful'          : 0,
+        self.Statistics_keylist = [
+            'n_processed',
+            'n_cat1+btag',
 
-            'n_succes_sj_q_match'   : 0,
-            'n_succes_j_q_match'    : 0,
-            }
+            'n_enough_initial_jets',
+            '#n_not_enough_wcand',
+            '#n_not_enough_btagged',
+            '#n_not_enough_httCand',
 
-        self.verbose = False
+            'n_survivedcut',
+            '#n_0_cand',
+            '#n_1_cand',
+            '#n_2+_cand',
+
+            'n_right_nr_of_quarks',
+            '#n_too_few_WZ',
+            '#n_too_few_B',
+            '#n_too_many_WZ',
+            '#n_too_many_B',
+
+            'n_passed_to_MEM',
+
+            ]
+
+        self.Statistics = {}
+        for key in self.Statistics_keylist:
+            if key[0] == '#':
+                self.Statistics[key[1:]] = 0
+            else:
+                self.Statistics[key] = 0
+
 
     def beginLoop(self, setup):
         super(SubjetAnalyzer, self).beginLoop(setup)
 
+
     def endLoop(self, setup):
 
-        print 'Statistics'
-        print '==========\n'
+        print '\nStatistics'
+        print '=========='
 
-        print 'Event selection:'
+        for key in self.Statistics_keylist:
 
-        print 'n_processed          = {0}'.format(self.Statistics['n_processed'])
-        print 'n_cat1               = {0}'.format(self.Statistics['n_cat1'])
+            if key[0] == '#':
+                print '  ({0:25s} = {1})'.format(key[1:], self.Statistics[key[1:]] )
+            else:
+                print '{0:30s} = {1}'.format( key, self.Statistics[key] )
 
+        print '=========='
+        print 'End of Statistics\n'
 
-        print 'n_enough_initial_jets= {0}'.format(
-            self.Statistics['n_enough_initial_jets'])
-        print '  (n_not_enough_wcand   = {0})'.format(
-            self.Statistics['n_not_enough_wcand'])
-        print '  (n_not_enough_btagged = {0})'.format(
-            self.Statistics['n_not_enough_btagged'])
-        print '  (n_not_enough_httCand = {0})'.format(
-            self.Statistics['n_not_enough_httCand'])
+        print '\nMatch Tables'
+        print '=========='
 
+        self.Print_Match_Table( 'b', self.b_match_table)
+        self.Print_Match_Table( 'l', self.l_match_table)
 
-        print 'n_survivedcut        = {0}'.format(self.Statistics['n_survivedcut'])
-        print '  (n 0 after cut        = {0})'.format(self.Statistics['n_0_cand'])
-        print '  (n 1 after cut        = {0})'.format(self.Statistics['n_1_cand'])
-        print '  (n 2+ after cut       = {0})'.format(self.Statistics['n_2+_cand'])
-
-        print 'n_right_nr_of_quarks = {0}'.format(
-            self.Statistics['n_right_nr_of_quarks'] )
-        print '  (n_too_few_WZ         = {0})'.format(
-            self.Statistics['n_too_few_WZ'])
-        print '  (n_too_few_B          = {0})'.format(
-            self.Statistics['n_too_few_B'])
-        print '  (n_too_many_WZ        = {0})'.format(
-            self.Statistics['n_too_many_WZ'])
-        print '  (n_too_many_B         = {0})'.format(
-            self.Statistics['n_too_many_B'])
-
-        print '\nMatching:'
-
-        print 'n_all_sj_have_j      = {0}'.format(
-            self.Statistics['n_all_sj_have_j'])
-        print 'n_not_1j_for_2sj     = {0}'.format(
-            self.Statistics['n_not_1j_for_2sj'])
-        print 'n_unique_permutation = {0}'.format(
-            self.Statistics['n_unique_permutation'])
-
-        print 'n_successful         = {0}'.format(self.Statistics['n_successful'])
-
-        print '\nQuark matching:'
-        print 'n_succes_sj_q_match  = {0}'.format(
-            self.Statistics['n_succes_sj_q_match'])
-        print 'n_succes_j_q_match  = {0}'.format(
-            self.Statistics['n_succes_j_q_match'])
+        print '=========='
+        print 'End of Match Tables\n'
 
 
     def process(self, event):
@@ -155,14 +136,15 @@ class SubjetAnalyzer(FilterAnalyzer):
 
         print 'Printing from SubjetAnalyzer! iEv = {0}'.format(event.iEv)
 
+
         ########################################
         # Check event suitability
         ########################################
 
         # Check if event is category 1
-        if event.cat != 'cat1':
+        if not ( event.cat == 'cat1' and event.cat_btag == 'H' ):
             return 0
-        self.Statistics['n_cat1'] += 1
+        self.Statistics['n_cat1+btag'] += 1
 
         # Check if there are at least 2 wquark_candidate_jets
         if len( event.wquark_candidate_jets ) < 2:
@@ -206,6 +188,10 @@ class SubjetAnalyzer(FilterAnalyzer):
 
         self.Statistics['n_survivedcut'] += 1
 
+        # Write delRmin to event
+        setattr( event, 'httCandidate_delRmin', abs(top.Rmin-top.RminExpected) )
+        print 'httCandidate_delRmin = {0}'.format( abs(top.Rmin-top.RminExpected) )
+
         # Necessary to remove duplicates in GenWZQuark branch
         self.CompareWZQuarks( event )
 
@@ -214,12 +200,16 @@ class SubjetAnalyzer(FilterAnalyzer):
         # Get the lists of particles: quarks, jets and subjets
         ########################################
 
+        # Note: if self.require_quark_match is set to False, this part is only
+        # useful for getting some statistics on quark matching. No information is
+        # used further.
+
         # Get a list of the 3 generated quarks that should correspond to a
         # top candidate
-        # tl_genquarks = self.Get_tl_genquarks( event )
+        ( tl_genquarks, tl_leptonicb ) = self.Get_tl_genquarks( event )
 
         # If there is an error in getting the quarks, the function returns 0
-        # if tl_genquarks == 0: return 0
+        if tl_genquarks == 0 and self.require_quark_match: return 0
 
 
         # Get list of btagged_jets
@@ -280,94 +270,236 @@ class SubjetAnalyzer(FilterAnalyzer):
 
         wquark_candidate_subjets = []
 
+
         ########################################
         # Perform combinatorics and calculate delR
         ########################################
-        
 
-        # Match a subjet to a btagged_jet
+        ### Match subjet to a GenBQuark and GenWZQuark
 
+        # Copy the subjet list (in case a b-subjet needs to be popped)
+        tl_subjets_copy = copy.deepcopy( tl_subjets )
+
+        # Do the matching
+        (i_sj, i_genquark ) = self.Link_smallest_delR(  tl_subjets_copy,
+                                                        [tl_genquarks[0]] )
+
+        if i_sj == 'No link':
+            succes_bsj_bquark = False
+        else:
+            succes_bsj_bquark = True
+            # Pop the subjet so it can't be matched again to a light quark
+            tl_subjets_copy.pop(i_sj)
+
+        # Do the matching
+        ( i_sj1, i_sj2, i_q1, i_q2 ) = self.Link_2smallest_delR(
+                                                        tl_subjets_copy,
+                                                        tl_genquarks[1:] )
+
+        if i_sj == 'No link':
+            succes_lsj_lquark = False
+        else:
+            succes_lsj_lquark = True
+
+
+        ### Match b-jets and w-jets to a GenBQuark and GenWZQuark
+
+        # Do the matching
+        (i_jet, i_genquark ) = self.Link_smallest_delR( tl_btagged_jets,
+                                                        [tl_genquarks[0]] )
+
+        if i_jet == 'No link':
+            succes_bjet_bquark = False
+        else:
+            succes_bjet_bquark = True
+
+        # Do the matching
+        ( i_jet1, i_jet2, i_q1, i_q2 ) = self.Link_2smallest_delR(
+                                                        tl_wquark_candidate_jets,
+                                                        tl_genquarks[1:] )
+
+        if i_jet1 == 'No link':
+            succes_ljet_lquark = False
+        else:
+            succes_ljet_lquark = True
+
+
+        ### Match a subjet to a btagged_jet
+
+        # Do the matching
         (i_sj, i_bt_j ) = self.Link_smallest_delR( tl_subjets, tl_btagged_jets )
-        
+
+        # Treat potential errors        
         if i_sj == 'No link':
             if self.verbose: print 'Could not match a subjet to a btagged_jet'
-            return 0
+            succes_sj_bjet = False
+
+        else:
+            succes_sj_bjet = True
+
+            # Set the btagFlag and the TFs as attributes (needed in mem code)
+            setattr(tl_subjets[i_sj],
+                    'btagFlag',
+                    btagged_jets_minus_sj[i_bt_j].btagFlag )
+
+            setattr(tl_subjets[i_sj],
+                    'tf_sj_b',
+                    copy.deepcopy( btagged_jets_minus_sj[i_bt_j].tf_sj_b ) )
+
+            setattr(tl_subjets[i_sj],
+                    'tf_sj_l',
+                    copy.deepcopy( btagged_jets_minus_sj[i_bt_j].tf_sj_l ) )
+
+            # Remove the jet from btagged_jets_minus_sj that is the subjet
+            btagged_jets_minus_sj.pop( i_bt_j )
+
+            # Remove the b_tagged_subjet from the tl_subjets
+            # CAREFUL: This is a TLorentzVector object, not a Jet object!
+            btagged_subjet.append( tl_subjets.pop( i_sj ) )
 
 
-        # Set the btagFlag and the TFs as attributes (needed in mem code)
-        setattr(tl_subjets[i_sj],
-                'btagFlag',
-                btagged_jets_minus_sj[i_bt_j].btagFlag )
+        ### Match subjets to a wquark_candidate_jets
 
-        setattr(tl_subjets[i_sj],
-                'tf_sj_b',
-                copy.deepcopy( btagged_jets_minus_sj[i_bt_j].tf_sj_b ) )
-
-        setattr(tl_subjets[i_sj],
-                'tf_sj_l',
-                copy.deepcopy( btagged_jets_minus_sj[i_bt_j].tf_sj_l ) )
-
-
-        # Remove the jet from btagged_jets_minus_sj that is the subjet
-        btagged_jets_minus_sj.pop( i_bt_j )
-
-        # Remove the b_tagged_subjet from the tl_subjets
-        # CAREFUL: This is a TLorentzVector object, not a Jet object!
-        btagged_subjet.append( tl_subjets.pop( i_sj ) )
-
-
-        # Match the remaining subjets to wquark_candidate_jets
-
+        # Do the matching
         ( i_sj1, i_sj2, i_wj1, i_wj2 ) = self.Link_2smallest_delR(
             tl_subjets, tl_wquark_candidate_jets )
 
+        # Treat potential errors
         if i_sj1 == 'No link':
             if self.verbose:
                 print 'Could not match a subjet to a wquark_candidate_jet'
+            succes_sj_ljet = False
+
+        else:
+            succes_sj_ljet = True
+
+            # First light quark match
+
+            # Set the btagFlag and the TFs as attributes (needed in mem code)
+            setattr(tl_subjets[i_sj1],
+                    'btagFlag',
+                    wquark_candidate_jets_minus_sj[i_wj1].btagFlag )
+
+            setattr(tl_subjets[i_sj1],
+                    'tf_sj_b',
+                    copy.deepcopy(wquark_candidate_jets_minus_sj[i_wj1].tf_sj_b) )
+
+            setattr(tl_subjets[i_sj1],
+                    'tf_sj_l',
+                    copy.deepcopy(wquark_candidate_jets_minus_sj[i_wj1].tf_sj_l) )
+
+            # Pop the jet matched to a subjet from the list
+            wquark_candidate_jets_minus_sj.pop( i_wj1 )
+
+            # Fill in the appropiate subjet (this is a TLorentzVector object)
+            wquark_candidate_subjets.append( tl_subjets.pop( i_sj1 ) )
+
+
+            # Second light quark match
+
+            # Set the btagFlag and the TFs as attributes (needed in mem code)
+            setattr(tl_subjets[i_sj2],
+                    'btagFlag',
+                    wquark_candidate_jets_minus_sj[i_wj2].btagFlag )
+
+            setattr(tl_subjets[i_sj2],
+                    'tf_sj_b',
+                    copy.deepcopy( wquark_candidate_jets_minus_sj[i_wj2].tf_sj_b ) )
+
+            setattr(tl_subjets[i_sj2],
+                    'tf_sj_l',
+                    copy.deepcopy( wquark_candidate_jets_minus_sj[i_wj2].tf_sj_l ) )
+
+            # Pop the jet matched to a subjet from the list
+            wquark_candidate_jets_minus_sj.pop( i_wj2 )
+
+            # Fill in the appropiate subjet (this is a TLorentzVector object)
+            wquark_candidate_subjets.append( tl_subjets.pop( i_sj2 ) )
+
+
+        # Fill the match tables
+        self.b_match_table[succes_bsj_bquark][succes_bjet_bquark][succes_sj_bjet] += 1
+        self.l_match_table[succes_lsj_lquark][succes_ljet_lquark][succes_sj_ljet] += 1
+
+
+        """
+        specific_print = (
+            succes_bsj_bquark and \
+            succes_lsj_lquark and \
+            not succes_bjet_bquark and \
+            succes_ljet_lquark and \
+            succes_sj_bjet and \
+            succes_sj_ljet )
+        """
+
+        specific_print = succes_bjet_bquark and not succes_bsj_bquark
+
+        if specific_print:
+
+            print '\nSpecific Print'
+            print '=========='
+
+            print 'Successful bjet to bquark, Unsuccessful bsubjet to bquark'
+
+            print 'Input jets:'
+            self.Print_particle_lists(
+                ( event.btagged_jets, 'Class', 'event.btagged_jets'),
+                ( event.wquark_candidate_jets, 'Class',
+                    'event.wquark_candidate_jets'),
+                ( tl_subjets_backup, 'TL', 'tl_subjets' ),
+                )
+
+            """
+            print 'Input Quarks:'
+            self.Print_particle_lists(
+                ( event.GenWZQuark, 'Class', 'event.GenWZQuark'),
+                ( event.GenBQuarkFromTop, 'Class', 'event.GenBQuarkFromTop'),
+                )
+            """
+
+            print 'Quarks:'
+            self.Print_particle_lists(
+                ( [tl_genquarks[0]], 'TL', 'Hadronic b-quark'),
+                ( [tl_leptonicb], 'TL', 'Leptonic b-quark'),
+                ( tl_genquarks[1:], 'TL', 'Light quarks'),
+                )
+
+            print 'Output particles:'
+            self.Print_particle_lists(
+
+                ( btagged_jets_minus_sj, 'Class', 'btagged_jets_minus_sj'),
+                ( btagged_subjet, 'TL', 'btagged_subjet'),
+
+                ( wquark_candidate_jets_minus_sj, 'Class',
+                    'wquark_candidate_jets_minus_sj' ),
+                ( wquark_candidate_subjets, 'TL', 'wquark_candidate_subjets'),
+
+                )
+
+            print '=========='
+            print 'End of Specific Print\n'
+
+
+        # Only continue if ALL matches were successful
+        pass_to_MEM = (
+            succes_bsj_bquark and \
+            succes_lsj_lquark and \
+            succes_bjet_bquark and \
+            succes_ljet_lquark and \
+            succes_sj_bjet and \
+            succes_sj_ljet )
+
+        if not pass_to_MEM:
             return 0
+        else:
+            print 'Passing to MEM Analyzer'
+            self.Statistics['n_passed_to_MEM'] += 1
+            
 
 
-        # Set the btagFlag and the TFs as attributes (needed in mem code)
-        setattr(tl_subjets[i_sj1],
-                'btagFlag',
-                wquark_candidate_jets_minus_sj[i_wj1].btagFlag )
-
-        setattr(tl_subjets[i_sj1],
-                'tf_sj_b',
-                copy.deepcopy(wquark_candidate_jets_minus_sj[i_wj1].tf_sj_b) )
-
-        setattr(tl_subjets[i_sj1],
-                'tf_sj_l',
-                copy.deepcopy(wquark_candidate_jets_minus_sj[i_wj1].tf_sj_l) )
-
-        # Pop the jet matched to a subjet from the list
-        wquark_candidate_jets_minus_sj.pop( i_wj1 )
-
-        # Fill in the appropiate subjet (this is a TLorentzVector object)
-        wquark_candidate_subjets.append( tl_subjets.pop( i_sj1 ) )
-
-
-        # Set the btagFlag and the TFs as attributes (needed in mem code)
-        setattr(tl_subjets[i_sj2],
-                'btagFlag',
-                wquark_candidate_jets_minus_sj[i_wj2].btagFlag )
-
-        setattr(tl_subjets[i_sj2],
-                'tf_sj_b',
-                copy.deepcopy( wquark_candidate_jets_minus_sj[i_wj2].tf_sj_b ) )
-
-        setattr(tl_subjets[i_sj2],
-                'tf_sj_l',
-                copy.deepcopy( wquark_candidate_jets_minus_sj[i_wj2].tf_sj_l ) )
-
-        # Pop the jet matched to a subjet from the list
-        wquark_candidate_jets_minus_sj.pop( i_wj2 )
-
-        # Fill in the appropiate subjet (this is a TLorentzVector object)
-        wquark_candidate_subjets.append( tl_subjets.pop( i_sj2 ) )
-
-
+        ########################################
         # Write the lists to the event class
+        ########################################
 
         setattr(event,
                 'btagged_jets_minus_sj',
@@ -385,41 +517,11 @@ class SubjetAnalyzer(FilterAnalyzer):
                 'wquark_candidate_subjets',
                 wquark_candidate_subjets )
 
-        print '\n    Printing found particles:'
-        self.Print_found_particles( event, tl_subjets_backup )
+        #print '\n    Printing found particles:'
+        #self.Print_found_particles( event, tl_subjets_backup )
 
-        print '\n    Printing matched particles:'
-        self.Print_matched_particles( event )
-
-
-        """
-        ########################################
-        # Save the quark data from successful matches
-        ########################################
-
-        print 'Successful match. Quarks were matched to these subjets:'
-        print subjet_jet_links
-
-        self.Statistics['n_successful'] += 1
-        """
-
-        """
-        # Write jet_delR values to event
-        setattr( event.GenBQuarkFromTop[0], 'jet_delR', jet_delR_list[0] )
-        setattr( event.GenWZQuark[0], 'jet_delR', jet_delR_list[1] )
-        setattr( event.GenWZQuark[1], 'jet_delR', jet_delR_list[2] )
-
-        setattr( event, 'GenQ_jet_sumdelR', jet_sumdelR )
-        """
-
-        """
-        # TODO: Write subjet_delR values to event
-        setattr( event.GenBQuarkFromTop[0], 'subjet_delR', subjet_jet_delR_list[0])
-        setattr( event.GenWZQuark[0], 'subjet_delR', subjet_jet_delR_list[1] )
-        setattr( event.GenWZQuark[1], 'subjet_delR', subjet_jet_delR_list[2] )
-        setattr( event, 'GenQ_subjet_sumdelR', subjet_jet_sumdelR )
-        """
-
+        #print '\n    Printing matched particles:'
+        #self.Print_matched_particles( event )
 
 
 
@@ -440,6 +542,41 @@ class SubjetAnalyzer(FilterAnalyzer):
                 return False
 
         return True
+    #--------------------------------------#
+
+    # Prints the matching tables
+    def Print_Match_Table( self, particle, match_table ):
+
+        print '\n{0:23s}| {1:23s}| {2:23s}|'.format(
+            'Match table: {0}'.format(particle),
+            'suc. {0}-quark to {0}-jet'.format(particle),
+            'fail {0}-quark to {0}-jet'.format(particle) )
+
+        print '-----------------------|------------------------|------------------------|'
+
+        print '{0:23s}| {1:23s}| {2:23s}|'.format(
+            'suc. {0}-quark to {0}-sj'.format(particle),
+            str(sum(match_table[1][1])),
+            str(sum(match_table[1][0])) )
+
+        print '{0:23s}| {1:23s}| {2:23s}|'.format(
+            '   suc. jet-sj',
+            str(match_table[1][1][1]),
+            str(match_table[1][0][1]) )
+
+        print '-----------------------|------------------------|------------------------|'
+
+        print '{0:23s}| {1:23s}| {2:23s}|'.format(
+            'fail {0}-quark to {0}-sj'.format(particle),
+            str(sum(match_table[0][1])),
+            str(sum(match_table[0][0])) )
+
+        print '{0:23s}| {1:23s}| {2:23s}|'.format(
+            '   suc. jet-sj',
+            str(match_table[0][1][1]),
+            str(match_table[0][0][1]) )
+
+        print '--------------------------------------------------------------------------'
     #--------------------------------------#
 
     # Prints the quarks and jets found in an event
@@ -482,7 +619,7 @@ class SubjetAnalyzer(FilterAnalyzer):
 
     #--------------------------------------#
 
-    # Prints the quarks and jets found in an event
+    # Prints the quarks and jets matched in an event
     def Print_matched_particles( self, event ):
 
         print '\n    Printing btagged_jets_minus_sj:'
@@ -507,6 +644,39 @@ class SubjetAnalyzer(FilterAnalyzer):
 
         print ''
     #--------------------------------------#
+
+    
+    # Print a non-predefined number of particle lists
+    # Input is a list of tuples: input_args = [ (tuple), (tuple), ... ]
+    # Every tuple is structured as follows:
+    # (tuple) = ( particle list, TLorentz/Class label, name of the particle )
+    def Print_particle_lists( self, *input_args ):
+
+        for ( p_list, mode, name ) in input_args:
+
+            print '\n    Printing {0}:'.format( name )
+
+            if mode == 'TL':
+
+                for q in p_list:
+                    print '    [ {0:9s} | {1:9s} | {2:9s} | {3:9s} ]'.format(
+                        '{0:.3f}'.format(q.Pt()),
+                        '{0:.3f}'.format(q.Eta()),
+                        '{0:.3f}'.format(q.Phi()),
+                        '{0:.3f}'.format(q.M()) )
+
+            if mode == 'Class':
+
+                for q in p_list:
+                    print '    [ {0:9s} | {1:9s} | {2:9s} | {3:9s} ]'.format(
+                        '{0:.3f}'.format(q.pt),
+                        '{0:.3f}'.format(q.eta),
+                        '{0:.3f}'.format(q.phi),
+                        '{0:.3f}'.format(q.mass) )
+
+        print ''
+    #--------------------------------------#
+
 
     # Deletes duplicate WZ Quarks
     def CompareWZQuarks(self, event ):
@@ -536,16 +706,16 @@ class SubjetAnalyzer(FilterAnalyzer):
         # Check if right amount of quarks was generated
         if len(event.GenWZQuark)<2:
             self.Statistics['n_too_few_WZ'] += 1
-            return 0
+            return (0,0)
         if len(event.GenBQuarkFromTop)<2:
             self.Statistics['n_too_few_B'] += 1
-            return 0
+            return (0,0)
         elif len(event.GenWZQuark)>2:
             self.Statistics['n_too_many_WZ'] += 1
-            return 0
+            return (0,0)
         elif len(event.GenBQuarkFromTop)>2:
             self.Statistics['n_too_many_B'] += 1
-            return 0
+            return (0,0)
 
         self.Statistics['n_right_nr_of_quarks'] += 1
 
@@ -567,7 +737,7 @@ class SubjetAnalyzer(FilterAnalyzer):
             tl_GenBQuarks.append( tl_b )
             tl_Combined.append( tl_b + tl_GenWZQuarks[0] + tl_GenWZQuarks[1] )
 
-
+        # Calculate mass difference from top mass
         delmass0 = abs(tl_Combined[0].M() - self.top_mass)
         delmass1 = abs(tl_Combined[1].M() - self.top_mass)
 
@@ -593,7 +763,7 @@ class SubjetAnalyzer(FilterAnalyzer):
         tl_GenQuarks.append( tl_GenWZQuarks[0] )
         tl_GenQuarks.append( tl_GenWZQuarks[1] )
         
-        return tl_GenQuarks
+        return ( tl_GenQuarks, tl_GenBQuarks[1] )
     #--------------------------------------#
 
     # Simple algorithm that matches the smallest delta R for two lists of TL vectors

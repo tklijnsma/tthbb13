@@ -164,8 +164,8 @@ sequence = cfg.Sequence([
     mecat,
     gentth,
     subjetanalyzer,
-    mem_analyzer,
-    treeProducer
+#    mem_analyzer,
+#    treeProducer
 ])
 
 #Book the output file
