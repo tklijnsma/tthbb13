@@ -1,0 +1,2821 @@
+Specific Print number 1 in job_15 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 112.687   | -0.277    | 1.799     | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 169.602   | 0.506     | -2.293    | 31.793    ]
+    [ 151.631   | 0.867     | -1.683    | 11.480    ]
+    [ 143.584   | 0.061     | -2.227    | 17.781    ]
+    [ 48.782    | -0.128    | 2.280     | 11.139    ]
+
+    Printing event.wquark_candidate_jets:
+    [ 31.162    | -1.451    | -0.225    | 4.880     ]
+    [ 107.170   | -1.024    | 0.981     | 11.390    ]
+    [ 53.874    | -0.550    | -2.370    | 4.255     ]
+
+Chosen httCandidate:
+delR with lepton: 2.5751382785
+
+    Printing tl_subjets:
+    [ 136.921   | 0.871     | -1.687    | 5.271     ]
+    [ 119.949   | 0.462     | -2.234    | 12.499    ]
+    [ 117.982   | 0.053     | -2.239    | 8.088     ]
+
+Another httCandidate was found:
+delR with lepton: 0.70545718809
+
+    Printing tl_subjets_other_top:
+    [ 218.684   | 0.772     | 1.488     | 20.875    ]
+    [ 32.382    | -0.134    | 2.242     | 4.877     ]
+    [ 112.687   | -0.277    | 1.799     | 0.140     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 37.862    | -0.144    | 2.231     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 19.320    | 1.535     | 3.032     | 4.700     ]
+
+    Printing Light quarks:
+    [ 148.077   | 0.115     | -2.171    | 1.500     ]
+    [ 85.655    | -0.566    | -2.362    | 0.500     ]
+
+    Printing Higgs b-quark:
+    [ 141.044   | 0.462     | -2.242    | 4.800     ]
+    [ 226.294   | 0.871     | -1.671    | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 169.602   | 0.506     | -2.293    | 31.793    ]
+    [ 143.584   | 0.061     | -2.227    | 17.781    ]
+    [ 48.782    | -0.128    | 2.280     | 11.139    ]
+
+    Printing btagged_subjet:
+    [ 136.921   | 0.871     | -1.687    | 5.271     ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 31.162    | -1.451    | -0.225    | 4.880     ]
+    [ 107.170   | -1.024    | 0.981     | 11.390    ]
+    [ 53.874    | -0.550    | -2.370    | 4.255     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 2 in job_50 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 55.765    | -1.059    | -2.725    | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 153.283   | -2.040    | 0.391     | 24.288    ]
+    [ 105.930   | -1.453    | 3.050     | 12.024    ]
+    [ 42.135    | -1.836    | -0.990    | 7.356     ]
+    [ 37.182    | -1.949    | 2.240     | 7.305     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 112.372   | -1.761    | 1.430     | 24.488    ]
+    [ 38.205    | 1.986     | 0.798     | 2.126     ]
+    [ 83.526    | 1.806     | -1.090    | 12.772    ]
+    [ 63.187    | -1.766    | -2.337    | 9.509     ]
+
+Chosen httCandidate:
+delR with lepton: 3.02642491988
+
+    Printing tl_subjets:
+    [ 89.776    | -1.774    | 1.458     | 17.554    ]
+    [ 48.100    | -2.806    | 0.633     | 4.547     ]
+    [ 110.703   | -2.014    | 0.344     | 8.482     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 43.838    | -1.907    | 2.261     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 72.170    | -1.852    | -0.928    | 4.700     ]
+
+    Printing Light quarks:
+    [ 136.608   | -1.973    | 0.389     | 1.499     ]
+    [ 56.426    | -2.839    | 0.575     | 0.503     ]
+
+    Printing Higgs b-quark:
+    [ 27.332    | -0.088    | -0.348    | 4.800     ]
+    [ 92.561    | -1.449    | 3.060     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 105.930   | -1.453    | 3.050     | 12.024    ]
+    [ 42.135    | -1.836    | -0.990    | 7.356     ]
+    [ 37.182    | -1.949    | 2.240     | 7.305     ]
+
+    Printing btagged_subjet:
+    [ 110.703   | -2.014    | 0.344     | 8.482     ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 112.372   | -1.761    | 1.430     | 24.488    ]
+    [ 38.205    | 1.986     | 0.798     | 2.126     ]
+    [ 83.526    | 1.806     | -1.090    | 12.772    ]
+    [ 63.187    | -1.766    | -2.337    | 9.509     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 3 in job_71 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 62.159    | 0.085     | 1.234     | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 167.421   | 0.398     | 1.659     | 18.753    ]
+    [ 103.050   | 0.556     | -2.780    | 15.699    ]
+    [ 94.871    | 0.662     | -0.689    | 21.713    ]
+    [ 31.800    | -0.112    | 2.748     | 6.619     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 107.115   | -0.565    | 0.139     | 13.620    ]
+    [ 55.180    | 0.350     | 0.557     | 8.186     ]
+    [ 116.861   | 2.042     | -1.117    | 11.884    ]
+    [ 32.916    | 1.712     | -2.357    | 7.822     ]
+
+Chosen httCandidate:
+delR with lepton: 0.100408611852
+
+    Printing tl_subjets:
+    [ 96.161    | -0.573    | 0.144     | 10.193    ]
+    [ 63.781    | 0.090     | 1.231     | 4.357     ]
+    [ 152.508   | 0.400     | 1.659     | 15.405    ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 107.313   | 0.557     | -2.761    | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 114.662   | 0.583     | -0.737    | 4.700     ]
+
+    Printing Light quarks:
+    [ 48.754    | 0.850     | -2.876    | 0.500     ]
+    [ 140.981   | 1.314     | 2.543     | 1.500     ]
+
+    Printing Higgs b-quark:
+    [ 179.326   | 0.392     | 1.635     | 4.800     ]
+    [ 51.170    | 0.021     | 2.978     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 103.050   | 0.556     | -2.780    | 15.699    ]
+    [ 94.871    | 0.662     | -0.689    | 21.713    ]
+    [ 31.800    | -0.112    | 2.748     | 6.619     ]
+
+    Printing btagged_subjet:
+    [ 152.508   | 0.400     | 1.659     | 15.405    ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 107.115   | -0.565    | 0.139     | 13.620    ]
+    [ 55.180    | 0.350     | 0.557     | 8.186     ]
+    [ 116.861   | 2.042     | -1.117    | 11.884    ]
+    [ 32.916    | 1.712     | -2.357    | 7.822     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 4 in job_34 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 125.250   | 1.051     | -1.258    | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 182.981   | 1.433     | -0.396    | 17.017    ]
+    [ 53.571    | 1.641     | 1.376     | 6.266     ]
+    [ 45.252    | 0.617     | -2.753    | 5.120     ]
+    [ 38.605    | -0.648    | 1.725     | 8.370     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 52.498    | 1.672     | 2.390     | 7.022     ]
+    [ 179.224   | 0.639     | 2.461     | 19.710    ]
+    [ 31.650    | 1.296     | -2.994    | 4.332     ]
+
+Chosen httCandidate:
+delR with lepton: 2.42804726264
+
+    Printing tl_subjets:
+    [ 160.721   | 0.639     | 2.461     | 17.676    ]
+    [ 38.745    | 0.616     | -2.764    | 3.893     ]
+    [ 37.896    | 1.679     | 2.374     | 2.576     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 54.209    | 1.624     | 1.370     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 184.819   | 1.423     | -0.403    | 4.700     ]
+
+    Printing Light quarks:
+    [ 165.525   | 0.621     | 2.466     | 0.329     ]
+    [ 29.416    | 1.409     | -3.019    | 0.330     ]
+
+    Printing Higgs b-quark:
+    [ 60.497    | 0.772     | -2.342    | 4.800     ]
+    [ 45.597    | -0.654    | 1.708     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 182.981   | 1.433     | -0.396    | 17.017    ]
+    [ 53.571    | 1.641     | 1.376     | 6.266     ]
+    [ 38.605    | -0.648    | 1.725     | 8.370     ]
+
+    Printing btagged_subjet:
+    [ 38.745    | 0.616     | -2.764    | 3.893     ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 31.650    | 1.296     | -2.994    | 4.332     ]
+
+    Printing wquark_candidate_subjets:
+    [ 160.721   | 0.639     | 2.461     | 17.676    ]
+    [ 37.896    | 1.679     | 2.374     | 2.576     ]
+
+
+Specific Print number 5 in job_33 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 411.054   | 0.254     | -2.080    | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 271.543   | 0.589     | -2.497    | 16.896    ]
+    [ 254.783   | -0.440    | 0.250     | 16.880    ]
+    [ 212.497   | -0.001    | 1.688     | 22.985    ]
+    [ 63.326    | -0.147    | -1.816    | 8.499     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 38.066    | -0.601    | 1.977     | 4.051     ]
+    [ 30.207    | 1.521     | -2.257    | 4.603     ]
+    [ 50.672    | 0.437     | 1.859     | 4.873     ]
+
+Chosen httCandidate:
+delR with lepton: 0.15529112194
+
+    Printing tl_subjets:
+    [ 413.523   | 0.254     | -2.079    | 6.752     ]
+    [ 56.784    | -0.157    | -1.841    | 4.784     ]
+    [ 241.611   | 0.593     | -2.496    | 10.990    ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 251.912   | -0.438    | 0.258     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 7.834     | 1.176     | 0.742     | 4.700     ]
+
+    Printing Light quarks:
+    [ 211.545   | -0.239    | 0.778     | 0.333     ]
+    [ 333.233   | -0.231    | 0.473     | 0.329     ]
+
+    Printing Higgs b-quark:
+    [ 247.640   | 0.592     | -2.504    | 4.800     ]
+    [ 64.320    | -0.152    | -1.867    | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 254.783   | -0.440    | 0.250     | 16.880    ]
+    [ 212.497   | -0.001    | 1.688     | 22.985    ]
+    [ 63.326    | -0.147    | -1.816    | 8.499     ]
+
+    Printing btagged_subjet:
+    [ 241.611   | 0.593     | -2.496    | 10.990    ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 38.066    | -0.601    | 1.977     | 4.051     ]
+    [ 30.207    | 1.521     | -2.257    | 4.603     ]
+    [ 50.672    | 0.437     | 1.859     | 4.873     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 6 in job_92 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 65.277    | -0.723    | -0.663    | 0.017     ]
+
+    Printing event.btagged_jets:
+    [ 387.607   | -0.811    | 3.037     | 46.570    ]
+    [ 162.113   | -0.688    | 2.135     | 26.205    ]
+    [ 37.828    | -2.168    | 1.566     | 7.792     ]
+    [ 35.653    | -0.979    | -1.885    | 6.005     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 70.617    | -0.700    | 2.565     | 6.712     ]
+    [ 65.614    | -1.031    | -2.484    | 12.789    ]
+    [ 53.425    | -1.543    | 1.734     | 10.862    ]
+
+Chosen httCandidate:
+delR with lepton: 0.566547601022
+
+    Printing tl_subjets:
+    [ 480.085   | -0.218    | -0.530    | 18.300    ]
+    [ 71.691    | -0.722    | -0.654    | 2.831     ]
+    [ 80.294    | 0.592     | -0.311    | 14.458    ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 163.396   | -0.683    | 2.098     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 40.052    | -1.118    | -2.270    | 4.700     ]
+
+    Printing Light quarks:
+    [ 118.496   | -0.665    | 2.569     | 0.501     ]
+    [ 105.101   | -1.011    | -3.068    | 1.500     ]
+
+    Printing Higgs b-quark:
+    [ 308.440   | -0.781    | 3.007     | 4.800     ]
+    [ 78.525    | -1.041    | -2.501    | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 387.607   | -0.811    | 3.037     | 46.570    ]
+    [ 162.113   | -0.688    | 2.135     | 26.205    ]
+    [ 37.828    | -2.168    | 1.566     | 7.792     ]
+    [ 35.653    | -0.979    | -1.885    | 6.005     ]
+
+    Printing btagged_subjet:
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 70.617    | -0.700    | 2.565     | 6.712     ]
+    [ 65.614    | -1.031    | -2.484    | 12.789    ]
+    [ 53.425    | -1.543    | 1.734     | 10.862    ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 7 in job_92 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 56.717    | -0.353    | -1.766    | 0.012     ]
+
+    Printing event.btagged_jets:
+    [ 209.675   | -0.591    | -2.594    | 18.521    ]
+    [ 76.692    | 0.158     | 2.120     | 8.464     ]
+    [ 52.237    | 0.710     | -2.451    | 10.719    ]
+    [ 39.127    | -1.522    | 0.503     | 8.201     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 158.792   | 1.584     | -0.262    | 21.547    ]
+    [ 100.519   | 0.287     | 0.870     | 13.337    ]
+    [ 50.868    | 0.849     | -0.242    | 7.121     ]
+
+Chosen httCandidate:
+delR with lepton: 0.650904363839
+
+    Printing tl_subjets:
+    [ 188.285   | -0.591    | -2.601    | 11.538    ]
+    [ 59.568    | -0.355    | -1.765    | 3.221     ]
+    [ 43.693    | 0.711     | -2.454    | 6.775     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 32.866    | -1.450    | 0.549     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 225.086   | -0.586    | -2.597    | 4.700     ]
+
+    Printing Light quarks:
+    [ 42.461    | 0.860     | -0.257    | 0.500     ]
+    [ 97.010    | 0.272     | 0.861     | 0.329     ]
+
+    Printing Higgs b-quark:
+    [ 64.593    | 0.709     | -2.423    | 4.800     ]
+    [ 89.696    | 0.146     | 2.110     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 209.675   | -0.591    | -2.594    | 18.521    ]
+    [ 76.692    | 0.158     | 2.120     | 8.464     ]
+    [ 39.127    | -1.522    | 0.503     | 8.201     ]
+
+    Printing btagged_subjet:
+    [ 43.693    | 0.711     | -2.454    | 6.775     ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 158.792   | 1.584     | -0.262    | 21.547    ]
+    [ 100.519   | 0.287     | 0.870     | 13.337    ]
+    [ 50.868    | 0.849     | -0.242    | 7.121     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 8 in job_20 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 46.846    | -0.485    | 2.026     | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 61.332    | 1.569     | -0.382    | 12.198    ]
+    [ 58.638    | 0.425     | 0.564     | 11.102    ]
+    [ 54.493    | -0.533    | -0.285    | 7.556     ]
+    [ 46.444    | -0.759    | -1.193    | 10.120    ]
+
+    Printing event.wquark_candidate_jets:
+    [ 155.307   | 0.749     | 3.021     | 17.005    ]
+    [ 33.140    | -0.124    | -2.295    | 6.812     ]
+    [ 95.174    | 0.456     | -2.705    | 15.518    ]
+
+Chosen httCandidate:
+delR with lepton: 1.99208905393
+
+    Printing tl_subjets:
+    [ 81.574    | 0.688     | -1.719    | 10.557    ]
+    [ 77.804    | 0.456     | -2.743    | 8.506     ]
+    [ 136.086   | 0.754     | 3.032     | 9.183     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 66.816    | 1.536     | -0.349    | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 64.075    | 0.593     | 0.565     | 4.700     ]
+
+    Printing Light quarks:
+    [ 23.201    | 0.595     | 2.645     | 0.500     ]
+    [ 99.655    | 0.609     | -1.653    | 1.500     ]
+
+    Printing Higgs b-quark:
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 61.332    | 1.569     | -0.382    | 12.198    ]
+    [ 58.638    | 0.425     | 0.564     | 11.102    ]
+    [ 54.493    | -0.533    | -0.285    | 7.556     ]
+    [ 46.444    | -0.759    | -1.193    | 10.120    ]
+
+    Printing btagged_subjet:
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 33.140    | -0.124    | -2.295    | 6.812     ]
+
+    Printing wquark_candidate_subjets:
+    [ 136.086   | 0.754     | 3.032     | 9.183     ]
+    [ 77.804    | 0.456     | -2.743    | 8.506     ]
+
+
+Specific Print number 9 in job_81 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 87.777    | -0.417    | -2.478    | 0.023     ]
+
+    Printing event.btagged_jets:
+    [ 120.618   | -1.388    | -2.065    | 14.279    ]
+    [ 80.934    | -0.760    | 0.661     | 17.960    ]
+    [ 73.834    | -0.300    | 0.064     | 11.545    ]
+    [ 69.709    | -1.723    | 3.062     | 9.096     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 50.056    | -0.271    | 0.611     | 8.068     ]
+    [ 79.134    | -0.385    | 1.993     | 9.725     ]
+    [ 86.080    | -2.386    | 1.273     | 17.100    ]
+
+Chosen httCandidate:
+delR with lepton: 0.899547340132
+
+    Printing tl_subjets:
+    [ 102.859   | -1.393    | -2.064    | 9.653     ]
+    [ 58.300    | -1.727    | 3.043     | 5.708     ]
+    [ 89.800    | -0.418    | -2.479    | 2.754     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 93.329    | -0.381    | 0.097     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 39.706    | -0.321    | 0.764     | 4.700     ]
+
+    Printing Light quarks:
+    [ 44.253    | -0.814    | 0.610     | 1.500     ]
+    [ 78.083    | -0.382    | 2.010     | 0.500     ]
+
+    Printing Higgs b-quark:
+    [ 133.089   | -1.384    | -2.038    | 4.800     ]
+    [ 85.294    | -1.698    | 3.049     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 80.934    | -0.760    | 0.661     | 17.960    ]
+    [ 73.834    | -0.300    | 0.064     | 11.545    ]
+    [ 69.709    | -1.723    | 3.062     | 9.096     ]
+
+    Printing btagged_subjet:
+    [ 102.859   | -1.393    | -2.064    | 9.653     ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 50.056    | -0.271    | 0.611     | 8.068     ]
+    [ 79.134    | -0.385    | 1.993     | 9.725     ]
+    [ 86.080    | -2.386    | 1.273     | 17.100    ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 10 in job_85 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 54.157    | -0.501    | -1.673    | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 110.649   | -0.454    | 2.457     | 11.929    ]
+    [ 72.929    | -0.251    | -0.058    | 10.203    ]
+    [ 70.725    | 0.282     | -1.535    | 6.735     ]
+    [ 32.592    | -1.103    | 0.359     | 6.059     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 114.195   | -1.059    | -2.106    | 15.789    ]
+    [ 97.426    | -0.806    | 1.302     | 8.328     ]
+    [ 33.941    | -0.874    | 3.075     | 5.345     ]
+
+Chosen httCandidate:
+delR with lepton: 0.190227277594
+
+    Printing tl_subjets:
+    [ 99.517    | -1.055    | -2.103    | 12.582    ]
+    [ 58.849    | -0.508    | -1.670    | 4.282     ]
+    [ 62.318    | 0.280     | -1.534    | 4.394     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 109.658   | -0.454    | 2.463     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 37.243    | -1.014    | -1.707    | 4.700     ]
+
+    Printing Light quarks:
+    [ 95.945    | -0.835    | 1.343     | 0.331     ]
+    [ 13.785    | -1.676    | -1.660    | 0.330     ]
+
+    Printing Higgs b-quark:
+    [ 71.174    | 0.320     | -1.544    | 4.800     ]
+    [ 99.724    | -0.259    | -0.052    | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 110.649   | -0.454    | 2.457     | 11.929    ]
+    [ 72.929    | -0.251    | -0.058    | 10.203    ]
+    [ 32.592    | -1.103    | 0.359     | 6.059     ]
+
+    Printing btagged_subjet:
+    [ 62.318    | 0.280     | -1.534    | 4.394     ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 114.195   | -1.059    | -2.106    | 15.789    ]
+    [ 97.426    | -0.806    | 1.302     | 8.328     ]
+    [ 33.941    | -0.874    | 3.075     | 5.345     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 11 in job_59 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 30.753    | -0.538    | 2.211     | -0.001    ]
+
+    Printing event.btagged_jets:
+    [ 123.373   | 0.390     | 2.934     | 20.059    ]
+    [ 92.010    | 0.392     | 1.311     | 12.275    ]
+    [ 81.065    | -0.623    | 1.735     | 14.033    ]
+    [ 63.810    | -1.943    | 0.622     | 8.735     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 474.363   | -1.451    | -1.533    | 40.027    ]
+    [ 43.228    | -0.655    | 0.744     | 8.504     ]
+    [ 70.947    | -0.218    | -0.801    | 7.783     ]
+
+Chosen httCandidate:
+delR with lepton: 0.771446189142
+
+    Printing tl_subjets:
+    [ 89.700    | 0.391     | 1.318     | 12.155    ]
+    [ 35.140    | -0.671    | 0.752     | 5.628     ]
+    [ 97.541    | -0.610    | 1.908     | 24.184    ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 51.676    | -1.966    | 0.629     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 115.215   | 0.395     | 2.936     | 4.700     ]
+
+    Printing Light quarks:
+    [ 64.296    | -0.206    | -0.805    | 0.331     ]
+    [ 47.939    | -0.631    | 0.784     | 1.500     ]
+
+    Printing Higgs b-quark:
+    [ 74.011    | -0.748    | 1.705     | 4.800     ]
+    [ 134.388   | 0.372     | 1.291     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 123.373   | 0.390     | 2.934     | 20.059    ]
+    [ 81.065    | -0.623    | 1.735     | 14.033    ]
+    [ 63.810    | -1.943    | 0.622     | 8.735     ]
+
+    Printing btagged_subjet:
+    [ 89.700    | 0.391     | 1.318     | 12.155    ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 474.363   | -1.451    | -1.533    | 40.027    ]
+    [ 43.228    | -0.655    | 0.744     | 8.504     ]
+    [ 70.947    | -0.218    | -0.801    | 7.783     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 12 in job_53 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 64.576    | 0.120     | 0.778     | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 98.671    | 0.427     | 1.793     | 16.991    ]
+    [ 49.004    | 0.174     | -2.533    | 6.904     ]
+    [ 45.684    | -0.123    | 1.339     | 10.056    ]
+    [ 36.024    | -0.756    | 0.019     | 7.680     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 148.193   | 0.265     | -1.239    | 18.056    ]
+    [ 95.464    | -0.315    | -1.655    | 14.375    ]
+    [ 68.571    | 0.474     | -1.998    | 11.956    ]
+
+Chosen httCandidate:
+delR with lepton: 2.3650084488
+
+    Printing tl_subjets:
+    [ 125.688   | 0.269     | -1.235    | 9.309     ]
+    [ 75.132    | -0.359    | -1.661    | 8.557     ]
+    [ 64.869    | -0.723    | -2.123    | 10.034    ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 33.120    | -0.789    | -0.019    | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 103.890   | 0.495     | 1.765     | 4.700     ]
+
+    Printing Light quarks:
+    [ 139.089   | 0.265     | -1.230    | 0.502     ]
+    [ 73.972    | 0.445     | -2.042    | 1.500     ]
+
+    Printing Higgs b-quark:
+    [ 74.446    | 0.014     | 1.508     | 4.800     ]
+    [ 62.407    | 0.234     | -2.501    | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 98.671    | 0.427     | 1.793     | 16.991    ]
+    [ 49.004    | 0.174     | -2.533    | 6.904     ]
+    [ 45.684    | -0.123    | 1.339     | 10.056    ]
+    [ 36.024    | -0.756    | 0.019     | 7.680     ]
+
+    Printing btagged_subjet:
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 68.571    | 0.474     | -1.998    | 11.956    ]
+
+    Printing wquark_candidate_subjets:
+    [ 125.688   | 0.269     | -1.235    | 9.309     ]
+    [ 75.132    | -0.359    | -1.661    | 8.557     ]
+
+
+Specific Print number 13 in job_96 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 121.869   | 0.328     | -2.353    | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 230.843   | 0.947     | 0.398     | 24.013    ]
+    [ 147.230   | -0.280    | 0.581     | 16.028    ]
+    [ 114.837   | -0.514    | -2.570    | 17.477    ]
+    [ 103.434   | -0.626    | 1.399     | 17.697    ]
+
+    Printing event.wquark_candidate_jets:
+    [ 63.875    | -0.813    | 0.929     | 11.128    ]
+    [ 77.093    | -0.331    | 3.005     | 9.564     ]
+    [ 87.270    | 0.367     | 3.062     | 9.087     ]
+    [ 59.697    | 0.479     | 0.990     | 8.468     ]
+
+Chosen httCandidate:
+delR with lepton: 0.359819568809
+
+    Printing tl_subjets:
+    [ 128.869   | 0.323     | -2.349    | 6.522     ]
+    [ 73.643    | 0.369     | 3.048     | 3.783     ]
+    [ 84.773    | -0.511    | -2.542    | 5.550     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 217.739   | 0.947     | 0.398     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 110.609   | -0.508    | -2.557    | 4.700     ]
+
+    Printing Light quarks:
+    [ 22.880    | 1.521     | -1.527    | 0.330     ]
+    [ 56.874    | 0.461     | 1.018     | 0.330     ]
+
+    Printing Higgs b-quark:
+    [ 122.680   | -0.628    | 1.443     | 4.800     ]
+    [ 176.954   | -0.411    | 0.601     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 230.843   | 0.947     | 0.398     | 24.013    ]
+    [ 147.230   | -0.280    | 0.581     | 16.028    ]
+    [ 103.434   | -0.626    | 1.399     | 17.697    ]
+
+    Printing btagged_subjet:
+    [ 84.773    | -0.511    | -2.542    | 5.550     ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 63.875    | -0.813    | 0.929     | 11.128    ]
+    [ 77.093    | -0.331    | 3.005     | 9.564     ]
+    [ 87.270    | 0.367     | 3.062     | 9.087     ]
+    [ 59.697    | 0.479     | 0.990     | 8.468     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 14 in job_37 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 89.050    | 0.725     | -0.828    | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 213.733   | 0.630     | 0.476     | 43.787    ]
+    [ 82.006    | -0.536    | -2.453    | 12.221    ]
+    [ 68.731    | -0.152    | 1.117     | 13.975    ]
+    [ 50.336    | 1.499     | 0.183     | 7.077     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 32.300    | -1.869    | 0.349     | 7.181     ]
+    [ 99.467    | 1.291     | 3.048     | 16.580    ]
+    [ 101.719   | 0.864     | -2.700    | 14.374    ]
+    [ 51.156    | -2.323    | -1.243    | 7.150     ]
+
+Chosen httCandidate:
+delR with lepton: 2.00695637189
+
+    Printing tl_subjets:
+    [ 189.373   | 0.239     | -2.733    | 11.545    ]
+    [ 97.817    | 0.841     | -2.688    | 14.758    ]
+    [ 85.452    | 1.301     | 3.046     | 13.266    ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 52.621    | -0.634    | -2.442    | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 41.203    | 1.582     | 0.157     | 4.700     ]
+
+    Printing Light quarks:
+    [ 161.315   | 0.239     | -2.754    | 0.499     ]
+    [ 100.460   | 0.869     | -2.686    | 1.499     ]
+
+    Printing Higgs b-quark:
+    [ 221.481   | 0.645     | 0.474     | 4.800     ]
+    [ 56.847    | -0.215    | 1.151     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 213.733   | 0.630     | 0.476     | 43.787    ]
+    [ 82.006    | -0.536    | -2.453    | 12.221    ]
+    [ 68.731    | -0.152    | 1.117     | 13.975    ]
+    [ 50.336    | 1.499     | 0.183     | 7.077     ]
+
+    Printing btagged_subjet:
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 32.300    | -1.869    | 0.349     | 7.181     ]
+    [ 51.156    | -2.323    | -1.243    | 7.150     ]
+
+    Printing wquark_candidate_subjets:
+    [ 85.452    | 1.301     | 3.046     | 13.266    ]
+    [ 97.817    | 0.841     | -2.688    | 14.758    ]
+
+
+Specific Print number 15 in job_8 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 227.175   | 0.093     | -2.493    | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 176.337   | 0.463     | -2.981    | 17.049    ]
+    [ 60.490    | 0.029     | 1.624     | 9.944     ]
+    [ 49.528    | -0.404    | 0.325     | 9.128     ]
+    [ 45.276    | -1.752    | -1.813    | 9.178     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 41.963    | -0.866    | 2.307     | 6.833     ]
+    [ 80.451    | -1.352    | 0.845     | 13.538    ]
+    [ 150.111   | -0.917    | 1.261     | 19.762    ]
+
+Chosen httCandidate:
+delR with lepton: 2.90504015912
+
+    Printing tl_subjets:
+    [ 127.259   | -0.886    | 1.261     | 9.275     ]
+    [ 103.610   | -0.246    | 0.862     | 9.374     ]
+    [ 63.347    | -1.337    | 0.863     | 8.519     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 63.571    | -0.400    | 0.266     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 172.409   | 0.470     | -2.992    | 4.700     ]
+
+    Printing Light quarks:
+    [ 66.790    | -0.803    | 2.118     | 0.500     ]
+    [ 137.344   | -0.889    | 1.243     | 1.500     ]
+
+    Printing Higgs b-quark:
+    [ 117.358   | -0.915    | -2.141    | 4.800     ]
+    [ 182.470   | -0.933    | -1.261    | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 176.337   | 0.463     | -2.981    | 17.049    ]
+    [ 60.490    | 0.029     | 1.624     | 9.944     ]
+    [ 49.528    | -0.404    | 0.325     | 9.128     ]
+    [ 45.276    | -1.752    | -1.813    | 9.178     ]
+
+    Printing btagged_subjet:
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 41.963    | -0.866    | 2.307     | 6.833     ]
+
+    Printing wquark_candidate_subjets:
+    [ 63.347    | -1.337    | 0.863     | 8.519     ]
+    [ 127.259   | -0.886    | 1.261     | 9.275     ]
+
+
+Specific Print number 16 in job_30 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 184.413   | 0.539     | 1.189     | 0.047     ]
+
+    Printing event.btagged_jets:
+    [ 173.734   | 0.061     | 1.111     | 16.964    ]
+    [ 139.528   | 0.654     | -0.859    | 13.823    ]
+    [ 84.484    | 1.255     | -1.225    | 11.460    ]
+    [ 37.923    | -0.153    | -0.070    | 7.588     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 77.451    | -1.081    | -1.915    | 9.913     ]
+    [ 175.996   | -0.127    | -2.796    | 8.511     ]
+    [ 105.177   | -0.581    | 3.049     | 1.109     ]
+
+Chosen httCandidate:
+delR with lepton: 2.56330109838
+
+    Printing tl_subjets:
+    [ 164.248   | -0.129    | -2.796    | 5.365     ]
+    [ 96.949    | -0.581    | 3.049     | 1.025     ]
+    [ 64.835    | -1.076    | -1.922    | 6.070     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 106.644   | 1.242     | -1.237    | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 162.223   | 0.057     | 1.114     | 4.700     ]
+
+    Printing Light quarks:
+    [ 41.609    | -0.158    | -0.041    | 0.500     ]
+    [ 127.714   | 0.646     | -0.857    | 1.500     ]
+
+    Printing Higgs b-quark:
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 173.734   | 0.061     | 1.111     | 16.964    ]
+    [ 139.528   | 0.654     | -0.859    | 13.823    ]
+    [ 84.484    | 1.255     | -1.225    | 11.460    ]
+    [ 37.923    | -0.153    | -0.070    | 7.588     ]
+
+    Printing btagged_subjet:
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 77.451    | -1.081    | -1.915    | 9.913     ]
+
+    Printing wquark_candidate_subjets:
+    [ 96.949    | -0.581    | 3.049     | 1.025     ]
+    [ 164.248   | -0.129    | -2.796    | 5.365     ]
+
+
+Specific Print number 17 in job_82 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 44.341    | -1.082    | -0.485    | 0.017     ]
+
+    Printing event.btagged_jets:
+    [ 240.150   | 0.280     | -1.282    | 50.681    ]
+    [ 141.364   | -0.795    | -1.802    | 16.195    ]
+    [ 103.036   | -0.425    | -1.156    | 11.262    ]
+    [ 42.941    | 1.590     | 2.490     | 9.500     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 344.879   | 0.712     | 1.810     | 42.601    ]
+    [ 46.858    | 1.025     | 1.495     | 4.933     ]
+    [ 33.015    | -0.441    | 1.885     | 6.252     ]
+
+Chosen httCandidate:
+delR with lepton: 1.27109305587
+
+    Printing tl_subjets:
+    [ 128.643   | -0.795    | -1.802    | 14.735    ]
+    [ 94.047    | -0.420    | -1.155    | 9.282     ]
+    [ 155.475   | 0.314     | -1.394    | 13.085    ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 44.503    | 1.598     | 2.506     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 130.798   | -0.793    | -1.788    | 4.700     ]
+
+    Printing Light quarks:
+    [ 97.136    | 1.014     | 1.518     | 0.329     ]
+    [ 306.874   | 0.685     | 1.835     | 0.336     ]
+
+    Printing Higgs b-quark:
+    [ 119.523   | -0.429    | -1.173    | 4.800     ]
+    [ 202.957   | 0.343     | -1.295    | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 240.150   | 0.280     | -1.282    | 50.681    ]
+    [ 103.036   | -0.425    | -1.156    | 11.262    ]
+    [ 42.941    | 1.590     | 2.490     | 9.500     ]
+
+    Printing btagged_subjet:
+    [ 128.643   | -0.795    | -1.802    | 14.735    ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 344.879   | 0.712     | 1.810     | 42.601    ]
+    [ 46.858    | 1.025     | 1.495     | 4.933     ]
+    [ 33.015    | -0.441    | 1.885     | 6.252     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 18 in job_82 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 157.152   | 1.120     | 0.918     | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 191.907   | 1.471     | 0.643     | 19.957    ]
+    [ 122.647   | 0.026     | -2.711    | 19.987    ]
+    [ 85.046    | 0.475     | -2.014    | 14.897    ]
+    [ 37.529    | 1.892     | 0.130     | 7.951     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 117.388   | 0.121     | 2.951     | 9.773     ]
+    [ 31.675    | 0.324     | -0.874    | 6.533     ]
+    [ 191.482   | 1.073     | -1.636    | 27.182    ]
+
+Chosen httCandidate:
+delR with lepton: 0.239186395323
+
+    Printing tl_subjets:
+    [ 157.886   | 1.120     | 0.917     | 3.722     ]
+    [ 157.694   | 1.471     | 0.646     | 12.494    ]
+    [ 138.477   | 1.068     | 1.682     | 12.142    ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 82.725    | 0.454     | -1.977    | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 163.832   | 1.074     | 1.669     | 4.700     ]
+
+    Printing Light quarks:
+    [ 28.906    | -0.739    | -2.374    | 0.500     ]
+    [ 139.638   | 0.119     | 2.954     | 1.500     ]
+
+    Printing Higgs b-quark:
+    [ 218.782   | 1.459     | 0.657     | 4.800     ]
+    [ 39.295    | 2.568     | -0.023    | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 122.647   | 0.026     | -2.711    | 19.987    ]
+    [ 85.046    | 0.475     | -2.014    | 14.897    ]
+    [ 37.529    | 1.892     | 0.130     | 7.951     ]
+
+    Printing btagged_subjet:
+    [ 157.694   | 1.471     | 0.646     | 12.494    ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 117.388   | 0.121     | 2.951     | 9.773     ]
+    [ 31.675    | 0.324     | -0.874    | 6.533     ]
+    [ 191.482   | 1.073     | -1.636    | 27.182    ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 19 in job_80 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 34.852    | 1.226     | -1.330    | -0.013    ]
+
+    Printing event.btagged_jets:
+    [ 91.800    | 0.248     | 0.134     | 10.777    ]
+    [ 55.039    | 0.207     | 1.969     | 8.473     ]
+    [ 42.904    | 1.120     | -1.750    | 3.793     ]
+    [ 37.953    | 1.053     | -3.075    | 8.271     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 57.752    | 2.378     | 2.993     | 6.684     ]
+    [ 92.079    | 1.458     | 2.658     | 13.782    ]
+    [ 48.808    | 0.891     | 1.268     | 9.312     ]
+
+Chosen httCandidate:
+delR with lepton: 2.45774510574
+
+    Printing tl_subjets:
+    [ 140.760   | 0.279     | 1.086     | 9.721     ]
+    [ 50.439    | 0.211     | 1.959     | 6.867     ]
+    [ 83.831    | 0.250     | 0.134     | 8.536     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 40.849    | 0.995     | -3.137    | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 88.751    | 0.252     | 0.130     | 4.700     ]
+
+    Printing Light quarks:
+    [ 61.127    | 0.204     | 2.000     | 1.500     ]
+    [ 129.707   | 0.292     | 1.067     | 0.330     ]
+
+    Printing Higgs b-quark:
+    [ 79.487    | 2.276     | 2.825     | 4.800     ]
+    [ 51.987    | 1.113     | -1.771    | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 55.039    | 0.207     | 1.969     | 8.473     ]
+    [ 42.904    | 1.120     | -1.750    | 3.793     ]
+    [ 37.953    | 1.053     | -3.075    | 8.271     ]
+
+    Printing btagged_subjet:
+    [ 83.831    | 0.250     | 0.134     | 8.536     ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 57.752    | 2.378     | 2.993     | 6.684     ]
+    [ 92.079    | 1.458     | 2.658     | 13.782    ]
+    [ 48.808    | 0.891     | 1.268     | 9.312     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 20 in job_64 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 63.204    | 0.881     | -1.744    | 0.016     ]
+
+    Printing event.btagged_jets:
+    [ 323.369   | -1.820    | 0.320     | 55.828    ]
+    [ 290.002   | 1.443     | -2.480    | 43.265    ]
+    [ 83.087    | 1.221     | 3.025     | 14.687    ]
+    [ 31.042    | -1.154    | 0.810     | 4.396     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 49.884    | -1.646    | 0.761     | 5.126     ]
+    [ 76.958    | -0.490    | 1.380     | 13.725    ]
+
+Chosen httCandidate:
+delR with lepton: 0.915454630433
+
+    Printing tl_subjets:
+    [ 66.089    | 0.885     | -1.747    | 2.802     ]
+    [ 56.411    | 1.191     | 2.959     | 4.628     ]
+    [ 209.959   | 1.415     | -2.527    | 13.975    ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 78.079    | -1.155    | 0.840     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 86.298    | 1.600     | -2.224    | 4.700     ]
+
+    Printing Light quarks:
+    [ 257.263   | -1.926    | 0.271     | 0.339     ]
+    [ 125.388   | -1.547    | 0.543     | 0.333     ]
+
+    Printing Higgs b-quark:
+    [ 281.917   | 1.411     | -2.534    | 4.800     ]
+    [ 83.668    | 1.167     | 2.956     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 323.369   | -1.820    | 0.320     | 55.828    ]
+    [ 83.087    | 1.221     | 3.025     | 14.687    ]
+    [ 31.042    | -1.154    | 0.810     | 4.396     ]
+
+    Printing btagged_subjet:
+    [ 209.959   | 1.415     | -2.527    | 13.975    ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 49.884    | -1.646    | 0.761     | 5.126     ]
+    [ 76.958    | -0.490    | 1.380     | 13.725    ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 21 in job_7 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 69.580    | -0.363    | -3.060    | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 167.710   | -0.231    | 1.466     | 15.396    ]
+    [ 74.301    | 0.061     | 0.281     | 11.827    ]
+    [ 58.287    | -1.140    | -1.572    | 8.391     ]
+    [ 42.670    | -0.248    | 2.043     | 7.487     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 67.140    | -1.425    | -0.556    | 10.671    ]
+    [ 33.603    | -0.920    | -0.824    | 6.569     ]
+    [ 51.085    | -0.631    | 2.649     | 8.335     ]
+
+Chosen httCandidate:
+delR with lepton: 1.94575012511
+
+    Printing tl_subjets:
+    [ 65.473    | 0.049     | 0.290     | 9.253     ]
+    [ 39.004    | -0.243    | 2.044     | 6.112     ]
+    [ 150.876   | -0.234    | 1.471     | 10.867    ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 87.264    | -1.357    | -1.536    | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 59.966    | -0.255    | 2.050     | 4.700     ]
+
+    Printing Light quarks:
+    [ 91.664    | -1.507    | -0.679    | 0.501     ]
+    [ 39.926    | -0.790    | 0.520     | 1.500     ]
+
+    Printing Higgs b-quark:
+    [ 74.923    | 0.056     | 0.261     | 4.800     ]
+    [ 151.762   | -0.228    | 1.466     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 74.301    | 0.061     | 0.281     | 11.827    ]
+    [ 58.287    | -1.140    | -1.572    | 8.391     ]
+    [ 42.670    | -0.248    | 2.043     | 7.487     ]
+
+    Printing btagged_subjet:
+    [ 150.876   | -0.234    | 1.471     | 10.867    ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 67.140    | -1.425    | -0.556    | 10.671    ]
+    [ 33.603    | -0.920    | -0.824    | 6.569     ]
+    [ 51.085    | -0.631    | 2.649     | 8.335     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 22 in job_7 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 34.110    | 0.960     | -2.132    | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 315.751   | 1.871     | -2.758    | 26.113    ]
+    [ 282.328   | 0.215     | -1.074    | 27.462    ]
+    [ 236.302   | -0.424    | 0.462     | 38.263    ]
+    [ 165.657   | 0.814     | -1.173    | 21.338    ]
+    [ 39.224    | -1.793    | 1.556     | 7.029     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 69.158    | -1.087    | 2.562     | 9.240     ]
+    [ 70.846    | -0.613    | 3.011     | 10.751    ]
+    [ 35.601    | 0.435     | 2.086     | 6.840     ]
+
+Chosen httCandidate:
+delR with lepton: 3.11219046394
+
+    Printing tl_subjets:
+    [ 151.617   | -0.307    | 0.981     | 17.676    ]
+    [ 90.472    | 0.498     | 1.050     | 9.550     ]
+    [ 203.494   | -0.432    | 0.446     | 28.172    ]
+
+Another httCandidate was found:
+delR with lepton: 1.20316508294
+
+    Printing tl_subjets_other_top:
+    [ 248.211   | 0.222     | -1.077    | 13.286    ]
+    [ 42.727    | -0.286    | -0.732    | 6.915     ]
+    [ 145.165   | 0.804     | -1.166    | 14.780    ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 51.290    | -1.818    | 1.591     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 311.615   | 1.868     | -2.747    | 4.700     ]
+
+    Printing Light quarks:
+    [ 71.744    | -1.504    | 2.670     | 0.503     ]
+    [ 106.652   | -0.604    | 2.974     | 1.500     ]
+
+    Printing Higgs b-quark:
+    [ 157.338   | 0.794     | -1.172    | 4.800     ]
+    [ 278.684   | 0.215     | -1.073    | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 315.751   | 1.871     | -2.758    | 26.113    ]
+    [ 282.328   | 0.215     | -1.074    | 27.462    ]
+    [ 165.657   | 0.814     | -1.173    | 21.338    ]
+    [ 39.224    | -1.793    | 1.556     | 7.029     ]
+
+    Printing btagged_subjet:
+    [ 203.494   | -0.432    | 0.446     | 28.172    ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 69.158    | -1.087    | 2.562     | 9.240     ]
+    [ 70.846    | -0.613    | 3.011     | 10.751    ]
+    [ 35.601    | 0.435     | 2.086     | 6.840     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 23 in job_93 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 48.607    | -1.134    | 1.657     | -0.023    ]
+
+    Printing event.btagged_jets:
+    [ 150.222   | -1.444    | -1.672    | 24.730    ]
+    [ 110.904   | -1.619    | 2.423     | 12.346    ]
+    [ 108.141   | -0.649    | 2.019     | 16.420    ]
+    [ 45.871    | -0.171    | 0.916     | 6.694     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 67.099    | -1.115    | -0.448    | 11.607    ]
+    [ 46.232    | -0.644    | -2.044    | 8.274     ]
+    [ 33.052    | -2.241    | 0.139     | 5.581     ]
+
+Chosen httCandidate:
+delR with lepton: 0.450157800021
+
+    Printing tl_subjets:
+    [ 94.968    | -1.622    | 2.419     | 8.759     ]
+    [ 53.300    | -1.150    | 1.646     | 3.548     ]
+    [ 101.134   | -0.651    | 2.024     | 15.386    ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 180.038   | -1.450    | -1.699    | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 60.495    | -0.189    | 0.901     | 4.700     ]
+
+    Printing Light quarks:
+    [ 48.979    | -0.620    | -2.012    | 0.500     ]
+    [ 59.681    | -1.101    | -0.431    | 1.500     ]
+
+    Printing Higgs b-quark:
+    [ 112.847   | -1.620    | 2.418     | 4.800     ]
+    [ 112.446   | -0.621    | 2.044     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 150.222   | -1.444    | -1.672    | 24.730    ]
+    [ 110.904   | -1.619    | 2.423     | 12.346    ]
+    [ 45.871    | -0.171    | 0.916     | 6.694     ]
+
+    Printing btagged_subjet:
+    [ 101.134   | -0.651    | 2.024     | 15.386    ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 67.099    | -1.115    | -0.448    | 11.607    ]
+    [ 46.232    | -0.644    | -2.044    | 8.274     ]
+    [ 33.052    | -2.241    | 0.139     | 5.581     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 24 in job_0 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 88.984    | -2.009    | -1.771    | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 88.735    | -0.795    | 1.084     | 13.087    ]
+    [ 75.724    | -1.383    | 0.769     | 12.032    ]
+    [ 59.614    | 1.622     | -1.884    | 10.718    ]
+    [ 42.451    | 0.349     | 1.060     | 5.839     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 138.161   | -0.350    | 2.552     | 18.372    ]
+    [ 79.538    | -0.759    | 1.928     | 9.100     ]
+    [ 54.989    | 0.410     | -3.077    | 9.697     ]
+    [ 91.947    | 1.034     | -2.188    | 13.049    ]
+
+Chosen httCandidate:
+delR with lepton: 2.60358801169
+
+    Printing tl_subjets:
+    [ 118.527   | -0.328    | 2.554     | 9.409     ]
+    [ 52.550    | 0.404     | -3.079    | 8.729     ]
+    [ 71.182    | -0.767    | 1.917     | 4.483     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 92.627    | -0.794    | 1.075     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 63.172    | -2.927    | -0.233    | 4.700     ]
+
+    Printing Light quarks:
+    [ 78.881    | -0.731    | 1.892     | 0.330     ]
+    [ 139.175   | -0.345    | 2.571     | 0.331     ]
+
+    Printing Higgs b-quark:
+    [ 53.452    | 0.304     | 1.022     | 4.800     ]
+    [ 80.244    | -1.376    | 0.772     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 88.735    | -0.795    | 1.084     | 13.087    ]
+    [ 75.724    | -1.383    | 0.769     | 12.032    ]
+    [ 59.614    | 1.622     | -1.884    | 10.718    ]
+    [ 42.451    | 0.349     | 1.060     | 5.839     ]
+
+    Printing btagged_subjet:
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 138.161   | -0.350    | 2.552     | 18.372    ]
+    [ 91.947    | 1.034     | -2.188    | 13.049    ]
+
+    Printing wquark_candidate_subjets:
+    [ 52.550    | 0.404     | -3.079    | 8.729     ]
+    [ 71.182    | -0.767    | 1.917     | 4.483     ]
+
+
+Specific Print number 25 in job_48 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 77.503    | -1.157    | 1.997     | -0.022    ]
+
+    Printing event.btagged_jets:
+    [ 252.080   | 0.361     | 0.465     | 24.109    ]
+    [ 85.457    | -0.372    | 1.835     | 6.823     ]
+    [ 82.850    | 0.137     | -2.935    | 15.594    ]
+    [ 53.855    | 0.640     | -1.503    | 11.558    ]
+
+    Printing event.wquark_candidate_jets:
+    [ 58.907    | 0.214     | 2.890     | 4.199     ]
+    [ 99.053    | -0.253    | 2.659     | 14.242    ]
+    [ 147.144   | -0.800    | 2.979     | 15.794    ]
+
+Chosen httCandidate:
+delR with lepton: 1.18861054465
+
+    Printing tl_subjets:
+    [ 129.110   | -0.801    | 2.987     | 10.485    ]
+    [ 79.938    | -0.261    | 2.623     | 6.844     ]
+    [ 61.457    | 0.178     | -2.940    | 7.197     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 99.740    | -0.384    | 1.853     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 48.637    | -0.377    | -1.464    | 4.700     ]
+
+    Printing Light quarks:
+    [ 76.297    | -0.213    | 2.644     | 0.330     ]
+    [ 136.797   | -0.794    | 2.996     | 0.331     ]
+
+    Printing Higgs b-quark:
+    [ 61.577    | -0.821    | -2.109    | 4.800     ]
+    [ 115.349   | 0.199     | 3.096     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 252.080   | 0.361     | 0.465     | 24.109    ]
+    [ 85.457    | -0.372    | 1.835     | 6.823     ]
+    [ 53.855    | 0.640     | -1.503    | 11.558    ]
+
+    Printing btagged_subjet:
+    [ 61.457    | 0.178     | -2.940    | 7.197     ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 58.907    | 0.214     | 2.890     | 4.199     ]
+
+    Printing wquark_candidate_subjets:
+    [ 129.110   | -0.801    | 2.987     | 10.485    ]
+    [ 79.938    | -0.261    | 2.623     | 6.844     ]
+
+
+Specific Print number 26 in job_63 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 84.472    | 0.377     | -2.175    | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 243.805   | 0.872     | 1.469     | 26.771    ]
+    [ 75.432    | 0.254     | 0.892     | 12.759    ]
+    [ 65.518    | 1.663     | 2.030     | 10.280    ]
+    [ 31.525    | 1.488     | -2.510    | 7.581     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 178.324   | 1.076     | 0.960     | 16.251    ]
+    [ 80.552    | 1.754     | 0.696     | 9.880     ]
+    [ 32.138    | 0.480     | -1.503    | 6.237     ]
+    [ 299.823   | 0.081     | -1.793    | 37.846    ]
+
+Chosen httCandidate:
+delR with lepton: 2.95130360765
+
+    Printing tl_subjets:
+    [ 157.363   | 1.070     | 0.966     | 12.148    ]
+    [ 60.268    | 0.223     | 0.888     | 4.111     ]
+    [ 216.537   | 0.873     | 1.464     | 19.881    ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 67.933    | 1.669     | 2.021     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 350.814   | 0.107     | -1.741    | 4.700     ]
+
+    Printing Light quarks:
+    [ 60.560    | 1.764     | 0.682     | 0.501     ]
+    [ 179.948   | 1.062     | 0.976     | 1.499     ]
+
+    Printing Higgs b-quark:
+    [ 216.785   | 0.871     | 1.457     | 4.800     ]
+    [ 75.108    | 0.237     | 0.708     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 75.432    | 0.254     | 0.892     | 12.759    ]
+    [ 65.518    | 1.663     | 2.030     | 10.280    ]
+    [ 31.525    | 1.488     | -2.510    | 7.581     ]
+
+    Printing btagged_subjet:
+    [ 216.537   | 0.873     | 1.464     | 19.881    ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 178.324   | 1.076     | 0.960     | 16.251    ]
+    [ 80.552    | 1.754     | 0.696     | 9.880     ]
+    [ 32.138    | 0.480     | -1.503    | 6.237     ]
+    [ 299.823   | 0.081     | -1.793    | 37.846    ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 27 in job_26 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 96.266    | 0.220     | -1.209    | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 135.757   | 0.597     | -2.134    | 25.553    ]
+    [ 81.876    | 0.243     | 2.409     | 11.638    ]
+    [ 56.558    | 0.804     | -0.299    | 6.790     ]
+    [ 36.331    | -2.404    | 0.465     | 5.511     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 140.087   | -0.444    | 2.554     | 17.672    ]
+    [ 54.643    | 1.144     | 2.276     | 9.861     ]
+    [ 58.761    | 0.376     | 0.956     | 6.819     ]
+
+Chosen httCandidate:
+delR with lepton: 2.60751548143
+
+    Printing tl_subjets:
+    [ 118.184   | -0.468    | 2.548     | 9.213     ]
+    [ 70.725    | 0.247     | 2.410     | 8.071     ]
+    [ 36.027    | 1.128     | 2.351     | 3.287     ]
+
+Another httCandidate was found:
+delR with lepton: 0.500286334563
+
+    Printing tl_subjets_other_top:
+    [ 98.588    | 0.222     | -1.202    | 4.890     ]
+    [ 55.931    | 0.802     | -0.295    | 4.632     ]
+    [ 131.338   | 0.572     | -2.126    | 26.163    ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 99.947    | 0.796     | -0.293    | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 93.910    | 0.663     | -2.141    | 4.700     ]
+
+    Printing Light quarks:
+    [ 27.661    | 0.927     | -0.985    | 0.500     ]
+    [ 58.212    | 1.078     | 2.239     | 1.500     ]
+
+    Printing Higgs b-quark:
+    [ 46.604    | 0.434     | -2.092    | 4.800     ]
+    [ 83.501    | 0.378     | 0.933     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 135.757   | 0.597     | -2.134    | 25.553    ]
+    [ 56.558    | 0.804     | -0.299    | 6.790     ]
+    [ 36.331    | -2.404    | 0.465     | 5.511     ]
+
+    Printing btagged_subjet:
+    [ 70.725    | 0.247     | 2.410     | 8.071     ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 58.761    | 0.376     | 0.956     | 6.819     ]
+
+    Printing wquark_candidate_subjets:
+    [ 118.184   | -0.468    | 2.548     | 9.213     ]
+    [ 36.027    | 1.128     | 2.351     | 3.287     ]
+
+
+Specific Print number 28 in job_26 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 45.084    | -1.487    | 2.409     | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 179.888   | -0.216    | 3.007     | 18.423    ]
+    [ 144.441   | -0.718    | 3.126     | 19.463    ]
+    [ 76.901    | 0.307     | -0.828    | 8.603     ]
+    [ 39.016    | 0.392     | -2.829    | 9.710     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 97.170    | 0.743     | -0.782    | 15.571    ]
+    [ 56.964    | 1.119     | 1.805     | 10.091    ]
+    [ 34.796    | -0.640    | 2.125     | 6.084     ]
+
+Chosen httCandidate:
+delR with lepton: 3.36350664386
+
+    Printing tl_subjets:
+    [ 243.356   | 0.396     | -0.295    | 16.531    ]
+    [ 67.344    | 0.713     | -0.802    | 5.528     ]
+    [ 207.166   | 0.652     | -0.050    | 13.625    ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 84.333    | 0.301     | -0.837    | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 44.174    | 0.453     | -2.869    | 4.700     ]
+
+    Printing Light quarks:
+    [ 204.087   | 0.659     | -0.043    | 0.328     ]
+    [ 269.219   | 0.389     | -0.300    | 0.328     ]
+
+    Printing Higgs b-quark:
+    [ 128.593   | -0.741    | 3.135     | 4.800     ]
+    [ 400.094   | -0.212    | 3.010     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 179.888   | -0.216    | 3.007     | 18.423    ]
+    [ 144.441   | -0.718    | 3.126     | 19.463    ]
+    [ 76.901    | 0.307     | -0.828    | 8.603     ]
+    [ 39.016    | 0.392     | -2.829    | 9.710     ]
+
+    Printing btagged_subjet:
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 97.170    | 0.743     | -0.782    | 15.571    ]
+    [ 56.964    | 1.119     | 1.805     | 10.091    ]
+    [ 34.796    | -0.640    | 2.125     | 6.084     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 29 in job_26 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 74.989    | 1.252     | -1.536    | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 154.138   | 0.658     | -1.376    | 12.110    ]
+    [ 63.764    | 2.222     | -1.779    | 6.943     ]
+    [ 63.331    | 1.423     | -3.066    | 8.246     ]
+    [ 52.672    | 1.750     | -0.212    | 8.537     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 33.167    | 1.077     | 0.890     | 6.740     ]
+    [ 71.879    | -0.034    | 2.476     | 8.665     ]
+    [ 120.700   | 1.470     | -0.723    | 13.625    ]
+
+Chosen httCandidate:
+delR with lepton: 0.337467714879
+
+    Printing tl_subjets:
+    [ 100.214   | 1.460     | -0.729    | 9.841     ]
+    [ 76.315    | 1.254     | -1.540    | 3.720     ]
+    [ 138.339   | 0.657     | -1.374    | 9.223     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 67.551    | 1.409     | -3.088    | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 151.439   | 0.648     | -1.386    | 4.700     ]
+
+    Printing Light quarks:
+    [ 127.668   | 0.383     | 2.926     | 0.330     ]
+    [ 64.427    | 0.142     | 2.035     | 0.330     ]
+
+    Printing Higgs b-quark:
+    [ 59.915    | 1.716     | -0.300    | 4.800     ]
+    [ 120.782   | 2.213     | -1.815    | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 63.764    | 2.222     | -1.779    | 6.943     ]
+    [ 63.331    | 1.423     | -3.066    | 8.246     ]
+    [ 52.672    | 1.750     | -0.212    | 8.537     ]
+
+    Printing btagged_subjet:
+    [ 138.339   | 0.657     | -1.374    | 9.223     ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 33.167    | 1.077     | 0.890     | 6.740     ]
+    [ 71.879    | -0.034    | 2.476     | 8.665     ]
+    [ 120.700   | 1.470     | -0.723    | 13.625    ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 30 in job_10 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 206.018   | -0.943    | -2.381    | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 211.763   | -1.405    | 0.310     | 33.142    ]
+    [ 179.274   | -0.875    | 0.439     | 33.380    ]
+    [ 142.631   | -0.180    | -2.745    | 15.568    ]
+    [ 54.166    | -0.765    | 2.102     | 7.918     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 43.119    | -1.713    | -2.517    | 10.480    ]
+    [ 103.282   | -1.881    | 0.887     | 11.722    ]
+    [ 90.280    | -1.173    | 0.748     | 10.491    ]
+
+Chosen httCandidate:
+delR with lepton: 2.90691297949
+
+    Printing tl_subjets:
+    [ 166.378   | -1.406    | 0.298     | 21.160    ]
+    [ 116.180   | -0.948    | 0.445     | 6.574     ]
+    [ 88.307    | -1.871    | 0.882     | 7.226     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 49.971    | -0.780    | 2.100     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 148.891   | -0.190    | -2.739    | 4.700     ]
+
+    Printing Light quarks:
+    [ 114.052   | -1.158    | 0.724     | 1.500     ]
+    [ 94.416    | -1.903    | 0.878     | 0.500     ]
+
+    Printing Higgs b-quark:
+    [ 197.831   | -1.433    | 0.301     | 4.800     ]
+    [ 184.981   | -0.807    | 0.438     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 179.274   | -0.875    | 0.439     | 33.380    ]
+    [ 142.631   | -0.180    | -2.745    | 15.568    ]
+    [ 54.166    | -0.765    | 2.102     | 7.918     ]
+
+    Printing btagged_subjet:
+    [ 166.378   | -1.406    | 0.298     | 21.160    ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 43.119    | -1.713    | -2.517    | 10.480    ]
+    [ 103.282   | -1.881    | 0.887     | 11.722    ]
+    [ 90.280    | -1.173    | 0.748     | 10.491    ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 31 in job_10 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 38.818    | -0.638    | 0.721     | -0.009    ]
+
+    Printing event.btagged_jets:
+    [ 164.209   | -1.132    | -0.846    | 22.479    ]
+    [ 119.279   | 0.481     | 1.289     | 20.386    ]
+    [ 69.815    | -0.800    | 2.650     | 13.175    ]
+    [ 68.687    | -0.098    | 1.269     | 13.214    ]
+
+    Printing event.wquark_candidate_jets:
+    [ 69.841    | -0.303    | 2.096     | 11.377    ]
+    [ 143.761   | -2.448    | -0.915    | 18.545    ]
+    [ 102.963   | 0.259     | 2.772     | 21.352    ]
+    [ 32.404    | -2.314    | -1.622    | 5.566     ]
+
+Chosen httCandidate:
+delR with lepton: 2.17626534199
+
+    Printing tl_subjets:
+    [ 135.863   | -1.128    | -0.864    | 14.275    ]
+    [ 32.958    | -2.316    | -1.571    | 5.740     ]
+    [ 118.349   | -2.449    | -0.919    | 4.526     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 84.021    | -0.756    | 2.881     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 164.812   | -1.129    | -0.853    | 4.700     ]
+
+    Printing Light quarks:
+    [ 83.262    | -0.232    | 1.908     | 0.330     ]
+    [ 112.921   | 0.244     | 2.813     | 1.500     ]
+
+    Printing Higgs b-quark:
+    [ 37.726    | -1.065    | 1.629     | 4.800     ]
+    [ 117.357   | 0.590     | 1.351     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 119.279   | 0.481     | 1.289     | 20.386    ]
+    [ 69.815    | -0.800    | 2.650     | 13.175    ]
+    [ 68.687    | -0.098    | 1.269     | 13.214    ]
+
+    Printing btagged_subjet:
+    [ 135.863   | -1.128    | -0.864    | 14.275    ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 69.841    | -0.303    | 2.096     | 11.377    ]
+    [ 102.963   | 0.259     | 2.772     | 21.352    ]
+
+    Printing wquark_candidate_subjets:
+    [ 118.349   | -2.449    | -0.919    | 4.526     ]
+    [ 32.958    | -2.316    | -1.571    | 5.740     ]
+
+
+Specific Print number 32 in job_89 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 55.549    | -0.007    | -1.277    | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 145.072   | -0.135    | 1.783     | 20.146    ]
+    [ 138.092   | 0.640     | -1.949    | 14.832    ]
+    [ 88.563    | 1.698     | -1.806    | 18.283    ]
+    [ 84.302    | 0.207     | 1.453     | 9.383     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 52.131    | -0.924    | 0.495     | 7.942     ]
+    [ 33.527    | 1.379     | 2.931     | 5.551     ]
+    [ 41.383    | 0.162     | 2.254     | 7.568     ]
+
+Chosen httCandidate:
+delR with lepton: 1.0523911407
+
+    Printing tl_subjets:
+    [ 125.789   | 0.642     | -1.949    | 13.010    ]
+    [ 60.194    | 0.006     | -1.273    | 5.539     ]
+    [ 57.281    | 1.771     | -1.825    | 7.968     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 122.264   | -0.055    | 1.751     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 79.593    | 0.177     | 1.443     | 4.700     ]
+
+    Printing Light quarks:
+    [ 59.477    | 0.138     | 2.263     | 0.500     ]
+    [ 41.041    | 1.239     | -2.867    | 1.500     ]
+
+    Printing Higgs b-quark:
+    [ 125.900   | 0.618     | -1.967    | 4.800     ]
+    [ 91.126    | 1.716     | -1.819    | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 145.072   | -0.135    | 1.783     | 20.146    ]
+    [ 88.563    | 1.698     | -1.806    | 18.283    ]
+    [ 84.302    | 0.207     | 1.453     | 9.383     ]
+
+    Printing btagged_subjet:
+    [ 125.789   | 0.642     | -1.949    | 13.010    ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 52.131    | -0.924    | 0.495     | 7.942     ]
+    [ 33.527    | 1.379     | 2.931     | 5.551     ]
+    [ 41.383    | 0.162     | 2.254     | 7.568     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 33 in job_89 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 163.472   | 0.002     | 0.811     | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 146.747   | -0.893    | -0.890    | 16.657    ]
+    [ 75.913    | -1.468    | -1.009    | 18.046    ]
+    [ 69.447    | -1.440    | 0.254     | 8.190     ]
+    [ 62.594    | -0.051    | -1.324    | 10.775    ]
+
+    Printing event.wquark_candidate_jets:
+    [ 85.776    | -0.158    | 1.786     | 12.058    ]
+    [ 55.441    | -0.604    | -1.664    | 9.739     ]
+    [ 141.998   | -0.279    | 2.416     | 12.507    ]
+
+Chosen httCandidate:
+delR with lepton: 0.767795072798
+
+    Printing tl_subjets:
+    [ 126.530   | -0.275    | 2.413     | 6.804     ]
+    [ 79.610    | -0.158    | 1.784     | 10.884    ]
+    [ 166.104   | 0.002     | 0.812     | 1.939     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 209.246   | -0.986    | -0.856    | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 88.324    | -0.150    | 1.809     | 4.700     ]
+
+    Printing Light quarks:
+    [ 61.973    | -1.880    | -1.198    | 1.500     ]
+    [ 45.057    | -0.521    | -1.673    | 0.500     ]
+
+    Printing Higgs b-quark:
+    [ 66.561    | -1.462    | 0.283     | 4.800     ]
+    [ 51.521    | -0.023    | -1.321    | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 146.747   | -0.893    | -0.890    | 16.657    ]
+    [ 75.913    | -1.468    | -1.009    | 18.046    ]
+    [ 69.447    | -1.440    | 0.254     | 8.190     ]
+    [ 62.594    | -0.051    | -1.324    | 10.775    ]
+
+    Printing btagged_subjet:
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 55.441    | -0.604    | -1.664    | 9.739     ]
+
+    Printing wquark_candidate_subjets:
+    [ 79.610    | -0.158    | 1.784     | 10.884    ]
+    [ 126.530   | -0.275    | 2.413     | 6.804     ]
+
+
+Specific Print number 34 in job_83 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 120.501   | 1.677     | -2.676    | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 526.512   | -0.285    | -2.339    | 48.897    ]
+    [ 81.305    | -0.500    | 0.457     | 8.154     ]
+    [ 78.507    | 0.457     | 0.114     | 11.459    ]
+    [ 72.654    | 0.521     | -2.175    | 11.686    ]
+
+    Printing event.wquark_candidate_jets:
+    [ 40.356    | 1.550     | 0.525     | 7.850     ]
+    [ 480.907   | 1.858     | 0.924     | 60.181    ]
+    [ 41.127    | -0.038    | -2.945    | 6.102     ]
+    [ 61.660    | -0.457    | -0.831    | 6.934     ]
+
+Chosen httCandidate:
+delR with lepton: 1.92946510283
+
+    Printing tl_subjets:
+    [ 66.548    | 0.530     | -2.171    | 10.003    ]
+    [ 51.046    | -0.601    | -2.930    | 4.497     ]
+    [ 465.328   | -0.287    | -2.327    | 25.947    ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 96.690    | -0.517    | 0.460     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 62.420    | 0.498     | -2.175    | 4.700     ]
+
+    Printing Light quarks:
+    [ 38.844    | -0.070    | -2.851    | 1.500     ]
+    [ 56.222    | -0.452    | -0.817    | 0.500     ]
+
+    Printing Higgs b-quark:
+    [ 80.787    | 1.740     | 0.590     | 4.800     ]
+    [ 87.589    | 0.435     | 0.105     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 526.512   | -0.285    | -2.339    | 48.897    ]
+    [ 81.305    | -0.500    | 0.457     | 8.154     ]
+    [ 78.507    | 0.457     | 0.114     | 11.459    ]
+
+    Printing btagged_subjet:
+    [ 66.548    | 0.530     | -2.171    | 10.003    ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 40.356    | 1.550     | 0.525     | 7.850     ]
+    [ 480.907   | 1.858     | 0.924     | 60.181    ]
+    [ 41.127    | -0.038    | -2.945    | 6.102     ]
+    [ 61.660    | -0.457    | -0.831    | 6.934     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 35 in job_4 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 72.078    | -0.051    | 1.376     | -0.009    ]
+
+    Printing event.btagged_jets:
+    [ 174.012   | -0.483    | 0.618     | 22.227    ]
+    [ 118.470   | -0.387    | -1.802    | 15.184    ]
+    [ 68.754    | 0.843     | 0.799     | 11.256    ]
+    [ 58.293    | -0.135    | -3.007    | 13.307    ]
+
+    Printing event.wquark_candidate_jets:
+    [ 70.358    | 1.944     | -2.538    | 11.472    ]
+    [ 44.921    | 0.275     | -2.598    | 8.566     ]
+    [ 39.296    | 1.057     | 1.522     | 5.069     ]
+
+Chosen httCandidate:
+delR with lepton: 0.54586489765
+
+    Printing tl_subjets:
+    [ 73.029    | -0.050    | 1.378     | 2.909     ]
+    [ 60.879    | 0.838     | 0.784     | 8.437     ]
+    [ 163.493   | -0.482    | 0.617     | 20.370    ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 166.237   | -0.397    | -1.810    | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 188.002   | -0.460    | 0.614     | 4.700     ]
+
+    Printing Light quarks:
+    [ 21.099    | -0.569    | 0.423     | 0.500     ]
+    [ 65.323    | 0.257     | -2.691    | 1.500     ]
+
+    Printing Higgs b-quark:
+    [ 60.113    | 0.847     | 0.774     | 4.800     ]
+    [ 54.843    | -0.165    | -3.014    | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 118.470   | -0.387    | -1.802    | 15.184    ]
+    [ 68.754    | 0.843     | 0.799     | 11.256    ]
+    [ 58.293    | -0.135    | -3.007    | 13.307    ]
+
+    Printing btagged_subjet:
+    [ 163.493   | -0.482    | 0.617     | 20.370    ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 70.358    | 1.944     | -2.538    | 11.472    ]
+    [ 44.921    | 0.275     | -2.598    | 8.566     ]
+    [ 39.296    | 1.057     | 1.522     | 5.069     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 36 in job_79 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 111.781   | 1.529     | 1.112     | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 155.658   | 2.110     | 1.972     | 15.377    ]
+    [ 89.893    | 0.894     | -2.507    | 17.214    ]
+    [ 37.774    | 1.823     | -0.011    | 5.444     ]
+    [ 35.545    | 2.128     | 1.231     | 6.612     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 115.366   | 1.460     | -1.233    | 20.660    ]
+    [ 135.204   | 1.737     | -1.714    | 18.338    ]
+
+Chosen httCandidate:
+delR with lepton: 2.83040622212
+
+    Printing tl_subjets:
+    [ 112.711   | 1.485     | -1.263    | 21.945    ]
+    [ 104.943   | 1.748     | -1.739    | 10.952    ]
+    [ 67.304    | 0.836     | -2.500    | 10.224    ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 44.318    | 1.871     | 0.053     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 160.324   | 2.101     | 1.973     | 4.699     ]
+
+    Printing Light quarks:
+    [ 142.017   | 1.421     | -1.206    | 0.328     ]
+    [ 115.033   | 1.765     | -1.736    | 0.326     ]
+
+    Printing Higgs b-quark:
+    [ 50.397    | 2.155     | 1.481     | 4.800     ]
+    [ 57.826    | 0.819     | -2.553    | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 155.658   | 2.110     | 1.972     | 15.377    ]
+    [ 37.774    | 1.823     | -0.011    | 5.444     ]
+    [ 35.545    | 2.128     | 1.231     | 6.612     ]
+
+    Printing btagged_subjet:
+    [ 67.304    | 0.836     | -2.500    | 10.224    ]
+
+    Printing wquark_candidate_jets_minus_sj:
+
+    Printing wquark_candidate_subjets:
+    [ 104.943   | 1.748     | -1.739    | 10.952    ]
+    [ 112.711   | 1.485     | -1.263    | 21.945    ]
+
+
+Specific Print number 37 in job_79 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 89.061    | 0.449     | -2.220    | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 101.098   | 0.222     | -1.431    | 10.734    ]
+    [ 79.675    | -1.707    | 1.549     | 11.218    ]
+    [ 46.576    | 0.551     | 0.546     | 6.844     ]
+    [ 30.323    | 2.109     | -0.918    | 6.535     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 126.179   | -1.165    | 1.045     | 12.463    ]
+    [ 44.880    | -0.301    | 1.105     | 8.241     ]
+
+Chosen httCandidate:
+delR with lepton: 0.11392930703
+
+    Printing tl_subjets:
+    [ 91.600    | 0.454     | -2.220    | 3.243     ]
+    [ 86.716    | 0.226     | -1.422    | 5.223     ]
+    [ 120.891   | 0.645     | -2.546    | 9.044     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 113.402   | -1.683    | 1.569     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 148.431   | 0.689     | -2.565    | 4.700     ]
+
+    Printing Light quarks:
+    [ 107.865   | -1.177    | 1.034     | 1.500     ]
+    [ 57.453    | -0.225    | 1.263     | 0.500     ]
+
+    Printing Higgs b-quark:
+    [ 101.779   | 0.197     | -1.456    | 4.800     ]
+    [ 51.967    | 0.584     | 0.518     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 79.675    | -1.707    | 1.549     | 11.218    ]
+    [ 46.576    | 0.551     | 0.546     | 6.844     ]
+    [ 30.323    | 2.109     | -0.918    | 6.535     ]
+
+    Printing btagged_subjet:
+    [ 86.716    | 0.226     | -1.422    | 5.223     ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 126.179   | -1.165    | 1.045     | 12.463    ]
+    [ 44.880    | -0.301    | 1.105     | 8.241     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 38 in job_9 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 117.324   | 0.011     | -0.299    | -0.042    ]
+
+    Printing event.btagged_jets:
+    [ 95.690    | -1.289    | -1.951    | 17.103    ]
+    [ 77.330    | -1.280    | 0.578     | 20.539    ]
+    [ 63.917    | -0.572    | -2.167    | 13.010    ]
+    [ 56.768    | 1.774     | 1.548     | 6.904     ]
+    [ 37.571    | 0.565     | 1.260     | 6.081     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 124.251   | 0.681     | 2.854     | 12.917    ]
+    [ 69.114    | -0.426    | -1.072    | 11.723    ]
+    [ 52.564    | -0.762    | -0.737    | 8.460     ]
+    [ 100.621   | 1.293     | 2.698     | 12.383    ]
+
+Chosen httCandidate:
+delR with lepton: 3.15316643325
+
+    Printing tl_subjets:
+    [ 85.882    | 1.300     | 2.704     | 8.462     ]
+    [ 46.998    | 1.772     | 1.546     | 3.140     ]
+    [ 113.436   | 0.669     | 2.862     | 8.857     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 57.922    | -1.341    | 0.811     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 80.730    | 0.339     | 1.262     | 4.700     ]
+
+    Printing Light quarks:
+    [ 38.496    | -1.036    | -1.977    | 0.330     ]
+    [ 108.953   | -0.654    | -0.708    | 0.330     ]
+
+    Printing Higgs b-quark:
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 95.690    | -1.289    | -1.951    | 17.103    ]
+    [ 77.330    | -1.280    | 0.578     | 20.539    ]
+    [ 63.917    | -0.572    | -2.167    | 13.010    ]
+    [ 37.571    | 0.565     | 1.260     | 6.081     ]
+
+    Printing btagged_subjet:
+    [ 46.998    | 1.772     | 1.546     | 3.140     ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 69.114    | -0.426    | -1.072    | 11.723    ]
+    [ 52.564    | -0.762    | -0.737    | 8.460     ]
+
+    Printing wquark_candidate_subjets:
+    [ 85.882    | 1.300     | 2.704     | 8.462     ]
+    [ 113.436   | 0.669     | 2.862     | 8.857     ]
+
+
+Specific Print number 39 in job_9 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 88.965    | 0.355     | -3.068    | -0.030    ]
+
+    Printing event.btagged_jets:
+    [ 220.999   | -0.056    | -2.792    | 16.594    ]
+    [ 157.202   | -0.168    | -0.107    | 17.374    ]
+    [ 59.769    | -1.014    | -0.160    | 8.456     ]
+    [ 52.276    | 0.150     | -1.071    | 13.178    ]
+
+    Printing event.wquark_candidate_jets:
+    [ 54.927    | -1.387    | 1.758     | 8.858     ]
+    [ 67.644    | -0.484    | 0.833     | 12.863    ]
+
+Chosen httCandidate:
+delR with lepton: 3.24764545774
+
+    Printing tl_subjets:
+    [ 143.515   | -0.168    | -0.110    | 13.749    ]
+    [ 50.253    | -1.025    | -0.179    | 3.293     ]
+    [ 57.486    | -0.461    | 0.813     | 9.280     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 30.740    | 0.175     | -1.256    | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 233.209   | -0.060    | -2.775    | 4.700     ]
+
+    Printing Light quarks:
+    [ 65.579    | -1.364    | 1.699     | 0.500     ]
+    [ 66.475    | -0.481    | 0.845     | 1.500     ]
+
+    Printing Higgs b-quark:
+    [ 40.949    | -1.177    | -0.951    | 4.800     ]
+    [ 210.226   | -0.146    | -0.129    | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 220.999   | -0.056    | -2.792    | 16.594    ]
+    [ 59.769    | -1.014    | -0.160    | 8.456     ]
+    [ 52.276    | 0.150     | -1.071    | 13.178    ]
+
+    Printing btagged_subjet:
+    [ 143.515   | -0.168    | -0.110    | 13.749    ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 54.927    | -1.387    | 1.758     | 8.858     ]
+    [ 67.644    | -0.484    | 0.833     | 12.863    ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 40 in job_3 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 123.599   | -2.044    | -0.161    | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 216.626   | -0.741    | 2.297     | 41.920    ]
+    [ 52.759    | 0.201     | -3.133    | 10.147    ]
+    [ 46.991    | -1.916    | 0.869     | 9.722     ]
+    [ 44.648    | 0.696     | 2.821     | 7.237     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 32.220    | -0.200    | -0.171    | 5.781     ]
+    [ 83.936    | -0.841    | 1.703     | 15.795    ]
+    [ 77.350    | 0.344     | 2.056     | 12.774    ]
+
+Chosen httCandidate:
+delR with lepton: 2.69462627423
+
+    Printing tl_subjets:
+    [ 133.836   | -0.804    | 2.380     | 12.762    ]
+    [ 84.251    | -0.838    | 1.727     | 16.133    ]
+    [ 66.795    | 0.361     | 2.065     | 8.837     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 44.560    | 0.143     | -3.107    | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 49.551    | -1.957    | 1.134     | 4.700     ]
+
+    Printing Light quarks:
+    [ 151.116   | -0.777    | 2.402     | 0.328     ]
+    [ 97.288    | -0.826    | 1.702     | 0.330     ]
+
+    Printing Higgs b-quark:
+    [ 103.424   | -0.531    | 2.003     | 4.800     ]
+    [ 65.555    | 0.676     | 2.832     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 52.759    | 0.201     | -3.133    | 10.147    ]
+    [ 46.991    | -1.916    | 0.869     | 9.722     ]
+    [ 44.648    | 0.696     | 2.821     | 7.237     ]
+
+    Printing btagged_subjet:
+    [ 133.836   | -0.804    | 2.380     | 12.762    ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 32.220    | -0.200    | -0.171    | 5.781     ]
+
+    Printing wquark_candidate_subjets:
+    [ 66.795    | 0.361     | 2.065     | 8.837     ]
+    [ 84.251    | -0.838    | 1.727     | 16.133    ]
+
+
+Specific Print number 41 in job_41 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 41.748    | -0.402    | -0.030    | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 204.463   | -0.453    | 0.862     | 23.502    ]
+    [ 190.097   | 0.417     | -3.090    | 16.740    ]
+    [ 153.481   | 0.136     | -2.525    | 20.363    ]
+    [ 125.398   | -0.013    | -0.555    | 18.750    ]
+
+    Printing event.wquark_candidate_jets:
+    [ 78.688    | 0.066     | -1.752    | 14.268    ]
+    [ 37.056    | -0.786    | 2.979     | 8.220     ]
+
+Chosen httCandidate:
+delR with lepton: 2.72555784569
+
+    Printing tl_subjets:
+    [ 144.509   | 0.136     | -2.528    | 16.742    ]
+    [ 67.771    | 0.079     | -1.780    | 8.505     ]
+    [ 176.876   | 0.414     | -3.090    | 12.849    ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 113.818   | -0.013    | -0.536    | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 195.060   | -0.441    | 0.873     | 4.700     ]
+
+    Printing Light quarks:
+    [ 31.784    | -0.756    | 2.930     | 1.500     ]
+    [ 72.253    | 0.072     | -1.747    | 0.500     ]
+
+    Printing Higgs b-quark:
+    [ 181.453   | 0.439     | -3.094    | 4.800     ]
+    [ 203.968   | 0.115     | -2.526    | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 204.463   | -0.453    | 0.862     | 23.502    ]
+    [ 153.481   | 0.136     | -2.525    | 20.363    ]
+    [ 125.398   | -0.013    | -0.555    | 18.750    ]
+
+    Printing btagged_subjet:
+    [ 176.876   | 0.414     | -3.090    | 12.849    ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 78.688    | 0.066     | -1.752    | 14.268    ]
+    [ 37.056    | -0.786    | 2.979     | 8.220     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 42 in job_17 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 140.123   | -0.256    | 1.972     | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 77.466    | 1.188     | 2.193     | 14.087    ]
+    [ 64.444    | 0.555     | -1.318    | 10.940    ]
+    [ 49.386    | 0.487     | -2.715    | 9.209     ]
+    [ 31.958    | 1.325     | -0.244    | 5.912     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 134.901   | 0.825     | -1.837    | 25.125    ]
+    [ 146.502   | 0.849     | 1.177     | 12.751    ]
+    [ 82.659    | 1.607     | 1.185     | 17.339    ]
+
+Chosen httCandidate:
+delR with lepton: 1.59747006607
+
+    Printing tl_subjets:
+    [ 134.393   | 0.850     | 1.181     | 10.670    ]
+    [ 49.198    | 1.715     | 1.206     | 8.085     ]
+    [ 58.166    | 1.212     | 2.164     | 6.218     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 50.539    | 1.349     | -0.261    | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 53.372    | 0.477     | -2.731    | 4.700     ]
+
+    Printing Light quarks:
+    [ 124.862   | 0.841     | -1.876    | 0.501     ]
+    [ 101.479   | 0.489     | -1.262    | 1.500     ]
+
+    Printing Higgs b-quark:
+    [ 41.553    | 0.164     | -1.785    | 4.800     ]
+    [ 81.790    | 1.207     | 2.176     | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 64.444    | 0.555     | -1.318    | 10.940    ]
+    [ 49.386    | 0.487     | -2.715    | 9.209     ]
+    [ 31.958    | 1.325     | -0.244    | 5.912     ]
+
+    Printing btagged_subjet:
+    [ 58.166    | 1.212     | 2.164     | 6.218     ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 134.901   | 0.825     | -1.837    | 25.125    ]
+
+    Printing wquark_candidate_subjets:
+    [ 134.393   | 0.850     | 1.181     | 10.670    ]
+    [ 49.198    | 1.715     | 1.206     | 8.085     ]
+
+
+Specific Print number 43 in job_84 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 76.289    | -0.377    | 1.689     | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 282.533   | -0.050    | -2.822    | 26.601    ]
+    [ 218.352   | -0.329    | -1.772    | 42.635    ]
+    [ 209.232   | -1.082    | 0.965     | 28.037    ]
+    [ 156.855   | -0.442    | 0.335     | 21.213    ]
+
+    Printing event.wquark_candidate_jets:
+    [ 74.562    | -0.860    | -2.716    | 7.600     ]
+    [ 134.967   | -0.841    | 0.261     | 15.686    ]
+    [ 37.167    | 0.152     | -1.556    | 6.626     ]
+
+Chosen httCandidate:
+delR with lepton: 2.06911976845
+
+    Printing tl_subjets:
+    [ 140.837   | -0.311    | -1.873    | 14.599    ]
+    [ 61.768    | -0.858    | -2.706    | 4.144     ]
+    [ 257.372   | -0.050    | -2.822    | 23.987    ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 80.281    | -0.379    | -1.564    | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 179.623   | -1.094    | 0.974     | 4.700     ]
+
+    Printing Light quarks:
+    [ 138.748   | -0.096    | -2.804    | 0.500     ]
+    [ 70.237    | -0.858    | -2.715    | 1.500     ]
+
+    Printing Higgs b-quark:
+    [ 131.165   | -0.301    | -1.898    | 4.800     ]
+    [ 122.253   | 0.024     | -2.863    | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 218.352   | -0.329    | -1.772    | 42.635    ]
+    [ 209.232   | -1.082    | 0.965     | 28.037    ]
+    [ 156.855   | -0.442    | 0.335     | 21.213    ]
+
+    Printing btagged_subjet:
+    [ 257.372   | -0.050    | -2.822    | 23.987    ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 74.562    | -0.860    | -2.716    | 7.600     ]
+    [ 134.967   | -0.841    | 0.261     | 15.686    ]
+    [ 37.167    | 0.152     | -1.556    | 6.626     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 44 in job_25 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 92.563    | 0.415     | -2.331    | 0.140     ]
+
+    Printing event.btagged_jets:
+    [ 105.289   | -0.300    | -2.617    | 12.651    ]
+    [ 86.289    | -0.546    | -0.687    | 14.542    ]
+    [ 52.134    | -0.273    | 0.565     | 8.290     ]
+    [ 40.596    | 0.736     | -1.128    | 8.081     ]
+
+    Printing event.wquark_candidate_jets:
+    [ 69.813    | 0.154     | -0.036    | 11.034    ]
+    [ 62.927    | 0.365     | 1.205     | 10.250    ]
+    [ 136.043   | 0.262     | 2.790     | 8.993     ]
+
+Chosen httCandidate:
+delR with lepton: 0.597162146348
+
+    Printing tl_subjets:
+    [ 94.247    | 0.415     | -2.333    | 5.009     ]
+    [ 92.652    | -0.294    | -2.610    | 8.505     ]
+    [ 125.828   | 0.262     | 2.790     | 7.436     ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 40.097    | 0.825     | -1.104    | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 48.242    | -0.271    | 0.560     | 4.700     ]
+
+    Printing Light quarks:
+    [ 124.478   | 0.265     | 2.774     | 0.330     ]
+    [ 23.455    | -0.661    | -2.300    | 0.330     ]
+
+    Printing Higgs b-quark:
+    [ 62.835    | -0.534    | -0.726    | 4.800     ]
+    [ 92.733    | -0.301    | -2.607    | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 86.289    | -0.546    | -0.687    | 14.542    ]
+    [ 52.134    | -0.273    | 0.565     | 8.290     ]
+    [ 40.596    | 0.736     | -1.128    | 8.081     ]
+
+    Printing btagged_subjet:
+    [ 92.652    | -0.294    | -2.610    | 8.505     ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 69.813    | 0.154     | -0.036    | 11.034    ]
+    [ 62.927    | 0.365     | 1.205     | 10.250    ]
+    [ 136.043   | 0.262     | 2.790     | 8.993     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Specific Print number 45 in job_25 (sig)
+====================
+
+Successful bjet to bquark, Unsuccessful bsubjet to bquark
+Input jets:
+
+    Printing event.good_leptons:
+    [ 58.295    | -0.999    | -0.778    | -0.015    ]
+
+    Printing event.btagged_jets:
+    [ 246.034   | -0.582    | -1.157    | 19.921    ]
+    [ 111.327   | -0.939    | 1.648     | 27.488    ]
+    [ 102.577   | -1.203    | -1.928    | 21.442    ]
+    [ 69.499    | -1.283    | -3.122    | 13.177    ]
+
+    Printing event.wquark_candidate_jets:
+    [ 67.642    | -0.495    | 2.749     | 14.180    ]
+    [ 133.721   | 0.840     | 0.829     | 15.554    ]
+    [ 36.865    | -1.255    | 1.275     | 6.439     ]
+
+Chosen httCandidate:
+delR with lepton: 0.51272717224
+
+    Printing tl_subjets:
+    [ 91.542    | -1.203    | -1.931    | 18.427    ]
+    [ 59.630    | -0.998    | -0.773    | 2.257     ]
+    [ 225.522   | -0.581    | -1.156    | 14.143    ]
+
+Quarks:
+
+    Printing Hadronic b-quark:
+    [ 90.331    | -0.794    | 1.660     | 4.700     ]
+
+    Printing Leptonic b-quark:
+    [ 227.905   | -0.578    | -1.149    | 4.700     ]
+
+    Printing Light quarks:
+    [ 75.901    | -1.310    | -3.137    | 1.500     ]
+    [ 83.664    | -0.406    | 2.750     | 0.500     ]
+
+    Printing Higgs b-quark:
+    [ 70.211    | -1.224    | 1.447     | 4.800     ]
+    [ 56.292    | -1.070    | -2.003    | 4.800     ]
+
+Output particles:
+
+    Printing btagged_jets_minus_sj:
+    [ 111.327   | -0.939    | 1.648     | 27.488    ]
+    [ 102.577   | -1.203    | -1.928    | 21.442    ]
+    [ 69.499    | -1.283    | -3.122    | 13.177    ]
+
+    Printing btagged_subjet:
+    [ 225.522   | -0.581    | -1.156    | 14.143    ]
+
+    Printing wquark_candidate_jets_minus_sj:
+    [ 67.642    | -0.495    | 2.749     | 14.180    ]
+    [ 133.721   | 0.840     | 0.829     | 15.554    ]
+    [ 36.865    | -1.255    | 1.275     | 6.439     ]
+
+    Printing wquark_candidate_subjets:
+
+
+Total specific prints found in sig: 45

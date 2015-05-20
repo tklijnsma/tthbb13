@@ -10,12 +10,7 @@ class Conf:
 #            ]
 
         self.httCandidatecut = [
-            
-                ( 'pt'  , '>', '200.0' ),
-                ( 'mass', '>', 180.0 ),
-                ( 'mass', '<', '250.0' ),
-                ( 'fW'  , '<', '0.175' )
-            
+            ###INSERTCUTCRITERIA###
             ]
 
 

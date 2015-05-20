@@ -30,6 +30,46 @@ def lvec(self):
     return lv
 
 
+# Very basic tree node class
+class TreeNode:
+
+    def __init__(self, name):
+        self.name = name
+        self.n = 0
+        self.children = []
+
+    def Print(self):
+
+        print 'Class TreeNode: {0}'.format( self.split_name )
+        print '    n = {0}'.format( self.n )
+
+        if len(self.children) > 0:
+            child_names = [ child.name for child in self.children ]
+            print '    children = {0}'.format( child_names )
+        else:
+            print '    children = []'
+
+    def Get_child( self, *input_args ):
+
+        if len( input_args ) == 0:
+            print "Format: <TreeNode>.Get_child( <1/0>, <1/0>, ... )"
+            return 0
+
+        t = self
+
+        for i in input_args:
+
+            if len( t.children ) == 0:
+                print 'Too many input arguments - '\
+                      'Tree does not have that many children'
+                return 0
+
+            t = t.children[i]
+
+        return t
+#--------------------------------------#
+
+
 class FilterAnalyzer(Analyzer):
     """
     A generic analyzer that may filter events.
@@ -57,14 +97,16 @@ class SubjetAnalyzer(FilterAnalyzer):
         self.R_cut = 0.3
         self.top_mass = 172.04
 
-        self.Cut_criteria = [
-            ( 'pt'  , '>', '200.0' ),
-            ( 'mass', '>', '120.0' ),
-            ( 'mass', '<', '220.0' ),
-            ( 'fW'  , '<', '0.175' ) ]
+        if hasattr( self.conf, 'httCandidatecut' ):
+            self.Cut_criteria = self.conf.httCandidatecut
+            print 'Using httCandidate cut criteria from configuration file'
+        else:
+            self.Cut_criteria = [
+                ( 'pt'  , '>', '200.0' ),
+                ( 'mass', '>', '120.0' ),
+                ( 'mass', '<', '220.0' ),
+                ( 'fW'  , '<', '0.175' ) ]
 
-        self.b_match_table = [ [[0,0], [0,0]] , [[0,0], [0,0]] ]
-        self.l_match_table = [ [[0,0], [0,0]] , [[0,0], [0,0]] ]
 
         self.Statistics_keylist = [
             'n_processed',
@@ -98,6 +140,42 @@ class SubjetAnalyzer(FilterAnalyzer):
                 self.Statistics[key] = 0
 
 
+        # Create match tree for b-particles
+
+        self.match_tree_b = TreeNode( 'b' )
+
+        # 1st level
+        self.match_tree_b.children = [ TreeNode('Jet_Qrk_fail'),
+                                       TreeNode('Jet_Qrk_success') ]
+
+        # 2nd level
+        b = self.match_tree_b.Get_child( 0 )
+        b.children = [ TreeNode('Sj_Qrk_fail'), TreeNode('Sj_Qrk_success') ]
+
+        b = self.match_tree_b.Get_child( 1 )
+        b.children = [ TreeNode('Sj_Qrk_fail'), TreeNode('Sj_Qrk_success') ]
+
+        # 3rd level
+        b = self.match_tree_b.Get_child( 0, 0 )
+        b.children = [ TreeNode('Jet_Sj_fail'), TreeNode('Jet_Sj_success') ]
+
+        b = self.match_tree_b.Get_child( 0, 1 )
+        b.children = [ TreeNode('Jet_Sj_fail'), TreeNode('Jet_Sj_success') ]
+
+        b = self.match_tree_b.Get_child( 1, 0 )
+        b.children = [ TreeNode('Jet_Sj_fail'), TreeNode('Jet_Sj_success') ]
+
+        b = self.match_tree_b.Get_child( 1, 1 )
+        b.children = [ TreeNode('Jet_Sj_fail'), TreeNode('Jet_Sj_success') ]
+
+
+        # Create match tree for l-particles
+
+        self.match_tree_l = copy.deepcopy( self.match_tree_b )
+        self.match_tree_l.name = 'l'
+
+
+
     def beginLoop(self, setup):
         super(SubjetAnalyzer, self).beginLoop(setup)
 
@@ -117,14 +195,16 @@ class SubjetAnalyzer(FilterAnalyzer):
         print '=========='
         print 'End of Statistics\n'
 
-        print '\nMatch Tables'
+
+        print '\nMatch Trees'
         print '=========='
 
-        self.Print_Match_Table( 'b', self.b_match_table)
-        self.Print_Match_Table( 'l', self.l_match_table)
+        self.Print_Tree( self.match_tree_b )
+        self.Print_Tree( self.match_tree_l )
 
         print '=========='
-        print 'End of Match Tables\n'
+        print 'End of Match Trees\n'
+
 
 
     def process(self, event):
@@ -169,6 +249,8 @@ class SubjetAnalyzer(FilterAnalyzer):
             if self.Apply_Cut_criteria( candidate ):
                 tops.append( copy.deepcopy(candidate) )
 
+        other_top_present = False
+
         # Check if any candidates survived the cutoff criteria
         if len(tops) == 0:
             if self.verbose: print 'No candidate survived the cuts'
@@ -176,14 +258,20 @@ class SubjetAnalyzer(FilterAnalyzer):
             return 0
 
         elif len(tops) == 1:
+            # SortTops sets the delR_lepton attribute, so also use it for 1 top
+            tops = self.SortTops( event, tops )
             top = tops[0]
             self.Statistics['n_1_cand'] += 1
 
         # If more than 1 candidate survived the cutoff criteria, choose the
         # one with a mass closest to top mass
+
         else:
-            tops = sorted( tops, key=lambda x: abs(x.mass - self.top_mass) )
+            #tops = sorted( tops, key=lambda x: abs(x.mass - self.top_mass) )
+            tops = self.SortTops( event, tops )
+            other_top_present = True
             top = tops[0]
+            other_top = tops[1]
             self.Statistics['n_2+_cand'] += 1
 
         self.Statistics['n_survivedcut'] += 1
@@ -233,29 +321,36 @@ class SubjetAnalyzer(FilterAnalyzer):
             setattr( x, 'i_jet', i_jet )
             tl_wquark_candidate_jets.append( x )
 
-
-        # Get list of subjets
-
+        # Get list of subjets for the found httCandidate
         tl_subjets = []
-
         prefixes = [ 'sjW1', 'sjW2', 'sjNonW' ]
-
         for (i_subjet, prefix) in enumerate( prefixes ):
-
             x = ROOT.TLorentzVector()
-
             x.SetPtEtaPhiM(
                 getattr( top, prefix + 'pt' ),
                 getattr( top, prefix + 'eta' ),
                 getattr( top, prefix + 'phi' ),
                 getattr( top, prefix + 'mass' ) )
-
             setattr( x, 'i_subjet', i_subjet )
-
             tl_subjets.append( x )
 
         # For printing purposes
         tl_subjets_backup = copy.deepcopy( tl_subjets )
+
+        # If another top was found in the event, also get the subjets from that
+        if other_top_present:
+            tl_subjets_other_top = []
+            prefixes = [ 'sjW1', 'sjW2', 'sjNonW' ]
+            for (i_subjet, prefix) in enumerate( prefixes ):
+                x = ROOT.TLorentzVector()
+                x.SetPtEtaPhiM(
+                    getattr( other_top, prefix + 'pt' ),
+                    getattr( other_top, prefix + 'eta' ),
+                    getattr( other_top, prefix + 'phi' ),
+                    getattr( other_top, prefix + 'mass' ) )
+                setattr( x, 'i_subjet', i_subjet )
+                tl_subjets_other_top.append( x )
+
 
         
         # Create the attributes in the event class for the subjet case
@@ -416,10 +511,27 @@ class SubjetAnalyzer(FilterAnalyzer):
             # Fill in the appropiate subjet (this is a TLorentzVector object)
             wquark_candidate_subjets.append( tl_subjets.pop( i_sj2 ) )
 
+        
+        # Fill the match tree
 
-        # Fill the match tables
-        self.b_match_table[succes_bsj_bquark][succes_bjet_bquark][succes_sj_bjet] += 1
-        self.l_match_table[succes_lsj_lquark][succes_ljet_lquark][succes_sj_ljet] += 1
+        self.match_tree_b.Get_child( succes_bjet_bquark ).n += 1
+
+        self.match_tree_b.Get_child( succes_bjet_bquark,
+                                     succes_bsj_bquark ).n += 1
+
+        self.match_tree_b.Get_child( succes_bjet_bquark,
+                                     succes_bsj_bquark,
+                                     succes_sj_bjet, ).n += 1
+
+
+        self.match_tree_l.Get_child( succes_ljet_lquark ).n += 1
+
+        self.match_tree_l.Get_child( succes_ljet_lquark,
+                                     succes_lsj_lquark ).n += 1
+
+        self.match_tree_l.Get_child( succes_ljet_lquark,
+                                     succes_lsj_lquark,
+                                     succes_sj_ljet, ).n += 1
 
 
         """
@@ -432,6 +544,7 @@ class SubjetAnalyzer(FilterAnalyzer):
             succes_sj_ljet )
         """
 
+        #specific_print = other_top_present and succes_bjet_bquark and not succes_bsj_bquark
         specific_print = succes_bjet_bquark and not succes_bsj_bquark
 
         if specific_print:
@@ -443,25 +556,31 @@ class SubjetAnalyzer(FilterAnalyzer):
 
             print 'Input jets:'
             self.Print_particle_lists(
+                ( event.good_leptons, 'Class', 'event.good_leptons'),
                 ( event.btagged_jets, 'Class', 'event.btagged_jets'),
                 ( event.wquark_candidate_jets, 'Class',
                     'event.wquark_candidate_jets'),
+                )
+
+            print 'Chosen httCandidate:'
+            print 'delR with lepton: {0}'.format( top.delR_lepton )
+            self.Print_particle_lists(
                 ( tl_subjets_backup, 'TL', 'tl_subjets' ),
                 )
 
-            """
-            print 'Input Quarks:'
-            self.Print_particle_lists(
-                ( event.GenWZQuark, 'Class', 'event.GenWZQuark'),
-                ( event.GenBQuarkFromTop, 'Class', 'event.GenBQuarkFromTop'),
-                )
-            """
+            if other_top_present:
+                print 'Another httCandidate was found:'
+                print 'delR with lepton: {0}'.format( other_top.delR_lepton )
+                self.Print_particle_lists(
+                    ( tl_subjets_other_top, 'TL', 'tl_subjets_other_top' )
+                    )
 
             print 'Quarks:'
             self.Print_particle_lists(
                 ( [tl_genquarks[0]], 'TL', 'Hadronic b-quark'),
                 ( [tl_leptonicb], 'TL', 'Leptonic b-quark'),
                 ( tl_genquarks[1:], 'TL', 'Light quarks'),
+                ( event.GenBQuarkFromH, 'Class', 'Higgs b-quark'),
                 )
 
             print 'Output particles:'
@@ -544,105 +663,128 @@ class SubjetAnalyzer(FilterAnalyzer):
         return True
     #--------------------------------------#
 
-    # Prints the matching tables
-    def Print_Match_Table( self, particle, match_table ):
+    # Sorts tops - criterium to be tested
+    def SortTops( self, event, tops ):
 
-        print '\n{0:23s}| {1:23s}| {2:23s}|'.format(
-            'Match table: {0}'.format(particle),
-            'suc. {0}-quark to {0}-jet'.format(particle),
-            'fail {0}-quark to {0}-jet'.format(particle) )
+        l = event.good_leptons[0]
 
-        print '-----------------------|------------------------|------------------------|'
+        # Create TLorentzVector for lepton
+        tl_lepton = ROOT.TLorentzVector()
+        tl_lepton.SetPtEtaPhiM( l.pt, l.eta, l.phi, l.mass )
 
-        print '{0:23s}| {1:23s}| {2:23s}|'.format(
-            'suc. {0}-quark to {0}-sj'.format(particle),
-            str(sum(match_table[1][1])),
-            str(sum(match_table[1][0])) )
+        # Create TLorentzVector for tops
+        tl_tops = []
+        for top in tops:
+            tl_top = ROOT.TLorentzVector()
+            tl_top.SetPtEtaPhiM( top.pt, top.eta, top.phi, top.mass )
+            setattr( top, 'delR_lepton', tl_top.DeltaR(tl_lepton) )
 
-        print '{0:23s}| {1:23s}| {2:23s}|'.format(
-            '   suc. jet-sj',
-            str(match_table[1][1][1]),
-            str(match_table[1][0][1]) )
+        tops = sorted( tops, key=lambda x: -x.delR_lepton )
 
-        print '-----------------------|------------------------|------------------------|'
-
-        print '{0:23s}| {1:23s}| {2:23s}|'.format(
-            'fail {0}-quark to {0}-sj'.format(particle),
-            str(sum(match_table[0][1])),
-            str(sum(match_table[0][0])) )
-
-        print '{0:23s}| {1:23s}| {2:23s}|'.format(
-            '   suc. jet-sj',
-            str(match_table[0][1][1]),
-            str(match_table[0][0][1]) )
-
-        print '--------------------------------------------------------------------------'
+        return tops
     #--------------------------------------#
 
-    # Prints the quarks and jets found in an event
-    def Print_found_particles( self, event, tl_subjets_backup ):
 
-        #print '\nPrinting GenWZQuarks:'
-        #for q in event.GenWZQuark:
-        #    print '[{0:.5f} | {1:.5f} | {2:.5f} | {3:.5f}]'.format(
-        #        q.pt, q.eta, q.phi, q.mass )
+    # Prints a match tree
+    def Print_Tree( self, t ):
 
-        #print '\nPrinting GenBQuarkFromTops:'
-        #for q in event.GenBQuarkFromTop:
-        #    print '[{0:.5f} | {1:.5f} | {2:.5f} | {3:.5f}]'.format(
-        #        q.pt, q.eta, q.phi, q.mass )
+        print '\nPrinting match tree {0}'.format( t.name )
+        print '===================='
+        print '  Total count           = {0}'.format( t.n )
+        print '  Total passable to MEM = {0}\n'.format( t.Get_child(1,1,1).n )
 
-        #print '\nPrinting Jets:'
-        #for q in event.good_jets:
-        #    print '[{0:.5f} | {1:.5f} | {2:.5f} | {3:.5f}]'.format(
-        #        q.pt, q.eta, q.phi, q.mass )
+        print '|{0:13s}|{1:10s}|{2:13s}|{3:10s}|{4:13s}|{5:10s}|'.format(
+            'Jet to Qrk',
+            '',
+            'Subj to Qrk',
+            '',
+            'Jet to Subj',
+            '',
+            )
 
-        print '\n    Printing btagged_jets:'
-        for q in event.btagged_jets:
-            print '    [{0:.5f} | {1:.5f} | {2:.5f} | {3:.5f}]'.format(
-                q.pt, q.eta, q.phi, q.mass )
+        print '|-------------+----------+-------------+----------+-------------+----------|'
 
-        print '\n    Printing wquark_candidate_jets:'
-        for q in event.wquark_candidate_jets:
-            print '    [{0:.5f} | {1:.5f} | {2:.5f} | {3:.5f}]'.format(
-                q.pt, q.eta, q.phi, q.mass )
+        print '|{0:13s}|{1:10s}|{2:13s}|{3:10s}|{4:13s}|{5:10s}|'.format(
+            'Success',
+            str( t.Get_child(1).n ),
+            'Success',
+            str( t.Get_child(1,1).n ),
+            'Success',
+            str( t.Get_child(1,1,1).n ),
+            )
 
-        print '\n    Printing tl_subjets:'
-        for q in tl_subjets_backup:
-            print '    [{0:.5f} | {1:.5f} | {2:.5f} | {3:.5f}]'.format(
-                q.Pt(), q.Eta(), q.Phi(), q.M() )
 
-        #print '\nPrinting httCandidate:'
-        #for q in event.httCandidate:
-        #    print '[{0:.5f} | {1:.5f} | {2:.5f} | {3:.5f}]'.format(
-        #        q.pt, q.eta, q.phi, q.mass )
+        print '|{0:13s}|{1:10s}|{2:13s}|{3:10s}|{4:13s}|{5:10s}|'.format(
+            '',
+            '',
+            '',
+            '',
+            'Failed',
+            str( t.Get_child(1,1,0).n ),
+            )
 
-    #--------------------------------------#
+        print '|             |          |-------------+----------+-------------+----------|'
 
-    # Prints the quarks and jets matched in an event
-    def Print_matched_particles( self, event ):
+        print '|{0:13s}|{1:10s}|{2:13s}|{3:10s}|{4:13s}|{5:10s}|'.format(
+            '',
+            '',
+            'Failed',
+            str( t.Get_child(1,0).n ),
+            'Success',
+            str( t.Get_child(1,0,1).n ),
+            )
 
-        print '\n    Printing btagged_jets_minus_sj:'
-        for q in event.btagged_jets_minus_sj:
-            print '    [{0:.5f} | {1:.5f} | {2:.5f} | {3:.5f}]'.format(
-                q.pt, q.eta, q.phi, q.mass )
+        print '|{0:13s}|{1:10s}|{2:13s}|{3:10s}|{4:13s}|{5:10s}|'.format(
+            '',
+            '',
+            '',
+            '',
+            'Failed',
+            str( t.Get_child(1,0,0).n ),
+            )
 
-        print '\n    Printing btagged_subjet:'
-        for q in event.btagged_subjet:
-            print '    [{0:.5f} | {1:.5f} | {2:.5f} | {3:.5f}]'.format(
-                q.Pt(), q.Eta(), q.Phi(), q.M() )
+        print '|-------------+----------+-------------+----------+-------------+----------|'
 
-        print '\n    Printing wquark_candidate_jets_minus_sj:'
-        for q in event.wquark_candidate_jets_minus_sj:
-            print '    [{0:.5f} | {1:.5f} | {2:.5f} | {3:.5f}]'.format(
-                q.pt, q.eta, q.phi, q.mass )
+        print '|{0:13s}|{1:10s}|{2:13s}|{3:10s}|{4:13s}|{5:10s}|'.format(
+            'Failed',
+            str( t.Get_child(0).n ),
+            'Success',
+            str( t.Get_child(0,1).n ),
+            'Success',
+            str( t.Get_child(0,1,1).n ),
+            )
 
-        print '\n    Printing wquark_candidate_subjets:'
-        for q in event.wquark_candidate_subjets:
-            print '    [{0:.5f} | {1:.5f} | {2:.5f} | {3:.5f}]'.format(
-                q.Pt(), q.Eta(), q.Phi(), q.M() )
 
-        print ''
+        print '|{0:13s}|{1:10s}|{2:13s}|{3:10s}|{4:13s}|{5:10s}|'.format(
+            '',
+            '',
+            '',
+            '',
+            'Failed',
+            str( t.Get_child(0,1,0).n ),
+            )
+
+        print '|             |          |-------------+----------+-------------+----------|'
+
+        print '|{0:13s}|{1:10s}|{2:13s}|{3:10s}|{4:13s}|{5:10s}|'.format(
+            '',
+            '',
+            'Failed',
+            str( t.Get_child(0,0).n ),
+            'Success',
+            str( t.Get_child(0,0,1).n ),
+            )
+
+        print '|{0:13s}|{1:10s}|{2:13s}|{3:10s}|{4:13s}|{5:10s}|'.format(
+            '',
+            '',
+            '',
+            '',
+            'Failed',
+            str( t.Get_child(0,0,0).n ),
+            )
+
+        print '----------------------------------------------------------------------------'
     #--------------------------------------#
 
     
@@ -676,7 +818,6 @@ class SubjetAnalyzer(FilterAnalyzer):
 
         print ''
     #--------------------------------------#
-
 
     # Deletes duplicate WZ Quarks
     def CompareWZQuarks(self, event ):
@@ -741,6 +882,10 @@ class SubjetAnalyzer(FilterAnalyzer):
         delmass0 = abs(tl_Combined[0].M() - self.top_mass)
         delmass1 = abs(tl_Combined[1].M() - self.top_mass)
 
+        # Save the mass difference with top mass
+        setattr( event.GenBQuarkFromTop[0], 'delmass_top', delmass0 )
+        setattr( event.GenBQuarkFromTop[1], 'delmass_top', delmass1 )
+
         # Make sure the B quark with lowest del mass to top mass is at index 0
         # (both for the tl list and in the event)
         if delmass1 < delmass0:
@@ -751,9 +896,9 @@ class SubjetAnalyzer(FilterAnalyzer):
                 event.GenBQuarkFromTop[1],
                 event.GenBQuarkFromTop[0] ]
 
-        setattr(  tl_GenBQuarks[0], 'is_hadr', 1 )
-        setattr(  event.GenBQuarkFromTop[0], 'is_hadr', 1 )
-        setattr(  event.GenBQuarkFromTop[1], 'is_hadr', 0 )
+        setattr( tl_GenBQuarks[0], 'is_hadr', 1 )
+        setattr( event.GenBQuarkFromTop[0], 'is_hadr', 1 )
+        setattr( event.GenBQuarkFromTop[1], 'is_hadr', 0 )
 
         # Create the definitive list of 3 quarks
         tl_GenQuarks = []
@@ -807,6 +952,27 @@ class SubjetAnalyzer(FilterAnalyzer):
         if i_q2 == 'No link': return ( 'No link', 0, 0, 0 )
 
         return ( i_q1, i_q2, i_j1, i_j2 )
+
+
+    def Link_3smallest_delR( self, tl_quarks_orig, tl_jets_orig ):
+
+        tl_quarks = copy.deepcopy( tl_quarks_orig )
+        tl_jets = copy.deepcopy( tl_jets_orig )
+
+        ( i_q1, i_j1 ) = self.Link_smallest_delR( tl_quarks, tl_jets )
+        if i_q1 == 'No link': return ( 'No link', 1, 0, 0, 0, 0)
+        tl_quarks.pop(i_q1)
+        tl_jets.pop(i_j1)
+
+        ( i_q2, i_j2 ) = self.Link_smallest_delR( tl_quarks, tl_jets )
+        if i_q2 == 'No link': return ( 'No link', 2, 0, 0, 0, 0 )
+        tl_quarks.pop(i_q2)
+        tl_jets.pop(i_j2)
+
+        ( i_q3, i_j3 ) = self.Link_smallest_delR( tl_quarks, tl_jets )
+        if i_q3 == 'No link': return ( 'No link', 3, 0, 0, 0, 0 )
+
+        return ( i_q1, i_q2, i_q3, i_j1, i_j2, i_j3 )
 
 
     # Matches quarks with specified jets

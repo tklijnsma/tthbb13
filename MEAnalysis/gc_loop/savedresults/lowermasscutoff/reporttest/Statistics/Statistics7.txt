@@ -1,0 +1,16 @@
+n_processed                    = 43047
+n_cat1+btag                    = 582
+n_enough_initial_jets          = 312
+  (n_not_enough_wcand        = 0)
+  (n_not_enough_btagged      = 0)
+  (n_not_enough_httCand      = 270)
+n_survivedcut                  = 133
+  (n_0_cand                  = 179)
+  (n_1_cand                  = 120)
+  (n_2+_cand                 = 13)
+n_right_nr_of_quarks           = 117
+  (n_too_few_WZ              = 8)
+  (n_too_few_B               = 0)
+  (n_too_many_WZ             = 8)
+  (n_too_many_B              = 0)
+n_passed_to_MEM                = 31

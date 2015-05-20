@@ -48,6 +48,8 @@ leptonType = NTupleObjectType("leptonType", variables = [
         if hasattr(x, "jet_delR") else -1),
     NTupleVariable("subjet_delR", lambda x : x.subjet_delR \
         if hasattr(x,"subjet_delR") else -1),
+    NTupleVariable("delmass_top", lambda x : x.delmass_top \
+        if hasattr(x,"delmass_top") else -1),
 ])
 
 metType = NTupleObjectType("leptonType", variables = [
@@ -349,8 +351,8 @@ def getTreeProducer(conf):
             "l_quarks_w" : NTupleCollection("GenQFromW", leptonType, 5, help=""),
             "good_jets" : NTupleCollection("jets", jetType, 9, help="Selected jets"),
             "good_leptons" : NTupleCollection("leps", leptonType, 2, help="Selected leptons"),
-            "mem_results_tth" : NTupleCollection("mem_tth", memType, len(conf.mem["methodsToRun"]), help="MEM tth"),
-            "mem_results_ttbb" : NTupleCollection("mem_ttbb", memType, len(conf.mem["methodsToRun"]), help="MEM ttbb"),
+            #"mem_results_tth" : NTupleCollection("mem_tth", memType, len(conf.mem["methodsToRun"]), help="MEM tth"),
+            #"mem_results_ttbb" : NTupleCollection("mem_ttbb", memType, len(conf.mem["methodsToRun"]), help="MEM ttbb"),
         }
     )
     return treeProducer
