@@ -174,6 +174,10 @@ class SubjetAnalyzer(FilterAnalyzer):
         self.match_tree_l = copy.deepcopy( self.match_tree_b )
         self.match_tree_l.name = 'l'
 
+        # Create match tree for total (t)
+
+        self.match_tree_t = copy.deepcopy( self.match_tree_b )
+        self.match_tree_t.name = 'total'
 
 
     def beginLoop(self, setup):
@@ -199,12 +203,14 @@ class SubjetAnalyzer(FilterAnalyzer):
         print '\nMatch Trees'
         print '=========='
 
-        self.Print_Tree( self.match_tree_b )
-        self.Print_Tree( self.match_tree_l )
+        #self.Print_Tree( self.match_tree_b )
+        #self.Print_Tree( self.match_tree_l )
+        #self.Print_Tree( self.match_tree_t )
+
+        self.Print_Tree2( self.match_tree_b )
 
         print '=========='
         print 'End of Match Trees\n'
-
 
 
     def process(self, event):
@@ -396,6 +402,9 @@ class SubjetAnalyzer(FilterAnalyzer):
         else:
             succes_lsj_lquark = True
 
+        # Total number of fully successful subjet-quark matches
+        succes_sj_quark = succes_bsj_bquark and succes_lsj_lquark
+
 
         ### Match b-jets and w-jets to a GenBQuark and GenWZQuark
 
@@ -417,6 +426,9 @@ class SubjetAnalyzer(FilterAnalyzer):
             succes_ljet_lquark = False
         else:
             succes_ljet_lquark = True
+
+        # Total number of fully successful subjet-quark matches
+        succes_jet_quark = succes_bjet_bquark and succes_ljet_lquark
 
 
         ### Match a subjet to a btagged_jet
@@ -511,9 +523,14 @@ class SubjetAnalyzer(FilterAnalyzer):
             # Fill in the appropiate subjet (this is a TLorentzVector object)
             wquark_candidate_subjets.append( tl_subjets.pop( i_sj2 ) )
 
-        
+
+        # Total number of fully successful subjet-jet matches
+        succes_sj_jet = succes_sj_bjet and succes_sj_ljet        
+
+
         # Fill the match tree
 
+        """
         self.match_tree_b.Get_child( succes_bjet_bquark ).n += 1
 
         self.match_tree_b.Get_child( succes_bjet_bquark,
@@ -534,6 +551,20 @@ class SubjetAnalyzer(FilterAnalyzer):
                                      succes_sj_ljet, ).n += 1
 
 
+        self.match_tree_t.Get_child( succes_jet_quark ).n += 1
+
+        self.match_tree_t.Get_child( succes_jet_quark,
+                                     succes_sj_quark ).n += 1
+
+        self.match_tree_t.Get_child( succes_jet_quark,
+                                     succes_sj_quark,
+                                     succes_sj_jet, ).n += 1
+        """
+
+        
+
+
+
         """
         specific_print = (
             succes_bsj_bquark and \
@@ -544,15 +575,25 @@ class SubjetAnalyzer(FilterAnalyzer):
             succes_sj_ljet )
         """
 
-        #specific_print = other_top_present and succes_bjet_bquark and not succes_bsj_bquark
-        specific_print = succes_bjet_bquark and not succes_bsj_bquark
+        specific_print = succes_jet_quark and not succes_sj_quark
 
         if specific_print:
 
             print '\nSpecific Print'
             print '=========='
 
-            print 'Successful bjet to bquark, Unsuccessful bsubjet to bquark'
+            print 'Successful jet to quark, Unsuccessful subjet to quark'
+
+            if succes_bsj_bquark:
+                print 'Successful subjet-bquark match'
+            else:
+                print 'Unsuccessful subjet-bquark match'
+
+            if succes_lsj_lquark:
+                print 'Successful subjet-lquark match'
+            else:
+                print 'Unsuccessful subjet-lquark match'
+
 
             print 'Input jets:'
             self.Print_particle_lists(
@@ -683,6 +724,16 @@ class SubjetAnalyzer(FilterAnalyzer):
 
         return tops
     #--------------------------------------#
+
+    def Print_Tree2(self, t ):
+
+        print t.name
+
+        # Select outermost unprinted child
+        c = t
+        while c.children != []:
+            c = c.children[0]
+
 
 
     # Prints a match tree

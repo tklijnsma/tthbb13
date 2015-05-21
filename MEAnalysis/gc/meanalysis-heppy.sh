@@ -33,3 +33,4 @@ echo "copying output"
 OFNAME=$OUTDIR/output_${MY_JOBID}.root
 cp $MY_SCRATCH/Loop/tree.root $OFNAME
 echo $OFNAME > output.txt
+#echo "testtext" > test.txt
