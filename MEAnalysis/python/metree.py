@@ -84,16 +84,29 @@ def getTreeProducer(conf):
 
             # Used by Subjet Analyzer
             NTupleVariable(
-                "GenQ_jet_sumdelR", lambda ev: ev.GenQ_jet_sumdelR \
-                    if hasattr(ev, "GenQ_jet_sumdelR") else -1,
-                help="Sum of Delta R values of the Gen(BWZ)Quarks matched" \
-                    "to good_jets"
+                "Matching_subjet_bjet", lambda ev: ev.Matching_subjet_bjet,
+                help="Number of subjets matched to btagged_jets"
             ),
 
             NTupleVariable(
-                "GenQ_subjet_sumdelR", lambda ev: ev.GenQ_subjet_sumdelR \
-                    if hasattr(ev, "GenQ_subjet_sumdelR") else -1,
-                help="Sum of Delta R values of the Gen(BWZ)Quarks matched to subjets"
+                "Matching_subjet_ljet", lambda ev: ev.Matching_subjet_ljet,
+                help="Number of subjets matched to wquark_candidate_jets"
+            ),
+
+            NTupleVariable(
+                "Matching_nr_of_mismatches", lambda ev: ev.Matching_nr_of_mismatches,
+                help="Number of mismatches in the event"
+            ),
+
+            NTupleVariable(
+                "Matching_strategy", lambda ev: ev.Matching_strategy,
+                help="Strategy chosen to tag 1 subjet as a b, and 2 other as a light"
+            ),
+
+            NTupleVariable(
+                "Matching_event_type_number",
+                lambda ev: ev.Matching_event_type_number,
+                help="Type number of the event (see doc, todo)"
             ),
 
             NTupleVariable(

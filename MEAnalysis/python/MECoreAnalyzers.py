@@ -30,46 +30,6 @@ def lvec(self):
     return lv
 
 
-# Very basic tree node class
-class TreeNode:
-
-    def __init__(self, name):
-        self.name = name
-        self.n = 0
-        self.children = []
-
-    def Print(self):
-
-        print 'Class TreeNode: {0}'.format( self.split_name )
-        print '    n = {0}'.format( self.n )
-
-        if len(self.children) > 0:
-            child_names = [ child.name for child in self.children ]
-            print '    children = {0}'.format( child_names )
-        else:
-            print '    children = []'
-
-    def Get_child( self, *input_args ):
-
-        if len( input_args ) == 0:
-            print "Format: <TreeNode>.Get_child( <1/0>, <1/0>, ... )"
-            return 0
-
-        t = self
-
-        for i in input_args:
-
-            if len( t.children ) == 0:
-                print 'Too many input arguments - '\
-                      'Tree does not have that many children'
-                return 0
-
-            t = t.children[i]
-
-        return t
-#--------------------------------------#
-
-
 class FilterAnalyzer(Analyzer):
     """
     A generic analyzer that may filter events.
@@ -91,11 +51,10 @@ class SubjetAnalyzer(FilterAnalyzer):
         super(SubjetAnalyzer, self).__init__(cfg_ana, cfg_comp, looperName)
         self.conf = cfg_ana._conf
 
-        self.verbose = False
-        self.require_quark_match = True
-
         self.R_cut = 0.3
         self.top_mass = 172.04
+
+        self.bTagAlgo = self.conf.jets["btagAlgo"]
 
         if hasattr( self.conf, 'httCandidatecut' ):
             self.Cut_criteria = self.conf.httCandidatecut
@@ -107,581 +66,375 @@ class SubjetAnalyzer(FilterAnalyzer):
                 ( 'mass', '<', '220.0' ),
                 ( 'fW'  , '<', '0.175' ) ]
 
-
-        self.Statistics_keylist = [
-            'n_processed',
-            'n_cat1+btag',
-
-            'n_enough_initial_jets',
-            '#n_not_enough_wcand',
-            '#n_not_enough_btagged',
-            '#n_not_enough_httCand',
-
-            'n_survivedcut',
-            '#n_0_cand',
-            '#n_1_cand',
-            '#n_2+_cand',
-
-            'n_right_nr_of_quarks',
-            '#n_too_few_WZ',
-            '#n_too_few_B',
-            '#n_too_many_WZ',
-            '#n_too_many_B',
-
-            'n_passed_to_MEM',
-
-            ]
-
-        self.Statistics = {}
-        for key in self.Statistics_keylist:
-            if key[0] == '#':
-                self.Statistics[key[1:]] = 0
-            else:
-                self.Statistics[key] = 0
-
-
-        # Create match tree for b-particles
-
-        self.match_tree_b = TreeNode( 'b' )
-
-        # 1st level
-        self.match_tree_b.children = [ TreeNode('Jet_Qrk_fail'),
-                                       TreeNode('Jet_Qrk_success') ]
-
-        # 2nd level
-        b = self.match_tree_b.Get_child( 0 )
-        b.children = [ TreeNode('Sj_Qrk_fail'), TreeNode('Sj_Qrk_success') ]
-
-        b = self.match_tree_b.Get_child( 1 )
-        b.children = [ TreeNode('Sj_Qrk_fail'), TreeNode('Sj_Qrk_success') ]
-
-        # 3rd level
-        b = self.match_tree_b.Get_child( 0, 0 )
-        b.children = [ TreeNode('Jet_Sj_fail'), TreeNode('Jet_Sj_success') ]
-
-        b = self.match_tree_b.Get_child( 0, 1 )
-        b.children = [ TreeNode('Jet_Sj_fail'), TreeNode('Jet_Sj_success') ]
-
-        b = self.match_tree_b.Get_child( 1, 0 )
-        b.children = [ TreeNode('Jet_Sj_fail'), TreeNode('Jet_Sj_success') ]
-
-        b = self.match_tree_b.Get_child( 1, 1 )
-        b.children = [ TreeNode('Jet_Sj_fail'), TreeNode('Jet_Sj_success') ]
-
-
-        # Create match tree for l-particles
-
-        self.match_tree_l = copy.deepcopy( self.match_tree_b )
-        self.match_tree_l.name = 'l'
-
-        # Create match tree for total (t)
-
-        self.match_tree_t = copy.deepcopy( self.match_tree_b )
-        self.match_tree_t.name = 'total'
-
-
     def beginLoop(self, setup):
         super(SubjetAnalyzer, self).beginLoop(setup)
 
 
     def endLoop(self, setup):
 
-        print '\nStatistics'
-        print '=========='
-
-        for key in self.Statistics_keylist:
-
-            if key[0] == '#':
-                print '  ({0:25s} = {1})'.format(key[1:], self.Statistics[key[1:]] )
-            else:
-                print '{0:30s} = {1}'.format( key, self.Statistics[key] )
-
-        print '=========='
-        print 'End of Statistics\n'
-
-
-        print '\nMatch Trees'
-        print '=========='
-
-        #self.Print_Tree( self.match_tree_b )
-        #self.Print_Tree( self.match_tree_l )
-        #self.Print_Tree( self.match_tree_t )
-
-        self.Print_Tree2( self.match_tree_b )
-
-        print '=========='
-        print 'End of Match Trees\n'
+        print 'Running endLoop'
 
 
     def process(self, event):
 
-        self.Statistics['n_processed'] += 1
-
-        #if self.verbose:
-        #    print 'Printing from SubjetAnalyzer! iEv = {0}'.format(event.iEv)
-
         print 'Printing from SubjetAnalyzer! iEv = {0}'.format(event.iEv)
 
-
         ########################################
-        # Check event suitability
+        # Minimal event suitability:
+        #  - Number of quarks needs to be correct (2 b from top, 2 light)
+        #  - Needs to be single leptonic
+        #  - At least 1 httCandidate
         ########################################
 
-        # Check if event is category 1
-        if not ( event.cat == 'cat1' and event.cat_btag == 'H' ):
-            return 0
-        self.Statistics['n_cat1+btag'] += 1
-
-        # Check if there are at least 2 wquark_candidate_jets
-        if len( event.wquark_candidate_jets ) < 2:
-            self.Statistics['n_not_enough_wcand'] += 1
+        # Check if the event is single leptonic
+        if not event.is_sl:
             return 0
 
-        # Check if there is at least 1 btagged_jet
-        if len( event.btagged_jets ) == 0:
-            self.Statistics['n_not_enough_btagged'] += 1
-            return 0
+        # Necessary to remove duplicates in GenWZQuark branch
+        # This step can be removed for V12 samples
+        self.CompareWZQuarks( event )
+
+        # Check if event contains the right number of quarks
+        wrong_nr_of_quarks = False
+        if len(event.GenWZQuark)<2:
+            wrong_nr_of_quarks = True
+        if len(event.GenWZQuark)>2:
+            wrong_nr_of_quarks = True
+        if len(event.GenBQuarkFromTop)<2:
+            wrong_nr_of_quarks = True
+        if len(event.GenBQuarkFromTop)>2:
+            wrong_nr_of_quarks = True
+        if len(event.GenBQuarkFromH)<2:
+            wrong_nr_of_quarks = True
+        if len(event.GenBQuarkFromH)>2:
+            wrong_nr_of_quarks = True
+
+        # TODO: For now, just quit without proper quarks present
+        if wrong_nr_of_quarks: return 0
+
+
+        # TODO: Just run normal mem if there is no httCandidate surviving the cuts
 
         # Check if there is an httCandidate
         if len( event.httCandidate ) == 0:
-            self.Statistics['n_not_enough_httCand'] += 1
             return 0
 
-        self.Statistics['n_enough_initial_jets'] += 1
-
-        # Apply the cuts
+        # Apply the cuts on the httCandidate
         tops = []
         for candidate in event.httCandidate:
             if self.Apply_Cut_criteria( candidate ):
                 tops.append( copy.deepcopy(candidate) )
 
-        other_top_present = False
-
         # Check if any candidates survived the cutoff criteria
         if len(tops) == 0:
-            if self.verbose: print 'No candidate survived the cuts'
-            self.Statistics['n_0_cand'] += 1
             return 0
 
-        elif len(tops) == 1:
-            # SortTops sets the delR_lepton attribute, so also use it for 1 top
-            tops = self.SortTops( event, tops )
+        # Calculates the delR with the (single) lepton that was found
+        self.Set_DelRwithLepton( event, tops )
+
+        # If exactly 1 survived, simply continue with that candidate
+        if len(tops) == 1:
             top = tops[0]
-            self.Statistics['n_1_cand'] += 1
+            other_top_present = False
 
         # If more than 1 candidate survived the cutoff criteria, choose the
-        # one with a mass closest to top mass
-
+        # one whose delR with the lepton was biggest
         else:
-            #tops = sorted( tops, key=lambda x: abs(x.mass - self.top_mass) )
-            tops = self.SortTops( event, tops )
+            tops = sorted( tops, key=lambda x: -x.delR_lepton )
             other_top_present = True
             top = tops[0]
             other_top = tops[1]
-            self.Statistics['n_2+_cand'] += 1
-
-        self.Statistics['n_survivedcut'] += 1
 
         # Write delRmin to event
         setattr( event, 'httCandidate_delRmin', abs(top.Rmin-top.RminExpected) )
         print 'httCandidate_delRmin = {0}'.format( abs(top.Rmin-top.RminExpected) )
 
-        # Necessary to remove duplicates in GenWZQuark branch
-        self.CompareWZQuarks( event )
-
+        # event.wquark_candidate_jets is a set instead of a list (not sure why)
+        event.wquark_candidate_jets = list( event.wquark_candidate_jets )
 
         ########################################
         # Get the lists of particles: quarks, jets and subjets
         ########################################
 
-        # Note: if self.require_quark_match is set to False, this part is only
-        # useful for getting some statistics on quark matching. No information is
-        # used further.
+        # Get the hadronic & leptonic b-quark and the two light quarks
+        ( tl_HadronicBQuark,
+          tl_GenWZQuark1,
+          tl_GenWZQuark2,
+          tl_LeptonicBQuark )  = self.Get_tl_genquarks( event )
 
-        # Get a list of the 3 generated quarks that should correspond to a
-        # top candidate
-        ( tl_genquarks, tl_leptonicb ) = self.Get_tl_genquarks( event )
+        # Get the 2 b-quarks from Higgs
+        tl_BQuarksFromH = []
+        for q in event.GenBQuarkFromH:
+            tl_q = ROOT.TLorentzVector()
+            tl_q.SetPtEtaPhiM( q.pt, q.eta, q.phi, q.mass )
+            tl_BQuarksFromH.append( tl_q )
 
-        # If there is an error in getting the quarks, the function returns 0
-        if tl_genquarks == 0 and self.require_quark_match: return 0
+        # Some convenient lists of quarks
+        tl_QuarksFromHadrTop = [ tl_HadronicBQuark, tl_GenWZQuark1, tl_GenWZQuark2 ]
+        tl_LightQuarks = [ tl_GenWZQuark1, tl_GenWZQuark2 ]
 
+        # Get the subjets from the httCandidate
+        # Also sets transfer functions as attributes, and a btagFlag based on kin.
+        tl_subjets = self.Get_Subjets( top )
+        if other_top_present:
+            tl_subjets_other_top = self.Get_Subjets( other_top )
 
-        # Get list of btagged_jets
-
+        # Get the list of btagged_jets
         tl_btagged_jets = []
-
-        for (i_jet, jet) in enumerate(event.btagged_jets):
+        for jet in event.btagged_jets:
             x = ROOT.TLorentzVector()
             x.SetPtEtaPhiM( jet.pt, jet.eta, jet.phi, jet.mass )
-            setattr( x, 'i_jet', i_jet )
+            setattr( x, 'origin_jet', jet )
             tl_btagged_jets.append( x )
 
-
         # Get list of wquark_candidate_jets
-
         tl_wquark_candidate_jets = []
-
-        for (i_jet, jet) in enumerate(event.wquark_candidate_jets):
+        for jet in event.wquark_candidate_jets:
             x = ROOT.TLorentzVector()
             x.SetPtEtaPhiM( jet.pt, jet.eta, jet.phi, jet.mass )
-            setattr( x, 'i_jet', i_jet )
+            setattr( x, 'origin_jet', jet )
             tl_wquark_candidate_jets.append( x )
 
-        # Get list of subjets for the found httCandidate
-        tl_subjets = []
-        prefixes = [ 'sjW1', 'sjW2', 'sjNonW' ]
-        for (i_subjet, prefix) in enumerate( prefixes ):
-            x = ROOT.TLorentzVector()
-            x.SetPtEtaPhiM(
-                getattr( top, prefix + 'pt' ),
-                getattr( top, prefix + 'eta' ),
-                getattr( top, prefix + 'phi' ),
-                getattr( top, prefix + 'mass' ) )
-            setattr( x, 'i_subjet', i_subjet )
-            tl_subjets.append( x )
 
-        # For printing purposes
-        tl_subjets_backup = copy.deepcopy( tl_subjets )
+        ########################################
+        # Matching
+        ########################################
 
-        # If another top was found in the event, also get the subjets from that
-        if other_top_present:
-            tl_subjets_other_top = []
-            prefixes = [ 'sjW1', 'sjW2', 'sjNonW' ]
-            for (i_subjet, prefix) in enumerate( prefixes ):
-                x = ROOT.TLorentzVector()
-                x.SetPtEtaPhiM(
-                    getattr( other_top, prefix + 'pt' ),
-                    getattr( other_top, prefix + 'eta' ),
-                    getattr( other_top, prefix + 'phi' ),
-                    getattr( other_top, prefix + 'mass' ) )
-                setattr( x, 'i_subjet', i_subjet )
-                tl_subjets_other_top.append( x )
+        # Match subjet to a bjet
+        Match_subjet_bjet = self.Match_two_tl_lists(
+            tl_subjets, 'subjet',
+            tl_btagged_jets, 'bjet' )
 
+        # Match subjet to a ljet
+        Match_subjet_ljet = self.Match_two_tl_lists(
+            tl_subjets , 'subjet',
+            tl_wquark_candidate_jets, 'ljet' )
 
-        
-        # Create the attributes in the event class for the subjet case
-        #   The subjets will be popped out of the *_jets_minus_sj lists        
-
-        btagged_jets_minus_sj = copy.deepcopy( event.btagged_jets )
-        btagged_subjet = []
-
-        # Note: event.wquark_candidate_jets is of type 'set' for some reason
-        wquark_candidate_jets_minus_sj = copy.deepcopy(
-            list( event.wquark_candidate_jets ) )
-
-        wquark_candidate_subjets = []
+        # In case of double matching, choose the match with lowest delR
+        # (This is not expected to happen often)
+        for tl_subjet in tl_subjets:
+            if hasattr( tl_subjet, 'bjet_match' ) and \
+                hasattr( tl_subjet, 'ljet_match' ) :
+                print 'Double match detected'
+                if tl_subjet.bjet_match_delR < tl_subjet.ljet_match_delR:
+                    del tl_subjet.ljet_match
+                    del tl_subjet.ljet_match_delR
+                    Match_subjet_ljet -= 1
+                else:
+                    del tl_subjet.bjet_match
+                    del tl_subjet.bjet_match_delR
+                    Match_subjet_bjet -= 1
 
 
         ########################################
-        # Perform combinatorics and calculate delR
+        # Logic
         ########################################
 
-        ### Match subjet to a GenBQuark and GenWZQuark
+        # Goal of this section is make sure exactly 1 subjet has btagFlag = 1.0,
+        # and exactly 2 subjets have btagFlag = 0.0.
 
-        # Copy the subjet list (in case a b-subjet needs to be popped)
-        tl_subjets_copy = copy.deepcopy( tl_subjets )
+        # b | l | Strategy
+        # --+---+-------------------------------------------------------------------
+        # 0 | 0 | Trust btagFlags based on prefix ('sjNonW'=b) (S1)
+        # 0 | 3 |
+        # --+---+-------------------------------------------------------------------
+        # 0 | 1 | If the matched subjet was 'sjW1' or 'sjW2', trust the btagFlags
+        #   |   | based on prefix. (S1)
+        #   |   | Else, trust the matching, and tag one of the remaining subjets as
+        #   |   | the b, based on highest pt (to be tested) (S2)
+        # --+---+-------------------------------------------------------------------
+        # 0 | 2 | Tag the remaining unmatched subjet as the b (S3)
+        # --+---+-------------------------------------------------------------------
+        # 1 | 0 | Trust the match with the b-jet, and set the other 2 subjets as the
+        #   | 1 | l-jets (S4)
+        #   | 2 | 
+        # --+---+-------------------------------------------------------------------
+        # 2 | 0 | Select the subjet that was matched to b-jet with the highest
+        #   | 1 | b-likelihood as the b, and set the remaining subjets as the l-jets
+        # 3 | 0 | (S5)
+        # --+---+-------------------------------------------------------------------
 
-        # Do the matching
-        (i_sj, i_genquark ) = self.Link_smallest_delR(  tl_subjets_copy,
-                                                        [tl_genquarks[0]] )
+        # For every type of event, store the number of mismatches, the applied
+        # strategy and the 'event_type_number' (see documentation, TODO):
+        # ( nr_of_mismatches, strategy, event_type_number )
 
-        if i_sj == 'No link':
-            succes_bsj_bquark = False
-        else:
-            succes_bsj_bquark = True
-            # Pop the subjet so it can't be matched again to a light quark
-            tl_subjets_copy.pop(i_sj)
+        #Do nothing; trust the btagFlags based on prefix
+        if Match_subjet_bjet == 0 and Match_subjet_ljet == 0:
+            ( nr_of_mismatches, strategy, event_type_number ) = ( 0, 1, 1 )
+        elif Match_subjet_bjet == 0 and Match_subjet_ljet == 3:
+            ( nr_of_mismatches, strategy, event_type_number ) = ( 1, 1, 2 )
 
-        # Do the matching
-        ( i_sj1, i_sj2, i_q1, i_q2 ) = self.Link_2smallest_delR(
-                                                        tl_subjets_copy,
-                                                        tl_genquarks[1:] )
+        elif Match_subjet_bjet == 0 and Match_subjet_ljet == 1:
 
-        if i_sj == 'No link':
-            succes_lsj_lquark = False
-        else:
-            succes_lsj_lquark = True
+            # Get the subjet that was matched with a light jet
+            tl_l_subjet = [ tl for tl in tl_subjets if hasattr(tl,'ljet_match') ][0]
+            # Get the other two subjets
+            tl_o_subjets = [ tl for tl in tl_subjets if not hasattr( tl,
+                                                                     'ljet_match') ]
+            ( nr_of_mismatches, strategy, event_type_number ) = ( 0, 1, 3 )
 
-        # Total number of fully successful subjet-quark matches
-        succes_sj_quark = succes_bsj_bquark and succes_lsj_lquark
+            if tl_l_subjet.prefix == 'sjNonW':
+                # This means the 'sjNonW' subjet was matched with a light jet.
+                # Trust the matching. From the remaining subjets, tag the one with
+                # highest pt as the b
+                ( nr_of_mismatches, strategy, event_type_number ) = ( 0, 2, 4 )
+                setattr( tl_l_subjet, 'btagFlag', 0.0 )
+                if tl_o_subjets[0].Pt() >  tl_o_subjets[1].Pt():
+                    setattr( tl_o_subjet[0], 'btagFlag', 1.0 )
+                    setattr( tl_o_subjet[1], 'btagFlag', 0.0 )
+                else:
+                    setattr( tl_o_subjet[0], 'btagFlag', 0.0 )
+                    setattr( tl_o_subjet[1], 'btagFlag', 1.0 )
+            # else: Trust btagFlags based on prefix
 
+        elif Match_subjet_bjet == 0 and Match_subjet_ljet == 2:
+            for tl in tl_subjets:
+                if hasattr( tl, 'ljet_match' ): setattr( tl, 'btagFlag', 0.0 )
+                else:                           setattr( tl, 'btagFlag', 1.0 )
+            ( nr_of_mismatches, strategy, event_type_number ) = ( 0, 3, 5 )
+            
+        elif Match_subjet_bjet == 1 and Match_subjet_ljet in [0,1,2]:
+            for tl in tl_subjets:
+                if hasattr( tl, 'bjet_match' ): setattr( tl, 'btagFlag', 1.0 )
+                else:                           setattr( tl, 'btagFlag', 0.0 )
+            # Set appropiate ETN for easy accessing later
+            if Match_subjet_ljet==0: ETN = 6
+            if Match_subjet_ljet==1: ETN = 7
+            if Match_subjet_ljet==2: ETN = 8
+            ( nr_of_mismatches, strategy, event_type_number ) = ( 0, 4, ETN )
 
-        ### Match b-jets and w-jets to a GenBQuark and GenWZQuark
+        elif Match_subjet_bjet in [2,3] and Match_subjet_ljet in [0,1]:
 
-        # Do the matching
-        (i_jet, i_genquark ) = self.Link_smallest_delR( tl_btagged_jets,
-                                                        [tl_genquarks[0]] )
+            tl_b_subjets = [ tl for tl in tl_subjets if hasattr(tl, 'bjet_match') ]
+            tl_b_subjet = sorted(
+                tl_b_subjets,
+                key=lambda x: -getattr( x.bjet_match.origin_jet, self.bTagAlgo ))[0]
 
-        if i_jet == 'No link':
-            succes_bjet_bquark = False
-        else:
-            succes_bjet_bquark = True
+            for tl in tl_subjets:
+                if tl == tl_b_subjet:           setattr( tl, 'btagFlag', 1.0 )
+                else:                           setattr( tl, 'btagFlag', 0.0 )
 
-        # Do the matching
-        ( i_jet1, i_jet2, i_q1, i_q2 ) = self.Link_2smallest_delR(
-                                                        tl_wquark_candidate_jets,
-                                                        tl_genquarks[1:] )
-
-        if i_jet1 == 'No link':
-            succes_ljet_lquark = False
-        else:
-            succes_ljet_lquark = True
-
-        # Total number of fully successful subjet-quark matches
-        succes_jet_quark = succes_bjet_bquark and succes_ljet_lquark
-
-
-        ### Match a subjet to a btagged_jet
-
-        # Do the matching
-        (i_sj, i_bt_j ) = self.Link_smallest_delR( tl_subjets, tl_btagged_jets )
-
-        # Treat potential errors        
-        if i_sj == 'No link':
-            if self.verbose: print 'Could not match a subjet to a btagged_jet'
-            succes_sj_bjet = False
-
-        else:
-            succes_sj_bjet = True
-
-            # Set the btagFlag and the TFs as attributes (needed in mem code)
-            setattr(tl_subjets[i_sj],
-                    'btagFlag',
-                    btagged_jets_minus_sj[i_bt_j].btagFlag )
-
-            setattr(tl_subjets[i_sj],
-                    'tf_sj_b',
-                    copy.deepcopy( btagged_jets_minus_sj[i_bt_j].tf_sj_b ) )
-
-            setattr(tl_subjets[i_sj],
-                    'tf_sj_l',
-                    copy.deepcopy( btagged_jets_minus_sj[i_bt_j].tf_sj_l ) )
-
-            # Remove the jet from btagged_jets_minus_sj that is the subjet
-            btagged_jets_minus_sj.pop( i_bt_j )
-
-            # Remove the b_tagged_subjet from the tl_subjets
-            # CAREFUL: This is a TLorentzVector object, not a Jet object!
-            btagged_subjet.append( tl_subjets.pop( i_sj ) )
-
-
-        ### Match subjets to a wquark_candidate_jets
-
-        # Do the matching
-        ( i_sj1, i_sj2, i_wj1, i_wj2 ) = self.Link_2smallest_delR(
-            tl_subjets, tl_wquark_candidate_jets )
-
-        # Treat potential errors
-        if i_sj1 == 'No link':
-            if self.verbose:
-                print 'Could not match a subjet to a wquark_candidate_jet'
-            succes_sj_ljet = False
+            # Set appropiate ETN for easy accessing later
+            if Match_subjet_bjet==2 and Match_subjet_ljet==0:
+                NOM = 1
+                ETN = 9
+            if Match_subjet_bjet==2 and Match_subjet_ljet==1:
+                NOM = 1
+                ETN = 10
+            if Match_subjet_bjet==3 and Match_subjet_ljet==0:
+                NOM = 2
+                ETN = 11
+            ( nr_of_mismatches, strategy, event_type_number ) = ( NOM, 5, ETN )
 
         else:
-            succes_sj_ljet = True
+            print 'Unassigned category! Create a strategy for this case.'
+            print 'subjet-b matches: {0}, subjet-l matches = {1}'.format(
+                Match_subjet_bjet, Match_subjet_ljet )
+            return 0
 
-            # First light quark match
+        # Check up printing
+        print '=====================================\nCheck print'
+        for tl_subjet in tl_subjets:
 
-            # Set the btagFlag and the TFs as attributes (needed in mem code)
-            setattr(tl_subjets[i_sj1],
-                    'btagFlag',
-                    wquark_candidate_jets_minus_sj[i_wj1].btagFlag )
+            print '\nSubjet {0}'.format( tl_subjet.prefix )
+            print '    btagFlag: {0}'.format( tl_subjet.btagFlag )
 
-            setattr(tl_subjets[i_sj1],
-                    'tf_sj_b',
-                    copy.deepcopy(wquark_candidate_jets_minus_sj[i_wj1].tf_sj_b) )
+            if hasattr( tl_subjet, 'bjet_match' ):
 
-            setattr(tl_subjets[i_sj1],
-                    'tf_sj_l',
-                    copy.deepcopy(wquark_candidate_jets_minus_sj[i_wj1].tf_sj_l) )
-
-            # Pop the jet matched to a subjet from the list
-            wquark_candidate_jets_minus_sj.pop( i_wj1 )
-
-            # Fill in the appropiate subjet (this is a TLorentzVector object)
-            wquark_candidate_subjets.append( tl_subjets.pop( i_sj1 ) )
-
-
-            # Second light quark match
-
-            # Set the btagFlag and the TFs as attributes (needed in mem code)
-            setattr(tl_subjets[i_sj2],
-                    'btagFlag',
-                    wquark_candidate_jets_minus_sj[i_wj2].btagFlag )
-
-            setattr(tl_subjets[i_sj2],
-                    'tf_sj_b',
-                    copy.deepcopy( wquark_candidate_jets_minus_sj[i_wj2].tf_sj_b ) )
-
-            setattr(tl_subjets[i_sj2],
-                    'tf_sj_l',
-                    copy.deepcopy( wquark_candidate_jets_minus_sj[i_wj2].tf_sj_l ) )
-
-            # Pop the jet matched to a subjet from the list
-            wquark_candidate_jets_minus_sj.pop( i_wj2 )
-
-            # Fill in the appropiate subjet (this is a TLorentzVector object)
-            wquark_candidate_subjets.append( tl_subjets.pop( i_sj2 ) )
-
-
-        # Total number of fully successful subjet-jet matches
-        succes_sj_jet = succes_sj_bjet and succes_sj_ljet        
-
-
-        # Fill the match tree
-
-        """
-        self.match_tree_b.Get_child( succes_bjet_bquark ).n += 1
-
-        self.match_tree_b.Get_child( succes_bjet_bquark,
-                                     succes_bsj_bquark ).n += 1
-
-        self.match_tree_b.Get_child( succes_bjet_bquark,
-                                     succes_bsj_bquark,
-                                     succes_sj_bjet, ).n += 1
-
-
-        self.match_tree_l.Get_child( succes_ljet_lquark ).n += 1
-
-        self.match_tree_l.Get_child( succes_ljet_lquark,
-                                     succes_lsj_lquark ).n += 1
-
-        self.match_tree_l.Get_child( succes_ljet_lquark,
-                                     succes_lsj_lquark,
-                                     succes_sj_ljet, ).n += 1
-
-
-        self.match_tree_t.Get_child( succes_jet_quark ).n += 1
-
-        self.match_tree_t.Get_child( succes_jet_quark,
-                                     succes_sj_quark ).n += 1
-
-        self.match_tree_t.Get_child( succes_jet_quark,
-                                     succes_sj_quark,
-                                     succes_sj_jet, ).n += 1
-        """
-
-        
-
-
-
-        """
-        specific_print = (
-            succes_bsj_bquark and \
-            succes_lsj_lquark and \
-            not succes_bjet_bquark and \
-            succes_ljet_lquark and \
-            succes_sj_bjet and \
-            succes_sj_ljet )
-        """
-
-        specific_print = succes_jet_quark and not succes_sj_quark
-
-        if specific_print:
-
-            print '\nSpecific Print'
-            print '=========='
-
-            print 'Successful jet to quark, Unsuccessful subjet to quark'
-
-            if succes_bsj_bquark:
-                print 'Successful subjet-bquark match'
-            else:
-                print 'Unsuccessful subjet-bquark match'
-
-            if succes_lsj_lquark:
-                print 'Successful subjet-lquark match'
-            else:
-                print 'Unsuccessful subjet-lquark match'
-
-
-            print 'Input jets:'
-            self.Print_particle_lists(
-                ( event.good_leptons, 'Class', 'event.good_leptons'),
-                ( event.btagged_jets, 'Class', 'event.btagged_jets'),
-                ( event.wquark_candidate_jets, 'Class',
-                    'event.wquark_candidate_jets'),
-                )
-
-            print 'Chosen httCandidate:'
-            print 'delR with lepton: {0}'.format( top.delR_lepton )
-            self.Print_particle_lists(
-                ( tl_subjets_backup, 'TL', 'tl_subjets' ),
-                )
-
-            if other_top_present:
-                print 'Another httCandidate was found:'
-                print 'delR with lepton: {0}'.format( other_top.delR_lepton )
+                btag = getattr( tl_subjet.bjet_match.origin_jet, self.bTagAlgo ) 
+                print '    original btag of the jet: {0}'.format(btag)
                 self.Print_particle_lists(
-                    ( tl_subjets_other_top, 'TL', 'tl_subjets_other_top' )
+                    ( [tl_subjet], 'TL', 'subjet'),
+                    ( [tl_subjet.bjet_match], 'TL', 'Matching bjet')
                     )
 
-            print 'Quarks:'
-            self.Print_particle_lists(
-                ( [tl_genquarks[0]], 'TL', 'Hadronic b-quark'),
-                ( [tl_leptonicb], 'TL', 'Leptonic b-quark'),
-                ( tl_genquarks[1:], 'TL', 'Light quarks'),
-                ( event.GenBQuarkFromH, 'Class', 'Higgs b-quark'),
-                )
+            if hasattr( tl_subjet, 'ljet_match' ):
 
-            print 'Output particles:'
-            self.Print_particle_lists(
+                self.Print_particle_lists(
+                    ( [tl_subjet], 'TL', 'subjet'),
+                    ( [tl_subjet.ljet_match], 'TL', 'Matching ljet')
+                    )
 
-                ( btagged_jets_minus_sj, 'Class', 'btagged_jets_minus_sj'),
-                ( btagged_subjet, 'TL', 'btagged_subjet'),
+        print '=====================================\n'
 
-                ( wquark_candidate_jets_minus_sj, 'Class',
-                    'wquark_candidate_jets_minus_sj' ),
-                ( wquark_candidate_subjets, 'TL', 'wquark_candidate_subjets'),
+        # Check up printing
+        print '=====================================\n'
 
-                )
+        print 'Input jets:'
+        self.Print_particle_lists(
+            ( event.btagged_jets, 'Class', 'event.btagged_jets'),
+            ( event.wquark_candidate_jets, 'Class',
+                'event.wquark_candidate_jets'),
+            )
 
-            print '=========='
-            print 'End of Specific Print\n'
+        print '=====================================\n'
 
+        # Remove all original instances and replace them with their matched subjets
+        # If an original bjet is matched with a subjet that has btagFlag=0.0, the
+        # original bjet is removed from the btagged_jets, and the subjet is appended
+        # to event.wquark_candidate_jets.
+        # (Analogous for original ljet matched with a subjet that has btagFlag=1.0)
+        for tl_subjet in tl_subjets:
+            if hasattr( tl_subjet, 'ljet_match' ):
+                # Get the original ljet
+                wrong_ljet = tl_subjet.ljet_match.origin_jet
+                # Remove it from the ljet list in the event
+                event.wquark_candidate_jets.pop(
+                    event.wquark_candidate_jets.index( wrong_ljet ) )
+            if hasattr( tl_subjet, 'bjet_match' ):
+                # Get the original bjet
+                wrong_bjet = tl_subjet.bjet_match.origin_jet
+                # Remove it from the bjet list in the event
+                event.btagged_jets.pop( event.btagged_jets.index( wrong_bjet ) )
 
-        # Only continue if ALL matches were successful
-        pass_to_MEM = (
-            succes_bsj_bquark and \
-            succes_lsj_lquark and \
-            succes_bjet_bquark and \
-            succes_ljet_lquark and \
-            succes_sj_bjet and \
-            succes_sj_ljet )
+            if tl_subjet.btagFlag == 1.0:
+                # Append the subjet to btagged_jets list in the event
+                event.btagged_jets.append( tl_subjet )
+            elif tl_subjet.btagFlag == 0.0:
+                # Append the subjet to wquark_candidate_jets list in the event
+                event.wquark_candidate_jets.append( tl_subjet )
 
-        if not pass_to_MEM:
-            return 0
-        else:
-            print 'Passing to MEM Analyzer'
-            self.Statistics['n_passed_to_MEM'] += 1
-            
+        # Check up printing
+        print '=====================================\n'
+
+        print 'Output jets:'
+        self.Print_particle_lists(
+            ( event.btagged_jets, 'Class', 'event.btagged_jets'),
+            ( event.wquark_candidate_jets, 'Class',
+                'event.wquark_candidate_jets'),
+            )
+
+        print '=====================================\n'
 
 
         ########################################
-        # Write the lists to the event class
+        # Categorization
         ########################################
 
-        setattr(event,
-                'btagged_jets_minus_sj',
-                btagged_jets_minus_sj )
+        """
+        if len( event.btagged_jets ) > 4:
+            # The last added element is the subjet - keep that one, and the next
+            # 3 btagged_jets
+            event.btagged_jets = event.btagged_jets[-1:] + event.btagged_jets[:3]
+        elif len( event.btagged_jets ) < 4:
+            # Unpassable to MEM, needs precisely 4 btagged_jets
+        """
 
-        setattr(event,
-                'wquark_candidate_jets_minus_sj',
-                wquark_candidate_jets_minus_sj )
 
-        setattr(event,
-                'btagged_subjet',
-                btagged_subjet )
+        ########################################
+        # Write to event
+        ########################################
 
-        setattr(event,
-                'wquark_candidate_subjets',
-                wquark_candidate_subjets )
+        setattr( event, 'Matching_subjet_bjet', Match_subjet_bjet )
+        setattr( event, 'Matching_subjet_ljet', Match_subjet_ljet )
 
-        #print '\n    Printing found particles:'
-        #self.Print_found_particles( event, tl_subjets_backup )
+        setattr( event, 'Matching_nr_of_mismatches', nr_of_mismatches )
+        setattr( event, 'Matching_strategy', strategy )
+        setattr( event, 'Matching_event_type_number', event_type_number )
+        
 
-        #print '\n    Printing matched particles:'
-        #self.Print_matched_particles( event )
+
+
 
 
 
@@ -691,22 +444,19 @@ class SubjetAnalyzer(FilterAnalyzer):
 
     # Applies the cut criteria - returns True (survived) or False (did not survive)
     def Apply_Cut_criteria( self, candidate ):
-
         for ( attr, operator, cut_off ) in self.Cut_criteria:
-
             if not eval( '{0}{1}{2}'.format(
                 getattr( candidate, attr ),
                 operator,
                 cut_off ) ):
-
                 return False
-
         return True
     #--------------------------------------#
 
     # Sorts tops - criterium to be tested
-    def SortTops( self, event, tops ):
+    def Set_DelRwithLepton( self, event, tops ):
 
+        # Get the lepton
         l = event.good_leptons[0]
 
         # Create TLorentzVector for lepton
@@ -719,126 +469,63 @@ class SubjetAnalyzer(FilterAnalyzer):
             tl_top = ROOT.TLorentzVector()
             tl_top.SetPtEtaPhiM( top.pt, top.eta, top.phi, top.mass )
             setattr( top, 'delR_lepton', tl_top.DeltaR(tl_lepton) )
-
-        tops = sorted( tops, key=lambda x: -x.delR_lepton )
-
-        return tops
     #--------------------------------------#
-
-    def Print_Tree2(self, t ):
-
-        print t.name
-
-        # Select outermost unprinted child
-        c = t
-        while c.children != []:
-            c = c.children[0]
-
-
-
-    # Prints a match tree
-    def Print_Tree( self, t ):
-
-        print '\nPrinting match tree {0}'.format( t.name )
-        print '===================='
-        print '  Total count           = {0}'.format( t.n )
-        print '  Total passable to MEM = {0}\n'.format( t.Get_child(1,1,1).n )
-
-        print '|{0:13s}|{1:10s}|{2:13s}|{3:10s}|{4:13s}|{5:10s}|'.format(
-            'Jet to Qrk',
-            '',
-            'Subj to Qrk',
-            '',
-            'Jet to Subj',
-            '',
-            )
-
-        print '|-------------+----------+-------------+----------+-------------+----------|'
-
-        print '|{0:13s}|{1:10s}|{2:13s}|{3:10s}|{4:13s}|{5:10s}|'.format(
-            'Success',
-            str( t.Get_child(1).n ),
-            'Success',
-            str( t.Get_child(1,1).n ),
-            'Success',
-            str( t.Get_child(1,1,1).n ),
-            )
-
-
-        print '|{0:13s}|{1:10s}|{2:13s}|{3:10s}|{4:13s}|{5:10s}|'.format(
-            '',
-            '',
-            '',
-            '',
-            'Failed',
-            str( t.Get_child(1,1,0).n ),
-            )
-
-        print '|             |          |-------------+----------+-------------+----------|'
-
-        print '|{0:13s}|{1:10s}|{2:13s}|{3:10s}|{4:13s}|{5:10s}|'.format(
-            '',
-            '',
-            'Failed',
-            str( t.Get_child(1,0).n ),
-            'Success',
-            str( t.Get_child(1,0,1).n ),
-            )
-
-        print '|{0:13s}|{1:10s}|{2:13s}|{3:10s}|{4:13s}|{5:10s}|'.format(
-            '',
-            '',
-            '',
-            '',
-            'Failed',
-            str( t.Get_child(1,0,0).n ),
-            )
-
-        print '|-------------+----------+-------------+----------+-------------+----------|'
-
-        print '|{0:13s}|{1:10s}|{2:13s}|{3:10s}|{4:13s}|{5:10s}|'.format(
-            'Failed',
-            str( t.Get_child(0).n ),
-            'Success',
-            str( t.Get_child(0,1).n ),
-            'Success',
-            str( t.Get_child(0,1,1).n ),
-            )
-
-
-        print '|{0:13s}|{1:10s}|{2:13s}|{3:10s}|{4:13s}|{5:10s}|'.format(
-            '',
-            '',
-            '',
-            '',
-            'Failed',
-            str( t.Get_child(0,1,0).n ),
-            )
-
-        print '|             |          |-------------+----------+-------------+----------|'
-
-        print '|{0:13s}|{1:10s}|{2:13s}|{3:10s}|{4:13s}|{5:10s}|'.format(
-            '',
-            '',
-            'Failed',
-            str( t.Get_child(0,0).n ),
-            'Success',
-            str( t.Get_child(0,0,1).n ),
-            )
-
-        print '|{0:13s}|{1:10s}|{2:13s}|{3:10s}|{4:13s}|{5:10s}|'.format(
-            '',
-            '',
-            '',
-            '',
-            'Failed',
-            str( t.Get_child(0,0,0).n ),
-            )
-
-        print '----------------------------------------------------------------------------'
-    #--------------------------------------#
-
     
+
+    def Get_Subjets( self, top ):
+
+        tl_subjets = []
+        prefixes = [ 'sjW1', 'sjW2', 'sjNonW' ]
+        for (i_subjet, prefix) in enumerate( prefixes ):
+            x = ROOT.TLorentzVector()
+            x.SetPtEtaPhiM(
+                getattr( top, prefix + 'pt' ),
+                getattr( top, prefix + 'eta' ),
+                getattr( top, prefix + 'phi' ),
+                getattr( top, prefix + 'mass' ) )
+            setattr( x, 'prefix', prefix )
+
+            # Set the btagFlag, based on prefix (only used if there is no other tag)
+            if prefix == 'sjNonW':
+                setattr( x, 'btagFlag', 1.0 )
+            else:
+                setattr( x, 'btagFlag', 0.0 )
+
+            # Set pt, eta, phi and mass also as attributes
+            # Needed for compatibility with mem
+            setattr( x, 'pt', x.Pt() )
+            setattr( x, 'eta', x.Eta() )
+            setattr( x, 'phi', x.Phi() )
+            setattr( x, 'mass', x.M() )
+
+            tl_subjets.append( x )
+
+        #Adding subjet transfer functions
+        for subjet in tl_subjets:
+            jet_eta_bin = 0
+            if abs(subjet.Eta())>1.0:
+                jet_eta_bin = 1
+
+            #If True, TF [0] - reco, x - gen
+            #If False, TF [0] - gen, x - reco
+            eval_gen = False
+            setattr( subjet, 'tf_b' ,
+                self.conf.tf_sj_matrix['b'][jet_eta_bin].Make_Formula(eval_gen) )
+            setattr( subjet, 'tf_l' ,
+                self.conf.tf_sj_matrix['l'][jet_eta_bin].Make_Formula(eval_gen) )
+            setattr( subjet, 'tf_b_lost' ,
+                self.conf.tf_sj_matrix['b'][jet_eta_bin].Make_CDF() )
+            setattr( subjet, 'tf_l_lost' ,
+                self.conf.tf_sj_matrix['l'][jet_eta_bin].Make_CDF() )
+
+            #Set jet pt threshold for CDF
+            subjet.tf_b_lost.SetParameter(0, self.conf.jets["pt"])
+            subjet.tf_l_lost.SetParameter(0, self.conf.jets["pt"])
+
+        return tl_subjets
+
+
+
     # Print a non-predefined number of particle lists
     # Input is a list of tuples: input_args = [ (tuple), (tuple), ... ]
     # Every tuple is structured as follows:
@@ -892,24 +579,11 @@ class SubjetAnalyzer(FilterAnalyzer):
     #    Which quark is hadronic is determined by adding the light quarks to the
     #    B quarks, and seeing which combined mass comes closer to the top mass
     #  - Output looks like: [ BQuark, lightQuark1, lightQuark2 ], where the list
-    #    entries are TLorentzVector objects. 
+    #    entries are TLorentzVector objects.
+    #  - Output looks like:
+    #    ( hadronic_BQuark, lightQuark1, lightQuark2, leptonic_BQuark )
+    #    , where the all entries are TLorentzVector objects.
     def Get_tl_genquarks(self, event ):
-
-        # Check if right amount of quarks was generated
-        if len(event.GenWZQuark)<2:
-            self.Statistics['n_too_few_WZ'] += 1
-            return (0,0)
-        if len(event.GenBQuarkFromTop)<2:
-            self.Statistics['n_too_few_B'] += 1
-            return (0,0)
-        elif len(event.GenWZQuark)>2:
-            self.Statistics['n_too_many_WZ'] += 1
-            return (0,0)
-        elif len(event.GenBQuarkFromTop)>2:
-            self.Statistics['n_too_many_B'] += 1
-            return (0,0)
-
-        self.Statistics['n_right_nr_of_quarks'] += 1
 
         # Make list of TLorentzVector objects for the 2 light quarks
         tl_GenWZQuarks = []
@@ -951,24 +625,19 @@ class SubjetAnalyzer(FilterAnalyzer):
         setattr( event.GenBQuarkFromTop[0], 'is_hadr', 1 )
         setattr( event.GenBQuarkFromTop[1], 'is_hadr', 0 )
 
-        # Create the definitive list of 3 quarks
-        tl_GenQuarks = []
-        tl_GenQuarks.append( tl_GenBQuarks[0] )
-
-        # There should be only 2 generated WZQuarks:
-        tl_GenQuarks.append( tl_GenWZQuarks[0] )
-        tl_GenQuarks.append( tl_GenWZQuarks[1] )
-        
-        return ( tl_GenQuarks, tl_GenBQuarks[1] )
+        return ( tl_GenBQuarks[0],  # Hadronic
+                 tl_GenWZQuarks[0], # Light 1
+                 tl_GenWZQuarks[1], # Light 2
+                 tl_GenBQuarks[1] ) # Leptonic
     #--------------------------------------#
 
     # Simple algorithm that matches the smallest delta R for two lists of TL vectors
-    def Link_smallest_delR( self, tl_genquarks, tl_jets ):
+    def Link_smallest_delR( self, tl_quarks, tl_jets ):
 
         n_jets = len(tl_jets)
-        n_quarks = len(tl_genquarks)
+        n_quarks = len(tl_quarks)
 
-        Rmat = [[ (tl_genquarks[i].DeltaR( tl_jets[j] )) \
+        Rmat = [[ (tl_quarks[i].DeltaR( tl_jets[j] )) \
             for j in range(n_jets)] for i in range(n_quarks) ]
 
         Rmin = 9999.0
@@ -980,128 +649,59 @@ class SubjetAnalyzer(FilterAnalyzer):
                     r_min = r
                     c_min = c
 
-        if Rmin == 9999.0: return ( 'No link', 0)
+        if Rmin == 9999.0: return ( 'No link', 0, 0)
 
-        return (r_min, c_min)
-
-
-    def Link_2smallest_delR( self, tl_quarks, tl_jets ):
-
-        ( i_q1, i_j1 ) = self.Link_smallest_delR( tl_quarks, tl_jets )
-
-        if i_q1 == 'No link': return ( 'No link', 0, 0, 0 )
-
-        # Essentially a '.pop' operation, without destroying the initial list
-        sec_tl_quarks = tl_quarks[:i_q1]
-        sec_tl_quarks.extend( tl_quarks[i_q1+1:] )
-
-        sec_tl_jets = tl_jets[:i_j1]
-        sec_tl_jets.extend( tl_jets[i_j1+1:] )
-
-        ( i_q2, i_j2 ) = self.Link_smallest_delR( sec_tl_quarks, sec_tl_jets )
-
-        if i_q2 == 'No link': return ( 'No link', 0, 0, 0 )
-
-        return ( i_q1, i_q2, i_j1, i_j2 )
+        return (r_min, c_min, Rmin)
 
 
-    def Link_3smallest_delR( self, tl_quarks_orig, tl_jets_orig ):
+    def Match_two_tl_lists( self, tls1_orig, label1, tls2_orig, label2, stop=0 ):
 
-        tl_quarks = copy.deepcopy( tl_quarks_orig )
-        tl_jets = copy.deepcopy( tl_jets_orig )
+        # Create copies of the list, since entries will be popped
+        tls1 = copy.deepcopy( tls1_orig )
+        tls2 = copy.deepcopy( tls2_orig )
 
-        ( i_q1, i_j1 ) = self.Link_smallest_delR( tl_quarks, tl_jets )
-        if i_q1 == 'No link': return ( 'No link', 1, 0, 0, 0, 0)
-        tl_quarks.pop(i_q1)
-        tl_jets.pop(i_j1)
+        # Save the original tl as an attribute
+        for ( tl1, tl1_orig ) in zip( tls1, tls1_orig ):
+            setattr( tl1, 'tl_origin', tl1_orig )
+        for ( tl2, tl2_orig ) in zip( tls2, tls2_orig ):
+            setattr( tl2, 'tl_origin', tl2_orig )
 
-        ( i_q2, i_j2 ) = self.Link_smallest_delR( tl_quarks, tl_jets )
-        if i_q2 == 'No link': return ( 'No link', 2, 0, 0, 0, 0 )
-        tl_quarks.pop(i_q2)
-        tl_jets.pop(i_j2)
+        # Attempt matching until the shortest list is depleted
+        n_matches = min( len(tls1), len(tls2) )
 
-        ( i_q3, i_j3 ) = self.Link_smallest_delR( tl_quarks, tl_jets )
-        if i_q3 == 'No link': return ( 'No link', 3, 0, 0, 0, 0 )
+        for i_match in range(n_matches):
 
-        return ( i_q1, i_q2, i_q3, i_j1, i_j2, i_j3 )
+            # Attempt a match
+            (i1, i2, delR) = self.Link_smallest_delR( tls1, tls2 )
 
+            # Return the attempt number if no more matches could be made
+            if i1 == 'No link':
+                return i_match
 
-    # Matches quarks with specified jets
-    # - The function just takes two lists of TLorentzVector objects and matches
-    #   elements from both lists based on minimum SUMMED delta R value.
-    # - The tl_genquarks list must have 3 elements. Either the list of quarks or
-    #   the list of subjets can be inserted here.
-    def Do_delR_combinatorics( self, tl_genquarks, tl_jets ):
+            # Pop the matched tls from the lists for the next iteration
+            matched_tl1 = tls1.pop(i1)
+            matched_tl2 = tls2.pop(i2)
 
-        n_jets = len(tl_jets)
-        n_quarks = len(tl_genquarks)
+            # Record the match in the original tls
+            setattr( matched_tl1.tl_origin,
+                     '{0}_match'.format( label2 ),
+                     matched_tl2.tl_origin )
+            setattr( matched_tl2.tl_origin,
+                     '{0}_match'.format( label1 ),
+                     matched_tl1.tl_origin )
 
-        # Create delR matrix:
-        Rmat = [[ (tl_genquarks[i].DeltaR( tl_jets[j] )) \
-            for j in range(n_jets)] for i in range(n_quarks) ]
+            # Record the delR value in the original tls
+            setattr( matched_tl1.tl_origin,
+                     '{0}_match_delR'.format( label2 ),
+                     delR )
+            setattr( matched_tl2.tl_origin,
+                     '{0}_match_delR'.format( label1 ),
+                     delR )
 
-        """        
-        print '\ndelR matrix:'
-        for row in Rmat:
-            for j in row:
-                sys.stdout.write( '{0:.5f}'.format(j) + ' ')
-            print ''
-        """
-
-        links_per_quark = [ [] for i in range(n_quarks) ]
-
-        for i in range(n_quarks):
-            for j in range(n_jets):
-                if Rmat[i][j] < self.R_cut:
-                    links_per_quark[i].append(j)
-        
-        
-        # Perform some checks: see if there are 2 quarks linked to only 1 jet, and
-        # check whether every quark has at least 1 jet it can be linked to
-
-        for i in range(n_quarks):
-
-            if len(links_per_quark[i]) == 0:
-                return ('quark_has_no_jet',0)
-
-            # Check if 2 quarks can only be linked to the same jet
-            for j in range(n_quarks):
-                if i==j: continue
-                
-                if len(links_per_quark[i])==1 and len(links_per_quark[j])==1 \
-                    and links_per_quark[i]==links_per_quark[j]:
-                    return ('2_quarks_need_1_jet',0)
+        return n_matches
 
 
-        # Combinatorics: find the lowest sum of delR values
-        
-        sumR = 100000.0
-        final_links = 0
-
-        for (i_ind, i) in enumerate(links_per_quark[0]):
-            for (j_ind, j) in enumerate(links_per_quark[1]):
-                for (k_ind, k) in enumerate(links_per_quark[2]):
-
-                    # Check if i,j,k gets a unique combination
-                    if len( set( [ i, j, k ] ) ) == 3:
-
-                        # Replace the sumR if it's smaller than the previous minimum
-                        if Rmat[0][i] + Rmat[1][j] + Rmat[2][k] < sumR:
-                            sumR = Rmat[0][i] + Rmat[1][j] + Rmat[2][k]
-                            final_links = [ i, j, k ]
-
-        if final_links == 0:
-            print links_per_quark
-            print 'No unique permutation found'
-            return ('no_unique_permutation',0)
-
-        final_delR_list = [ Rmat[i][final_links[i]] for i in range(n_quarks) ]
-
-        return ( final_links , final_delR_list )
-    #--------------------------------------#
-
-
-
+#==========================END OF SUBJET ANALYZER==========================#
 
 class EventIDFilterAnalyzer(FilterAnalyzer):
     """
