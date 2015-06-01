@@ -164,7 +164,7 @@ sequence = cfg.Sequence([
     mecat,
     gentth,
     subjetanalyzer,
-#    mem_analyzer,
+    mem_analyzer,
     treeProducer
 ])
 
