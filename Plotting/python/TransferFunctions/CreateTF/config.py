@@ -50,11 +50,12 @@ def Make_config():
 
     #config['input_root_file_name'] = '/scratch/tklijnsm/V10_full_jets_TTBarH.root'
     #config['input_root_file_name'] = '/scratch/tklijnsm/V11_full_jets_0.3delR.root'
-    config['input_root_file_name'] = '/shome/tklijnsm/Samples/TFsamples/V11_full_jets_0.3delR.root'
+    config['input_root_file_name'] = '/shome/tklijnsm/Samples/TFsamples/V11_full_subjets_0.3delR.root'
 
     config['input_tree_name'] = 'tree'
 
-    config['outputdir'] = 'V11_full_jets'
+    #config['outputdir'] = 'V11_full_jets_REVERSED_BRANCHES'
+    config['outputdir'] = 'V11_full_subjets_REVERSED_BRANCHES'
 
         
     config['SBF_fitted_hists_pickle_filename'] = \
@@ -95,6 +96,7 @@ def Make_config():
     # root file branch info
     ########################################
     
+    """
     # Branches for the reconstructed jet
     config['reco_E_str'] = 'Jet_E'
     config['reco_Pt_str'] = 'Jet_pt'
@@ -114,11 +116,26 @@ def Make_config():
     config['quark_Pt_str'] = 'Quark_pt'
     config['quark_Phi_str'] = 'Quark_phi'
     config['quark_Flavour_str'] = 'Quark_pdgId'
+    """
+
+    # REVERSED BRANCHES
+
+    config['reco_E_str'] = 'Quark_E'
+    config['reco_Pt_str'] = 'Quark_pt'
+    config['reco_Eta_str'] = 'Quark_eta'
+    config['reco_Phi_str'] = 'Quark_phi'
+
+    config['quark_E_str'] = 'Jet_E'
+    config['quark_Eta_str'] = 'Jet_eta'
+    config['quark_Pt_str'] = 'Jet_pt'
+    config['quark_Phi_str'] = 'Jet_phi'
+    config['quark_Flavour_str'] = 'Quark_pdgId'
+
 
     # Change branches if using Pt instead of E
     if config['Use_Pt']:
         config['reco_E_str'] = config['reco_Pt_str']
-        config['mc_E_str'] = config['mc_Pt_str']
+        #config['mc_E_str'] = config['mc_Pt_str']
         config['quark_E_str'] = config['quark_Pt_str']    
 
 
